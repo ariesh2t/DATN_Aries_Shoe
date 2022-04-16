@@ -1,0 +1,21 @@
+{
+    "welcome": "Chào mừng tới trang web của chúng tôi",
+    "account": "Tài khoản",
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "logout": "Đăng xuất",
+    "fname": "Họ",
+    "lname": "Tên",
+    "confirm password": "Nhập lại mật khẩu",
+    "email": "Địa chỉ email",
+    "password": "Mật khẩu",
+    "remember me": "Nhớ tài khoản",
+    "forgot pass": "Bạn quên mật khẩu?",
+    "required": ":attr không được bỏ trống.",
+    "min": ":attr  phải có tối thiểu :value kí tự.",
+    "max": ":attr  không được lớn hơn :value kí tự.",
+    "email_val": "Nhập sai định dạng email.",
+    "string": ":attr chỉ có thể chứa các kí tự.",
+    "confirmed": ":attr xác nhận không khớp.",
+    "unique": ":attr đã được sử dụng."
+}

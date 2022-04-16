@@ -38,6 +38,7 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
+                        @include('partials/language_switcher')
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
