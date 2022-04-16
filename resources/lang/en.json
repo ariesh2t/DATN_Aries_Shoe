@@ -1,0 +1,21 @@
+{
+    "welcome": "Welcome to our website",
+    "account": "Account",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "fname": "First name",
+    "lname": "Last name",
+    "confirm password": "Nhập lại mật khẩu",
+    "email": "Email address",
+    "password": "Password",
+    "remember me": "Remember me",
+    "forgot pass": "Forgot your password?",
+    "required": "The :attr field is required.",
+    "min": "The :attr must be at least :value characters.",
+    "max": "The :attr must not be greater than :value characters.",
+    "email_val": "Wrong email format entered.",
+    "string": "The :attr must be a string.",
+    "confirmed": "The :attr confirmation does not match.",
+    "unique": "The :attr has already been taken."
+}
