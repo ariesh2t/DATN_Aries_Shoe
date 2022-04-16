@@ -3,7 +3,7 @@
         @if($available_locale === $current_locale)
             <span class="mx-2 btn btn-danger">{{ $locale_name }}</span>
         @else
-            <a class="mx-1 btn btn-outline-primary" href="{{ route('lang', ['locale' => $available_locale]) }}">
+            <a class="mx-2 btn btn-outline-primary" href="{{ route('lang', ['locale' => $available_locale]) }}">
                 <span>{{ $locale_name }}</span>
             </a>
         @endif

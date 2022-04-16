@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -30,44 +32,33 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+    protected $userRepo;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepositoryInterface $userRepo)
     {
         $this->middleware('guest');
+        $this->userRepo = $userRepo;
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-    }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
-    protected function create(array $data)
+    public function register(RegisterRequest $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+        $this->userRepo->insertDB([
+            'first_name' => $request->input('fname'),
+            'last_name' => $request->input('lname'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+            'status' => config('auth.status.active'),
+            'role_id' => config('auth.roles.customer'),
         ]);
+
+        return redirect()
+            ->route('login')
+            ->with('success', __('registation success'));
     }
 }
