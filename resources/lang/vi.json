@@ -24,5 +24,11 @@
     "registation fail": "Đăng ký tài khoản thất bại",
     "login success": "Đăng nhập thành công",
     "login fail": "Sai tên tài khoản hoặc mật khẩu",
-    "user lock": "Tài khoản của bạn đã bị khóa. Liên hệ với chúng tôi để biết thêm thông tin chi tiết"
+    "user lock": "Tài khoản của bạn đã bị khóa. Liên hệ với chúng tôi để biết thêm thông tin chi tiết",
+    "reset password": "Đặt lại mật khẩu",
+    "send link reset": "Gửi liên kết đặt lại mật khẩu",
+    "enter email": "Nhập địa chỉ email của bạn",
+    "email not exist": "Chúng tôi không tìm thấy người dùng có địa chỉ email đó",
+    "sent link": "Chúng tôi đã gửi qua email liên kết đặt lại mật khẩu của bạn!",
+    "pass has been reset": "Mật khẩu của bạn đã được thiết lập lại!"
 }
