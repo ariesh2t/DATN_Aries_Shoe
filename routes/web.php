@@ -22,12 +22,6 @@ Route::redirect('/', 'home');
 
 Auth::routes();
 
-Route::any('/ckfinder/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')
-    ->name('ckfinder_connector');
-
-Route::any('/ckfinder/browser', '\CKSource\CKFinderBridge\Controller\CKFinderController@browserAction')
-    ->name('ckfinder_browser');
-
 Route::get('/language/{locale}', [LangController::class, 'switchLang'])->name('lang');
 
 Route::middleware(['auth', 'admin'])->group(function () {

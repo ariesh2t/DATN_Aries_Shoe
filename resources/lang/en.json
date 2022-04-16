@@ -24,5 +24,11 @@
     "registation fail": "Account registration failed",
     "login success": "Logged in successfully",
     "login fail": "Wrong username or password",
-    "user lock": "Your account has been locked. Contact us for more details"
+    "user lock": "Your account has been locked. Contact us for more details",
+    "reset password": "Reset password",
+    "send link reset": "Send password reset link",
+    "enter email": "Enter your email",
+    "email not exist": "We can't find a user with that email address",
+    "sent link": "We have emailed your password reset link!",
+    "pass has been reset": "Your password has been reset!"
 }
