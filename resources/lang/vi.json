@@ -12,10 +12,17 @@
     "remember me": "Nhớ tài khoản",
     "forgot pass": "Bạn quên mật khẩu?",
     "required": ":attr không được bỏ trống.",
-    "min": ":attr  phải có tối thiểu :value kí tự.",
-    "max": ":attr  không được lớn hơn :value kí tự.",
+    "min": ":attr phải có tối thiểu :value kí tự.",
+    "max": ":attr không được lớn hơn :value kí tự.",
     "email_val": "Nhập sai định dạng email.",
     "string": ":attr chỉ có thể chứa các kí tự.",
     "confirmed": ":attr xác nhận không khớp.",
-    "unique": ":attr đã được sử dụng."
+    "unique": ":attr đã được sử dụng.",
+    "have account": "Nếu bạn đã có tài khoản, vui lòng đăng nhập tại đây",
+    "haven't account": "Nếu bạn chưa có tài khoản, vui lòng đăng ký tài khoản mới",
+    "registation success": "Đăng ký tài khoản thành công",
+    "registation fail": "Đăng ký tài khoản thất bại",
+    "login success": "Đăng nhập thành công",
+    "login fail": "Sai tên tài khoản hoặc mật khẩu",
+    "user lock": "Tài khoản của bạn đã bị khóa. Liên hệ với chúng tôi để biết thêm thông tin chi tiết"
 }

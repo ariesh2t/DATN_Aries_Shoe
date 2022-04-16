@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -36,5 +38,49 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    protected function redirectTo()
+    {
+        if (Auth()->user()->role_id == config('auth.roles.admin')) {
+            return route('admin');
+        } elseif (Auth()->user()->role_id == config('auth.roles.staff')) {
+            return route('staff');
+        } else {
+            return route('home');
+        }
+    }
+
+    public function login(LoginRequest $request)
+    {
+        $compare = Auth()->attempt([
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+        ]);
+
+        if ($compare) {
+            $user = Auth::user();
+            if ($user->status == config('auth.status.active')) {
+                if ($user->role_id == config('auth.roles.admin')) {
+                    return redirect()
+                        ->route('admin')
+                        ->with('success', __('login success'));
+                } elseif ($user->role_id == config('auth.roles.staff')) {
+                    return redirect()
+                        ->route('staff')
+                        ->with('success', __('login success'));
+                } else {
+                    return redirect()->route('home')->with('success', __('login success'));;
+                }
+            } else {
+                Auth::logout();
+
+                return redirect()->route('login')->with('error', __('user lock'));
+            }
+        } else {
+            Auth::logout();
+            
+            return redirect()->route('login')->with('error', __('login fail'));
+        }
     }
 }
