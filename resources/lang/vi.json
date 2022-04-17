@@ -30,5 +30,8 @@
     "enter email": "Nhập địa chỉ email của bạn",
     "email not exist": "Chúng tôi không tìm thấy người dùng có địa chỉ email đó",
     "sent link": "Chúng tôi đã gửi qua email liên kết đặt lại mật khẩu của bạn!",
-    "pass has been reset": "Mật khẩu của bạn đã được thiết lập lại!"
+    "pass has been reset": "Mật khẩu của bạn đã được thiết lập lại!",
+    "profile": "Thông tin cá nhân",
+    "change password": "Đổi mật khẩu",
+    "search": "Tìm kiếm"
 }

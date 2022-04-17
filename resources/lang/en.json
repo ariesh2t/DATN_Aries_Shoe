@@ -30,5 +30,8 @@
     "enter email": "Enter your email",
     "email not exist": "We can't find a user with that email address",
     "sent link": "We have emailed your password reset link!",
-    "pass has been reset": "Your password has been reset!"
+    "pass has been reset": "Your password has been reset!",
+    "profile": "Profile",
+    "change password": "Change password",
+    "search": "Search"
 }
