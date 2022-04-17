@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LangController;
@@ -22,11 +23,18 @@ Route::redirect('/', 'home');
 
 Auth::routes();
 
+Route::any('/ckfinder/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')
+    ->name('ckfinder_connector');
+
+Route::any('/ckfinder/browser', '\CKSource\CKFinderBridge\Controller\CKFinderController@browserAction')
+    ->name('ckfinder_browser');
+
 Route::get('/language/{locale}', [LangController::class, 'switchLang'])->name('lang');
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin');
+        Route::resource('categories', CategoryController::class);
         // Route::resource('products', ProductController::class);
         // Route::resource('users', UserController::class);
         // Route::resource('orders', AdminOrderController::class);

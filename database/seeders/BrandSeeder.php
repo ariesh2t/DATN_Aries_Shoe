@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Brand;
+use App\Models\Image;
 use Illuminate\Database\Seeder;
 
 class BrandSeeder extends Seeder
@@ -14,6 +15,8 @@ class BrandSeeder extends Seeder
      */
     public function run()
     {
-        Brand::factory(30)->create();
+        for($i = 0; $i < 20; $i++) {
+            Image::factory()->for(Brand::factory(), 'imageable')->create();
+        }
     }
 }

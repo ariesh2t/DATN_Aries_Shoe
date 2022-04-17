@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Aries Shoe | Dashboard</title>
+    <title>Aries Shoe | @yield('title')</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -25,6 +25,9 @@
     <link rel="stylesheet" href="{{ asset('css/adminLTE/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('css/adminLTE/summernote-bs4.min.css') }}">
+    {{-- datatable --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
     <link rel="stylesheet" href="{{ asset('css/styleAdmin.css') }}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed accent-teal">
@@ -173,15 +176,15 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/charts/chartjs.html" class="nav-link">
+                                <a href="{{ route('categories.index') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>{{ __('list') . __('categories') }}</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/charts/flot.html" class="nav-link">
+                                <a href="{{ route('categories.create') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>{{ __('add new') }}</p>
+                                    <p>{{ __('create new') }}</p>
                                 </a>
                             </li>
                         </ul>
@@ -816,7 +819,25 @@
         <!-- /.content-header -->
 
         <!-- Main content -->
-        @yield('content')
+        <div class="container pb-4">
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success text-white m-0 px-3 py-2 small" id="flash">
+                    {{ $message }}
+                    @php
+                        session()->forget('success');
+                    @endphp
+                </div>
+            @elseif ($message = Session::get('error'))
+                <div class="alert alert-danger text-white m-0 px-3 py-2 small" id="flash">
+                    {{ $message }}
+                    @php
+                        session()->forget('error');
+                    @endphp
+                </div>
+            @endif
+
+            @yield('content')
+        </div>
         <!-- /.content -->
     </div>
     <div id="backtop" class="position-fixed" style="display: none">
@@ -873,6 +894,9 @@
     {{-- <script src="{{ asset('js/adminLTE/demo.js') }}"></script> --}}
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('js/adminLTE/dashboard.js') }}"></script>
+    {{-- Datatable --}}
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
     <script src="{{ asset('js/scriptAdmin.js') }}"></script>
+    @yield('script')
 </body>
 </html>
