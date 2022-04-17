@@ -17,12 +17,6 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
-/* 
-.nav-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
 
 .nav-item:hover {
     background: #cecece !important;

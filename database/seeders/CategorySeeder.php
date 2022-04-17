@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Image;
 use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
@@ -14,6 +15,8 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        Category::factory()->count(30)->create();
+        for($i = 0; $i < 20; $i++) {
+            Image::factory()->for(Category::factory(), 'imageable')->create();
+        }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Image;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -28,6 +29,10 @@ class UserSeeder extends Seeder
                 'role_id' => 1,
             ]
         ]);
-        User::factory(20)->create();
+        $user = User::first();
+        Image::factory()->for($user, 'imageable')->create();
+        for($i = 0; $i < 20; $i++) {
+            Image::factory()->for(User::factory(), 'imageable')->create();
+        }
     }
 }
