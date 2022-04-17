@@ -117,6 +117,11 @@
                         <i class="fas fa-expand-arrows-alt"></i>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
+                      <i class="fas fa-th-large"></i>
+                    </a>
+                </li>
             </ul>
         </nav>
     <!-- /.navbar -->
@@ -155,7 +160,7 @@
 
             <!-- Sidebar Menu -->
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent text-sm nav-compact" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                         with font-awesome or any other icon font library -->
                     <li class="nav-item menu-open">
@@ -183,6 +188,29 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('categories.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>{{ __('create new') }}</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa-brands fa-buffer"></i>
+                            <p>
+                                {{ __('brands') }}
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('brands.index') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>{{ __('list') . __('brands') }}</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('brands.create') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>{{ __('create new') }}</p>
                                 </a>
@@ -891,7 +919,7 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('js/adminLTE/adminlte.min.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
-    {{-- <script src="{{ asset('js/adminLTE/demo.js') }}"></script> --}}
+    <script src="{{ asset('js/adminLTE/demo.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('js/adminLTE/dashboard.js') }}"></script>
     {{-- Datatable --}}

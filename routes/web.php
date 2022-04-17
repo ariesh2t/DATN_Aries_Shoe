@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin');
         Route::resource('categories', CategoryController::class);
+        Route::resource('brands', BrandController::class);
         // Route::resource('products', ProductController::class);
         // Route::resource('users', UserController::class);
         // Route::resource('orders', AdminOrderController::class);

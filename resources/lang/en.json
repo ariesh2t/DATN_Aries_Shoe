@@ -57,5 +57,16 @@
     "update fail": ":attr information update failed",
     "delete success": "Delete :attr successfully",
     "delete fail": "Delete failed :attr",
-    "delete confirm": "This will delete all existing products in the :attr. Do you want to remove the :attr #:id?"
+    "delete confirm": "This will delete all existing products in the :attr. Do you want to remove the :attr #:id?",
+    "display": "Display",
+    "records per page": "records per page",
+    "not found": "No suitable data found",
+    "show page": "Showing page",
+    "empty data": "No records available",
+    "filter from": "filtered from ",
+    "records": " total records",
+    "brand": "Brand",
+    "brands": "Brands",
+    "brand name": "Brand name",
+    "brand detail": "Brand detail #:attr"
 }

@@ -57,5 +57,16 @@
     "update fail": "Cập nhật thông tin :attr thất bại",
     "delete success": "Xóa :attr thành công",
     "delete fail": "Xóa :attr thất bại",
-    "delete confirm": "Thao tác này sẽ xóa tất cả các sản phẩm hiện có trong :attr. Bạn có muốn xóa :attr #:id không?"
+    "delete confirm": "Thao tác này sẽ xóa tất cả các sản phẩm hiện có trong :attr. Bạn có muốn xóa :attr #:id không?",
+    "display": "Hiển thị",
+    "records per page": "hàng trên trang",
+    "not found": "Không tìm thấy dữ liệu phù hợp",
+    "show page": "Hiển thị trang",
+    "empty data": "Chưa có dữ liệu",
+    "filter from": "Được lọc từ ",
+    "records": " bản ghi",
+    "brand": "Thương hiệu",
+    "brands": "Thương hiệu",
+    "brand name": "Tên thương hiệu",
+    "brand detail": "Thông tin chi tiết thương hiệu #:attr"
 }

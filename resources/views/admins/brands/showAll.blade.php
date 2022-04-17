@@ -1,13 +1,13 @@
 @extends('layouts.layoutAdmin')
 
 @section('title')
-    {{ __('list') . __('categories') }}
+    {{ __('list') . __('brands') }}
 @endsection
 
 @section('content')
     <div class="d-flex justify-content-between mb-4">
-        <h4>{{ __('list') . __('categories') }}</h4>
-        <a id="btn-create-brand" href="{{ route('categories.create') }}" class="btn btn-info">
+        <h4>{{ __('list') . __('brands') }}</h4>
+        <a id="btn-create-brand" href="{{ route('brands.create') }}" class="btn btn-info">
             <i class="fa-light fa-plus"></i> {{ __('create new') }}
         </a>
     </div>
@@ -15,38 +15,38 @@
         <thead class="table-dark">
             <tr>
                 <th class="text-center">{{ __('image') }}</th>
-                <th style="width: 500px">{{ __('category name') }}</th>
+                <th style="width: 500px">{{ __('brand name') }}</th>
                 <th class="text-center">{{ __('created at') }}</th>
                 <th class="text-center">{{ __('function') }}</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($categories as $category)
+            @foreach ($brands as $brand)
                 <tr>
                     <td class="text-center">
-                        <img height="50" src="{{ asset('images/categories/' . $category->image->name ) }}" alt="{{ $category->name }}">
+                        <img height="50" src="{{ asset('images/brands/' . $brand->image->name ) }}" alt="{{ $brand->name }}">
                     </td>
                     <td>
                         <div class="overflow-hidden text-2">
-                            {{ $category->name }}
+                            {{ $brand->name }}
                         </div>
                     </td>
                     <td class="text-center">
-                    {{ $category->created_at }}
+                    {{ $brand->created_at }}
                     </td>
                     <td class="text-center">
-                        <form action="{{ route('categories.destroy', $category->id) }}" method="POST">
-                            <a class="px-1" href="{{ route('categories.show', $category->id) }}" title="{{ __('detail') }}">
+                        <form action="{{ route('brands.destroy', $brand->id) }}" method="POST">
+                            <a class="px-1" href="{{ route('brands.show', $brand->id) }}" title="{{ __('detail') }}">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
-                            <a class="px-1" href="{{ route('categories.edit', $category->id) }}" title="{{ __('edit') }}">
+                            <a class="px-1" href="{{ route('brands.edit', $brand->id) }}" title="{{ __('edit') }}">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
                         
                             @csrf
                             @method("DELETE")
                             <button type="submit" class="btn-del btn m-0 px-1" title="{{ __('delete') }}" 
-                                data-confirm="{{ __('delete confirm', ['attr' => __('category'), 'id' => $category->id]) }}">
+                                data-confirm="{{ __('delete confirm', ['attr' => __('brand'), 'id' => $brand->id]) }}">
                                 <a href=""><i class="fa-solid fa-trash"></i></a>
                             </button>
                         </form>
