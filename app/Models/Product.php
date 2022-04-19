@@ -19,6 +19,7 @@ class Product extends Model
         'promotion',
         'desc',
         'category_id',
+        'brand_id',
         'product_id',
     ];
 

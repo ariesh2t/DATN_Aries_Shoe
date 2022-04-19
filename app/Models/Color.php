@@ -19,4 +19,9 @@ class Color extends Model
     {
         return $this->belongsToMany(Product::class, 'product_infors');
     }
+
+    public function setColorAttribute($value)
+    {
+        $this->attributes['color'] = strtoupper($value);
+    }
 }
