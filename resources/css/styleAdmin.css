@@ -1,3 +1,6 @@
+tr th {
+    vertical-align: middle !important;
+}
 #backtop {
     right: 20px;
     bottom: 50px;
@@ -44,7 +47,7 @@ table.dataTable tbody th, table.dataTable tbody td {
 }
 .form-upload__item {
     width: 150px;
-    margin: 0 7.5px;
+    margin: 0 7.5px 10px;
     position: relative;
 }
 .form-upload__item-thumbnail {
@@ -101,4 +104,22 @@ table.dataTable tbody th, table.dataTable tbody td {
         opacity: 0;
         right: 300px;
     }
+}
+
+.ajax-message {
+    position: fixed;
+    top: 60px;
+    right: 10px;
+    z-index: 100;
+    opacity: 0;
+}
+
+.ajax-message.ajax-message-active {
+    opacity: 1;
+    animation: fadeLeft ease 6s;
+}
+
+.dd-scroll {
+    height: 300px;
+    overflow: auto;
 }

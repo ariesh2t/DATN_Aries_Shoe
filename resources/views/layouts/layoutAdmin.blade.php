@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Aries Shoe | @yield('title')</title>
 
     <!-- Google Font: Source Sans Pro -->
@@ -160,7 +161,7 @@
 
             <!-- Sidebar Menu -->
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent text-sm nav-compact" data-widget="treeview" role="menu" data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent text-sm nav-collapse-hide-child" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                         with font-awesome or any other icon font library -->
                     <li class="nav-item menu-open">
@@ -173,22 +174,23 @@
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fa-solid fa-bars-staggered"></i>
+                            <i class="nav-icon fa-solid fa-ellipsis"></i>
                             <p>
                                 {{ __('categories') }}
                                 <i class="right fas fa-angle-left"></i>
+                                <span class="badge badge-info right">{{ $totalCategories }}</span>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ route('categories.index') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fa-solid fa-clipboard-list mr-1"></i>
                                     <p>{{ __('list') . __('categories') }}</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('categories.create') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fa-solid fa-circle-plus mr-1"></i>
                                     <p>{{ __('create new') }}</p>
                                 </a>
                             </li>
@@ -200,18 +202,49 @@
                             <p>
                                 {{ __('brands') }}
                                 <i class="right fas fa-angle-left"></i>
+                                <span class="badge badge-info right">{{ $totalBrands }}</span>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ route('brands.index') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fa-solid fa-clipboard-list mr-1"></i>
                                     <p>{{ __('list') . __('brands') }}</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('brands.create') }}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fa-solid fa-circle-plus mr-1"></i>
+                                    <p>{{ __('create new') }}</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa-solid fa-boxes-stacked"></i>
+                            <p>
+                                {{ __('products') }}
+                                <i class="right fas fa-angle-left"></i>
+                                <span class="badge badge-info right">{{ $totalProducts }}</span>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('color-size.show') }}" class="nav-link">
+                                    <i class="fa-solid fa-clipboard-list mr-1"></i>
+                                    <p>{{ __('colors') . '/' . __('sizes') }}</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('products.index') }}" class="nav-link">
+                                    <i class="fa-solid fa-clipboard-list mr-1"></i>
+                                    <p>{{ __('list') . __('products') }}</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('products.create') }}" class="nav-link">
+                                    <i class="fa-solid fa-circle-plus mr-1"></i>
                                     <p>{{ __('create new') }}</p>
                                 </a>
                             </li>
@@ -847,7 +880,7 @@
         <!-- /.content-header -->
 
         <!-- Main content -->
-        <div class="container pb-4">
+        <div class="container-fluid pb-4 px-3">
             @if ($message = Session::get('success'))
                 <div class="alert alert-success text-white m-0 px-3 py-2 small" id="flash">
                     {{ $message }}

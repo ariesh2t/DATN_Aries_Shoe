@@ -14,6 +14,9 @@
     "required": ":attr không được bỏ trống.",
     "min": ":attr phải có tối thiểu :value kí tự.",
     "max": ":attr không được lớn hơn :value kí tự.",
+    "max numeric": ":attr không được lớn hơn :max",
+    "min numeric": ":attr không được nhỏ hơn :min.",
+    "numeric": ":attr phải là 1 số",
     "email_val": "Nhập sai định dạng email.",
     "string": ":attr chỉ có thể chứa các kí tự.",
     "confirmed": ":attr xác nhận không khớp.",
@@ -68,5 +71,16 @@
     "brand": "Thương hiệu",
     "brands": "Thương hiệu",
     "brand name": "Tên thương hiệu",
-    "brand detail": "Thông tin chi tiết thương hiệu #:attr"
+    "brand detail": "Thông tin chi tiết thương hiệu #:attr",
+    "product": "Sản phẩm",
+    "products": "Sản phẩm",
+    "colors": "Màu",
+    "sizes": "Kích cỡ",
+    "add color": "Thêm màu mới",
+    "add size": "Thêm kích cỡ mới",
+    "product name": "Tên sản phẩm",
+    "cost": "Giá nhập",
+    "price": "Giá bán",
+    "promotion": "Giá khuyến mãi",
+    "exists": ":attr đã chọn không tồn tại trong cơ sở dữ liệu"
 }

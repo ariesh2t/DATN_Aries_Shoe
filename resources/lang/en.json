@@ -14,6 +14,9 @@
     "required": "The :attr field is required.",
     "min": "The :attr must be at least :value characters.",
     "max": "The :attr must not be greater than :value characters.",
+    "max numeric": "The :attr must not be greater than :max",
+    "min numeric": "The :attr must be at least :min.",
+    "numeric": "The :attr must be a number.",
     "email_val": "Wrong email format entered.",
     "string": "The :attr must be a string.",
     "confirmed": "The :attr confirmation does not match.",
@@ -68,5 +71,16 @@
     "brand": "Brand",
     "brands": "Brands",
     "brand name": "Brand name",
-    "brand detail": "Brand detail #:attr"
+    "brand detail": "Brand detail #:attr",
+    "product": "Product",
+    "products": "Products",
+    "colors": "Colors",
+    "sizes": "Sizes",
+    "add color": "Add new color",
+    "add size": "Add new size",
+    "product name": "Product name",
+    "cost": "Cost",
+    "price": "Price",
+    "promotion": "Promotion",
+    "exists": "The selected :attr does not exist in the database"
 }
