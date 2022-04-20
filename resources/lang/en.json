@@ -14,8 +14,8 @@
     "required": "The :attr field is required.",
     "min": "The :attr must be at least :value characters.",
     "max": "The :attr must not be greater than :value characters.",
-    "max numeric": "The :attr must not be greater than :max",
-    "min numeric": "The :attr must be at least :min.",
+    "max numeric": "The :attr must not be greater than :value",
+    "min numeric": "The :attr must be at least :value.",
     "numeric": "The :attr must be a number.",
     "email_val": "Wrong email format entered.",
     "string": "The :attr must be a string.",
@@ -82,5 +82,8 @@
     "cost": "Cost",
     "price": "Price",
     "promotion": "Promotion",
-    "exists": "The selected :attr does not exist in the database"
+    "exists": "The selected :attr does not exist in the database",
+    "select": "--- Select 1 item ---",
+    "add info": "Add product info",
+    "form add info": "Form add new product information"
 }
