@@ -38,14 +38,9 @@ class Product extends Model
         return $this->belongsToMany(Order::class, 'order_products')->withPivot('quantity');
     }
 
-    public function colors()
+    public function productInfors()
     {
-        return $this->belongsToMany(Color::class, 'product_infors');
-    }
-
-    public function sizes()
-    {
-        return $this->belongsToMany(Size::class, 'product_infors');
+        return $this->hasMany(ProductInfor::class);
     }
 
     public function brand()

@@ -13,7 +13,7 @@
             <i class="fa-light fa-plus"></i> {{ __('create new') }}
         </a>
     </div>
-    <table id="datatable" class="table table-striped table-bordered mb-3">
+    <table id="datatable" class="table table-bordered mb-3">
         <thead class="table-dark align-content-center">
             <tr>
                 <th class="text-center">{{ __('image') }}</th>
@@ -28,7 +28,15 @@
         </thead>
         <tbody>
             @foreach ($products as $product)
-                <tr>
+                <tr
+                    @php
+                        $dem = 0;
+                        foreach($product->productInfors as $productInfor) {
+                            $dem++;
+                        }
+                        echo $dem==0 ? "class='table-warning' title='" . __('no data', ['attr' => __('product')]) . "'" : '';
+                    @endphp
+                >
                     <td class="text-center">
                         <img height="50" src="{{ asset('images/products/' . $product->images->first()->name ) }}" alt="{{ $product->name }}">
                     </td>
@@ -74,7 +82,7 @@
                                 @csrf
                                 @method("DELETE")
                                 <button type="submit" class="col-5 btn-del btn m-0 p-0" title="{{ __('delete') }}" 
-                                    data-confirm="{{ __('delete confirm', ['attr' => __('product'), 'id' => $product->id]) }}">
+                                    data-confirm="{{ __('delete confirm', ['attr' => __('product'), 'child' => __('product info'), 'id' => $product->id]) }}">
                                     <a href=""><i class="fa-solid fa-trash"></i></a>
                                 </button>
                             </div>
@@ -207,7 +215,6 @@
                         $('#list_error').html('')
                         $('.ajax-message').html('Thêm thành công')
                         $('.ajax-message').addClass('ajax-message-active');
-
                         //Set thời gian timeout để auto ẩn message trên sau 3 giây
                         setTimeout(function() {
                             $('.ajax-message').removeClass('ajax-message-active');

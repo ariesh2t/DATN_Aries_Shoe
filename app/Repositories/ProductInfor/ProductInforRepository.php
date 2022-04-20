@@ -20,4 +20,9 @@ class ProductInforRepository extends BaseRepository implements ProductInforRepos
             ['size_id', '=', $size_id],
         ])->get();
     }
+
+    public function getAllByProduct($product_id)
+    {
+        return $this->model->with('color', 'size')->where('product_id', $product_id)->get();
+    }
 }

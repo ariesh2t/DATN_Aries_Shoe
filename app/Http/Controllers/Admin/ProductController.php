@@ -8,6 +8,7 @@ use App\Repositories\Brand\BrandRepositoryInterface;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Color\ColorRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
+use App\Repositories\ProductInfor\ProductInforRepositoryInterface;
 use App\Repositories\Size\SizeRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +17,7 @@ use Illuminate\Support\Str;
 class ProductController extends Controller
 {
     protected $productRepo;
+    protected $productInforRepo;
     protected $brandRepo;
     protected $categoryRepo;
     protected $colorRepo;
@@ -23,12 +25,14 @@ class ProductController extends Controller
 
     public function __construct(
         ProductRepositoryInterface $productRepo,
+        ProductInforRepositoryInterface $productInforRepo,
         BrandRepositoryInterface $brandRepo,
         CategoryRepositoryInterface $categoryRepo,
         ColorRepositoryInterface $colorRepo,
         SizeRepositoryInterface $sizeRepo
     ) {
         $this->productRepo = $productRepo;
+        $this->productInforRepo = $productInforRepo;
         $this->brandRepo = $brandRepo;
         $this->categoryRepo = $categoryRepo;
         $this->colorRepo = $colorRepo;
@@ -59,7 +63,7 @@ class ProductController extends Controller
         $brands = $this->brandRepo->getAll();
         $categories = $this->categoryRepo->getAll();
 
-        return view('admins.products.create', compact('colors', 'sizes', 'brands', 'categories'));
+        return view('admins.products.create', compact('brands', 'categories'));
     }
 
     /**
@@ -108,7 +112,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = $this->productRepo->find($id);
+
+        return view('admins.products.detail', compact('product'));
     }
 
     /**
@@ -142,6 +148,19 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = $this->productRepo->find($id);
+
+        DB::transaction(function() use($product) {
+            foreach($product->images as $image) {
+                $image->delete();
+
+                unlink(public_path('/images/products/' .  $image->name));
+            }
+            $product->delete();
+
+            return redirect()->route('products.index')->with('success', __('delete success', ['attr' => __('product')]));
+        });
+            
+        return redirect()->route('products.index')->with('error', __('delete fail', ['attr' => __('product')]));
     }
 }
