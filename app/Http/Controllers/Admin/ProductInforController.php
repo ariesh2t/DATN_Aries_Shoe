@@ -117,6 +117,8 @@ class ProductInforController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->productInforRepo->delete($id);
+        
+        return redirect()->back()->with('success', __('delete success', ['attr' => __('product info')]));
     }
 }

@@ -46,7 +46,7 @@
                             @csrf
                             @method("DELETE")
                             <button type="submit" class="btn-del btn m-0 px-1" title="{{ __('delete') }}" 
-                                data-confirm="{{ __('delete confirm', ['attr' => __('brand'), 'id' => $brand->id]) }}">
+                                data-confirm="{{ __('delete confirm', ['attr' => __('brand'), 'child' => __('product'), 'id' => $brand->id]) }}">
                                 <a href=""><i class="fa-solid fa-trash"></i></a>
                             </button>
                         </form>

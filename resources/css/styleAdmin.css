@@ -123,3 +123,16 @@ table.dataTable tbody th, table.dataTable tbody td {
     height: 300px;
     overflow: auto;
 }
+
+.img-product {
+    height: 150px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-product img {
+    height: 100%;
+    max-height: 100%;
+}
