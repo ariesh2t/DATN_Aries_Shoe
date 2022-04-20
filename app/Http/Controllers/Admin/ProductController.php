@@ -42,9 +42,11 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $colors = $this->colorRepo->getAll();
+        $sizes = $this->sizeRepo->getAll();
         $products = $this->productRepo->getAll();
 
-        return view('admins.products.showAll', compact('products'));
+        return view('admins.products.showAll', compact('products', 'colors', 'sizes'));
     }
 
     /**
@@ -54,8 +56,6 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $colors = $this->colorRepo->getAll();
-        $sizes = $this->sizeRepo->getAll();
         $brands = $this->brandRepo->getAll();
         $categories = $this->categoryRepo->getAll();
 

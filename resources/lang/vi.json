@@ -82,5 +82,8 @@
     "cost": "Giá nhập",
     "price": "Giá bán",
     "promotion": "Giá khuyến mãi",
-    "exists": ":attr đã chọn không tồn tại trong cơ sở dữ liệu"
+    "exists": ":attr đã chọn không tồn tại trong cơ sở dữ liệu",
+    "select": "--- Chọn 1 mục ---",
+    "add info": "Thêm thông tin",
+    "form add info": "Thêm mới thông tin sản phẩm"
 }
