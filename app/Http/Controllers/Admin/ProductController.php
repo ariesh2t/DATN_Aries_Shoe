@@ -4,14 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\StoreRequest;
+use App\Http\Requests\Product\UpdateRequest;
 use App\Repositories\Brand\BrandRepositoryInterface;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Color\ColorRepositoryInterface;
+use App\Repositories\Image\ImageRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
 use App\Repositories\ProductInfor\ProductInforRepositoryInterface;
 use App\Repositories\Size\SizeRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -22,6 +25,7 @@ class ProductController extends Controller
     protected $categoryRepo;
     protected $colorRepo;
     protected $sizeRepo;
+    protected $imageRepo;
 
     public function __construct(
         ProductRepositoryInterface $productRepo,
@@ -29,7 +33,8 @@ class ProductController extends Controller
         BrandRepositoryInterface $brandRepo,
         CategoryRepositoryInterface $categoryRepo,
         ColorRepositoryInterface $colorRepo,
-        SizeRepositoryInterface $sizeRepo
+        SizeRepositoryInterface $sizeRepo,
+        ImageRepositoryInterface $imageRepo,
     ) {
         $this->productRepo = $productRepo;
         $this->productInforRepo = $productInforRepo;
@@ -37,6 +42,7 @@ class ProductController extends Controller
         $this->categoryRepo = $categoryRepo;
         $this->colorRepo = $colorRepo;
         $this->sizeRepo = $sizeRepo;
+        $this->imageRepo = $imageRepo;
     }
 
     /**
@@ -139,9 +145,48 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        //
+        $product = $this->productRepo->find($id);
+        $files = '';
+
+        if (!$product->images) {
+            $request->validate([
+                'images' => 'required',
+            ], [
+                'images.required' => __('required', ['attr' => __('image')]),
+            ]);
+        }
+        $files = $request->images;
+
+        $path = public_path('images/products/');
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+
+        DB::transaction(function() use($request, $product, $files, $path) {
+            $product->update([
+                'brand_id' => $request->brand_id,
+                'category_id' => $request->category_id,
+                'name' => $request->name,
+                'cost' => $request->cost,
+                'price' => $request->price,
+                'promotion' => $request->promotion,
+                'desc' => $request->desc,
+            ]);
+
+            if ($files) {
+                foreach($files as $key => $file) {
+                    $new_name = time() . "-product-$key-" . Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
+                    $product->images()->create(['name' => $new_name]);
+                    $file->move($path, $new_name);
+                }
+            }
+
+            return redirect()->route('products.index')->with('success', __('update success', ['attr' => __('product')]));
+        });
+
+        return redirect()->route('products.index')->with('error', __('update fail', ['attr' => __('product')]));
     }
 
     /**
@@ -166,5 +211,15 @@ class ProductController extends Controller
         });
             
         return redirect()->route('products.index')->with('error', __('delete fail', ['attr' => __('product')]));
+    }
+    
+    public function deleteImage(Request $request)
+    {
+        $image = $this->imageRepo->find($request->id);
+        $image->delete();
+
+        unlink(public_path('/images/products/' .  $image->name));
+
+        return response()->json(['success' => 'delete success']);
     }
 }
