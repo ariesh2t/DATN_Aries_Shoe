@@ -63,7 +63,7 @@
                             $dem++;
                         }
                         if ($dem==0) {
-                            echo "<tr> <td>" . __('no data', ['attr' => __('product')]) . "</td> </tr>";
+                            echo "<tr> <td colspan='3'>" . __('no data', ['attr' => __('product')]) . "</td> </tr>";
                         }
                     @endphp
                     @foreach ($product->productInfors as $productInfor)

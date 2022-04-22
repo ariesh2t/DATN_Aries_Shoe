@@ -48,13 +48,15 @@ $(document).ready(function() {
     })
 
     // scroll to Top
-    $(window).scroll(function() {
-        if ($(this).scrollTop()) {
+    $(window).scroll(function(event) {
+        var pos_body = $('html,body').scrollTop();
+        if(pos_body>500){
             $("#backtop").fadeIn( "slow");
-        } else {
+        }
+        else{
             $('#backtop').fadeOut('slow');
         }
-    })
+    });
 
     $('#backtop').on('click', function() {
         $('html, body').animate({

@@ -46,6 +46,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('color-size/show-all', [ColorSizeController::class, 'showAll'])->name('color-size.show');
         Route::post('add-color', [ColorSizeController::class, 'addColor'])->name('add-color');
         Route::post('add-size', [ColorSizeController::class, 'addSize'])->name('add-size');
+        Route::post('delete-image', [ProductController::class, 'deleteImage'])->name('delete-image');
         // Route::resource('users', UserController::class);
         // Route::resource('orders', AdminOrderController::class);
         // Route::delete('products/image/{id}', [ProductController::class, 'deleteImage'])->name('delete.image');
