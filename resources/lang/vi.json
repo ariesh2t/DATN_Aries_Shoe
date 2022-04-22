@@ -91,5 +91,6 @@
     "form add info": "Thêm mới thông tin sản phẩm",
     "product info": "Thông tin sản phẩm",
     "product detail": "Thông tin chi tiết sản phẩm #:attr",
-    "no data": "Chưa có thông tin :attr"
+    "no data": "Chưa có thông tin :attr",
+    "no product in cat": "Chưa có sản phẩm tại danh mục này"
 }

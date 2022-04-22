@@ -56,6 +56,9 @@ class AppServiceProvider extends ServiceProvider
         $totalBrands = Brand::count();
         $totalProducts = Product::count();
 
-        View::share(compact('totalCategories', 'totalBrands', 'totalProducts'));
+        $brands = Brand::all();
+        $categories = Category::all();
+
+        View::share(compact('totalCategories', 'totalBrands', 'totalProducts', 'brands', 'categories'));
     }
 }

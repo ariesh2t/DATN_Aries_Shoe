@@ -17,4 +17,17 @@ $(document).ready(function() {
             $('#password-confirm').attr('type', 'password')
         }
     })
+
+    //
+    $(document).ready(function() {
+        $(window).scroll(function(event) {
+            var pos_body = $('html,body').scrollTop();
+            if(pos_body>270){
+                $('.nav-scroll-top').addClass('act-scroll');
+            }
+            else{
+                $('.nav-scroll-top').removeClass('act-scroll');
+            }
+        });
+    })
 })

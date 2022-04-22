@@ -5,4 +5,5 @@ use App\Repositories\RepositoryInterface;
 
 interface ProductRepositoryInterface extends RepositoryInterface
 {
+    public function get4ProductByCat($id);
 }

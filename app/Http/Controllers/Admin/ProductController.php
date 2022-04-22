@@ -125,7 +125,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $brands = $this->brandRepo->getAll();
+        $categories = $this->categoryRepo->getAll();
+        $product = $this->productRepo->find($id);
+
+        return view('admins.products.edit', compact('product', 'brands', 'categories'));
     }
 
     /**

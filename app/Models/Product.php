@@ -52,19 +52,4 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
-
-    public function getCostAttribute()
-    {
-        return Helper::numberFormat($this->attributes['cost']);
-    }
-
-    public function getPriceAttribute()
-    {
-        return Helper::numberFormat($this->attributes['price']);
-    }
-
-    public function getPromotionAttribute()
-    {
-        return Helper::numberFormat($this->attributes['promotion']);
-    }
 }

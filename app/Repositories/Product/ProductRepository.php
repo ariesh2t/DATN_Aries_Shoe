@@ -11,4 +11,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     {
         return Product::class;
     }
+
+    public function get4ProductByCat($id)
+    {
+        return $this->model->with('images')->where('category_id', $id)->take(4)->get();
+    }
 }
