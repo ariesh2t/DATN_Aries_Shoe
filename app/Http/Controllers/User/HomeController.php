@@ -3,18 +3,26 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\Brand\BrandRepositoryInterface;
+use App\Repositories\Category\CategoryRepositoryInterface;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    protected $brandRepo;
+    protected $categoryRepo;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct(
+        BrandRepositoryInterface $brandRepo,
+        CategoryRepositoryInterface $categoryRepo
+    ) {
         $this->middleware('auth');
+        $this->brandRepo = $brandRepo;
+        $this->categoryRepo = $categoryRepo;
     }
 
     /**
@@ -24,6 +32,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $get4Brands = $this->brandRepo->get4Brands();
+        return view('customers.home', compact('get4Brands'));
     }
 }

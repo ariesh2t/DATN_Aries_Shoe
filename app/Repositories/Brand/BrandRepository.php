@@ -11,4 +11,9 @@ class BrandRepository extends BaseRepository implements BrandRepositoryInterface
     {
         return Brand::class;
     }
+
+    public function get4Brands()
+    {
+        return $this->model->take(4)->get();
+    }
 }

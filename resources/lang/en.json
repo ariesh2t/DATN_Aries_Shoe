@@ -91,5 +91,6 @@
     "form add info": "Form add new product information",
     "product info": "Product information",
     "product detail": "Product detail #:attr",
-    "no data": "No :attr information yet"
+    "no data": "No :attr information yet",
+    "no product in cat": "There are no products in this category"
 }

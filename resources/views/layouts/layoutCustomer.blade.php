@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title')</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -25,22 +25,13 @@
     <div id="app">
         <nav class="navbar py-0 navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="col-2 navbar-brand" href="{{ url('/') }}">
                     <img height="50" src="{{ asset('images/logo/logo-shop.png') }}" alt="">
-                    Aries Shoes
+                    <div class="d-none d-md-inline">Aries Shoes</div>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
+                <div class="row col-md-5 col-10">
                     @guest
-                        <div class="btn-group">
+                        <div class="btn-group col-8">
                             <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-regular fa-circle-user me-2 fs-5"></i>{{ __('account') }}
                             </button>
@@ -65,8 +56,8 @@
                             </ul>
                         </div>
                     @else
-                        <div class="btn-group">
-                            <button type="button" class="btn py-1 dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="btn-group col-8 float-right">
+                            <button type="button" class="btn py-1 dropdown-toggle d-flex align-items-center justify-content-end" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="d-inline-block avatar">
                                     @if (Auth::user()->image)
                                         <img src="{{ asset('images/users/' . Auth::user()->avatar) }}" alt="{{ Auth::user()->name }}">
@@ -74,9 +65,16 @@
                                         <img src="{{ asset('images/users/img.png') }}" alt="{{ Auth::user()->name }}">
                                     @endif
                                 </div>
-                                {{ Auth::user()->fullname }}
+                                <div class="d-none d-lg-inline">{{ Auth::user()->fullname }}</div>
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
+                            <div class="d-flex align-items-center justify-content-end">
+                                <i class="fa-regular fa-bell"></i>
+                                <sup class="badge bg-warning" style="font-size: 8px">1</sup>
+                            </div>
+                            <ul class="dropdown-menu dropdown-menu-start">
+                                <li class="dropdown-item d-lg-none d-sm-block">
+                                    {{ Auth::user()->fullname }}
+                                </li>
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
@@ -93,10 +91,153 @@
                         </div>
                     @endguest
 
-                    @include('partials/language_switcher')
+                    <div class="btn-group col-4">
+                        @include('partials/language_switcher')
+                    </div>
                 </div>
             </div>
         </nav>
+        <div class="d-none d-md-block">
+            <div class="container-fluid navbar justify-content-between shadow-sm" style="background: #fff">
+                <div></div>
+                <div class="js-navbar">
+                    <ul class="list-unstyled d-flex m-0">
+                        <li class="px-3 py-2"><a class="text-uppercase nav-a" href="">{{ __('home') }}</a></li>
+                        <li class="px-3 hover-subnav-brand py-2">
+                            <a class="text-uppercase nav-a" href="">
+                                {{ __('brands') }}
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </a>
+                            <div class="sub subnav-brand position-absolute p-3" style="width: 75vw">
+                                <ul class="row list-unstyled">
+                                    @foreach ($brands as $brand)
+                                        <div class="col-3">
+                                            <li class="ps-2 py-1"><a class="nav-a" href="">{{ $brand->name }}</a></li>
+                                        </div>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="px-3 hover-subnav-category py-2">
+                            <a class="text-uppercase nav-a" href="">
+                                {{ __('categories') }}
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </a>
+                            <div class="sub subnav-category position-absolute p-3" style="width: 75vw">
+                                <ul class="row list-unstyled">
+                                    @foreach ($categories as $category)
+                                        <div class="col-3">
+                                            <li class="ps-2 py-1"><a class="nav-a" href="">{{ $category->name }}</a></li>
+                                        </div>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="px-3 py-2"><a class="text-uppercase nav-a" href="">{{ __('products') }}</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <form action="">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="{{ __('enter') . __("product name")}}">
+                            <button class="btn btn-outline-secondary" type="submit">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="nav-scroll-top d-none d-md-block">
+            <div class="navbar justify-content-between align-items-center shadow-sm px-5" style="background: #fff">
+                <div class="">
+                    <img height="40" src="{{ asset('images/logo/logo-shop.png') }}" alt="">
+                </div>
+                <div class="js-navbar">
+                    <ul class="list-unstyled d-flex m-0">
+                        <li class="px-3 py-2"><a class="text-uppercase nav-a" href="">{{ __('home') }}</a></li>
+                        <li class="px-3 hover-subnav-brand py-2">
+                            <a class="text-uppercase nav-a" href="">
+                                {{ __('brands') }}
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </a>
+                            <div class="sub subnav-brand position-absolute p-3" style="width: 75vw">
+                                <ul class="row list-unstyled">
+                                    @foreach ($brands as $brand)
+                                        <div class="col-3">
+                                            <li class="ps-2 py-1"><a class="nav-a" href="">{{ $brand->name }}</a></li>
+                                        </div>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="px-3 hover-subnav-category py-2">
+                            <a class="text-uppercase nav-a" href="">
+                                {{ __('categories') }}
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </a>
+                            <div class="sub subnav-category position-absolute p-3" style="width: 75vw">
+                                <ul class="row list-unstyled">
+                                    @foreach ($categories as $category)
+                                        <div class="col-3">
+                                            <li class="ps-2 py-1"><a class="nav-a" href="">{{ $category->name }}</a></li>
+                                        </div>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <form action="">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="{{ __('enter') . __("product name")}}">
+                            <button class="btn btn-outline-secondary" type="submit">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="d-sm-block d-md-none float-right">
+            <button class="btn p-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-header justify-content-end">
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body justify-content-end">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item text-end">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item text-end">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item text-end">
+                            <a class="text-uppercase d-block nav-a d-flex justify-content-between" href="">
+                                <i class="fa-solid fa-chevron-down"></i>
+                                <span>{{ __('brands') }}</span>
+                            </a>
+                            <ul>
+                                @foreach ($brands as $brand)
+                                    <li>
+                                        <a href="">{{ $brand->name }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled">Disabled</a>
+                        </li>
+                        </ul>
+                </div>
+            </div>
+        </div>
+        
 
         <main class="py-4 px-2">
             @if ($message = Session::get('success'))
@@ -115,9 +256,88 @@
                     session()->forget('error');
                 @endphp
             @endif
-            @yield('content')
+            <div class="container">
+                @yield('content')
+            </div>
         </main>
+        <footer class="footer-container bg-dark">
+			<div class="container main-footer">
+		        <aside class="footer-sidebar widget-area p-5" role="complementary">
+					<div class="row justify-content-center align-items-center">
+                        <div class="col-1">
+                            <a href="">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </a>
+                        </div>
+                        <div class="col-1">
+                            <a href="">
+                                <i class="fa-brands fa-twitter"></i>
+                            </a>
+                        </div>
+                        <div class="col-1">
+                            <a href="">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+					<div class="row text-white">
+                        <div class="col-4">
+                            <h3>{{ __('contact') }}</h3>
+                            <div>
+                                <i class="fa-solid fa-location-dot"></i>
+                                No. 8, alley 112/29 Minh Khai ward, Bac Tu Liem district, Hanoi
+                            </div>
+                            <div class="phone">
+                                <i class="fa-solid fa-phone"></i>
+                                0394546187
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <h3>{{ __('about') }}</h3>
+                            <div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item" style="background: none"><a href="">{{ __('about') }}</a></li>
+                                    <li class="list-group-item" style="background: none"><a href="">{{ __('contact') }}</a></li>
+                                    <li class="list-group-item" style="background: none"><a href="">{{ __('news') }}</a></li>
+                                  </ul>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <h3>{{ __('utilities') }}</h3>
+                            <div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item" style="background: none"><a href="">{{ __('choose size') }}</a></li>
+                                    <li class="list-group-item" style="background: none"><a href="">{{ __('best sale') }}</a></li>
+                                    <li class="list-group-item" style="background: none"><a href="">{{ __('new product') }}</a></li>
+                                  </ul>
+                            </div>
+                        </div>
+                    </div>
+				</aside><!-- .footer-sidebar -->
+	        </div>
+			<div class="copyrights-wrapper copyrights-centered">
+				<div class="container border-top p-2">
+					<div class="min-footer text-white">
+						<div class="col-left">
+							<p>© 2022 <a href="https://www.facebook.com/aries.842">Aries Hoang</a>. All rights reserved</p>
+						</div>
+					</div>
+				</div>
+			</div>
+	    </footer>
     </div>
+    <script src="{{ asset('js/adminLTE/jquery.min.js') }}"></script>
     <script src="{{ asset('js/script.js') }}" defer></script>
+    <script>
+        $('.js-navbar ul li').hover(
+            function() {
+                $('div.sub', this).stop(true, false, true).slideDown(500)
+            },
+            function() {
+                $('div.sub', this).stop(true, false, true).slideUp(200)
+            }
+        )
+    </script>
+    @yield('script')
 </body>
 </html>
