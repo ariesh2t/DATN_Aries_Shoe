@@ -20,7 +20,23 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function getAllByBrand($brand_id, $request)
     {
         $products = $this->model->where('brand_id', $brand_id);
-        if ($request->all()) {
+        if ($request->min_value) {
+            $products->whereBetween('promotion', [$request->min_value, $request->max_value]);
+
+            if ($request->list_size) {
+                $products->whereHas('productInfors', function ($query) use($request) {
+                    $query->whereIn('size_id', $request->list_size);
+                });
+            }
+        }
+
+        return $products->paginate(config('paginate.pagination'));
+    }
+
+    public function getAllByCategory($category_id, $request)
+    {
+        $products = $this->model->where('category_id', $category_id);
+        if ($request->min_value) {
             $products->whereBetween('promotion', [$request->min_value, $request->max_value]);
 
             if ($request->list_size) {

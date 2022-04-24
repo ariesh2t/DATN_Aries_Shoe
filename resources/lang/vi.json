@@ -92,7 +92,7 @@
     "product info": "Thông tin sản phẩm",
     "product detail": "Thông tin chi tiết sản phẩm #:attr",
     "no data": "Chưa có thông tin :attr",
-    "no product in cat": "Chưa có sản phẩm tại danh mục này",
+    "no product in": "Chưa có sản phẩm thuộc :attr này",
     "filter by": "Lọc theo :attr",
     "m_price": "Giá"
 }

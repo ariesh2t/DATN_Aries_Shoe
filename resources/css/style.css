@@ -182,6 +182,7 @@ a.nav-a:hover {
 .price {
     text-decoration: line-through;
     color: #cecece;
+    font-size: .75rem;
 }
 
 .promotion {
@@ -201,6 +202,7 @@ a.nav-a:hover {
     justify-content: center;
     display: flex;
     color: #fff;
+    font-size: .7rem;
 }
 
 .btn-add {
@@ -441,4 +443,29 @@ img {
 
 .hover-img-product:hover img {
     transform: scale(1.2);
+}
+
+.form-check-input {
+    margin-top: 0.1em !important;
+}
+
+.hover-shadow-lg {
+    transition: .3s;
+}
+
+.hover-shadow-lg:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+li.page-item {
+    margin: 0 5px;
+}
+
+.page-link {
+    border-radius: 50% !important;
+    width: 35px;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }

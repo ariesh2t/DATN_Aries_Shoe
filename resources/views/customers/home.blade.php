@@ -54,7 +54,7 @@
                     <div class="hover-child text-center">
                         <div><p style="max-width: 200px; overflow: hidden; text-overflow: ellipsis" 
                             class="fw-bold m-0 text-uppercase text-white fs-2">{{ $brand->name }}</p></div>
-                        <a href="" class="btn btn-warning text-uppercase">
+                        <a href="{{ route('brand', $brand->id) }}" class="btn btn-warning text-uppercase">
                             {{ __('show now') }}
                             <i class="fa-solid fa-chevron-right"></i>
                         </a>
@@ -81,30 +81,54 @@
 
 @section('script')
     <script>
+        function number_format(number, decimals, dec_point, thousands_sep) {
+            number = number.toFixed(decimals);
+
+            var nstr = number.toString();
+            nstr += '';
+            x = nstr.split('.');
+            x1 = x[0];
+            x2 = x.length > 1 ? dec_point + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+
+            while (rgx.test(x1))
+                x1 = x1.replace(rgx, '$1' + thousands_sep + '$2');
+
+            return x1 + x2;
+        }
+
         let id = $('.js-show-product').attr('data-id')
         $.get(window.location.protocol + '//' + window.location.host + "/home-cat/" + id, function(response) {
             $('.list-cat div:first .js-select-cat').css('border-bottom', '3px solid orange')
             if (response.length === 0) {
                 $('.js-show-product').html("{{ __('no product in cat') }}");
             } else {
-                
                 response.forEach(element => {
-                    let percent = parseInt((element.price - element.promotion) / element.price * 100);
+                    let price = Number(element.price)
+                    let promotion = Number(element.promotion)
+                    let percent = -number_format((price - promotion) /price * 100, 1, '.', ',');
+                    let sale_dom = ''; let price_dom = '';
+                    if (percent != 0) {
+                        sale_dom = `
+                            <div class="percent">
+                                `+percent+`%
+                            </div>`;
+                        price_dom = `
+                        <span class="price">`+number_format(price, 0, '.', ',')+`</span>
+                        `;
+                    }
                     let dom = `
                     <div class="position-relative css-hover-product col-3 p-3 d-flex flex-wrap justify-content-start align-items-center">
                         <div class="overflow-hidden w-100 text-center" style="height: 180px; line-height: 180px">
                             <img style="max-height: 100%; max-width: 100%" src="{{ asset('images/products/`+ element.images[0].name +`') }}" alt="">
-                        </div>
-                        <div class="percent">
-                            -`+percent+`%
-                        </div>
+                        </div>`+sale_dom+`
                         <p class="text-2 col-12">`+element.name+`</p>
                         <div class="wrap-price">
                             <div class="wrapp-swap">
                                 <div class="swap-elements">
                                     <div class="css-price">
-                                        <span class="small price">`+element.price+`</span> 
-                                        <span class="promotion fs-5">`+element.promotion+`</span>
+                                        `+price_dom+`
+                                        <span class="promotion fs-5">`+number_format(promotion, 0, '.', ',')+`</span>
                                     </div>
                                     <div class="btn-add">
                                         <a class="w-100" href="">
@@ -134,22 +158,31 @@
                     $('.js-show-product').html("{{ __('no product in cat') }}");
                 } else {
                     response.forEach(element => {
-                        let percent = parseInt((element.price - element.promotion) / element.price * 100);
+                        let price = Number(element.price)
+                        let promotion = Number(element.promotion)
+                        let percent = -number_format((price - promotion) /price * 100, 1, '.', ',');
+                        let sale_dom = ''; let price_dom = '';
+                        if (percent != 0) {
+                            sale_dom = `
+                                <div class="percent">
+                                    `+percent+`%
+                                </div>`;
+                            price_dom = `
+                            <span class="price">`+number_format(price, 0, '.', ',')+`</span>
+                            `;
+                        }
                         let dom = `
                         <div class="position-relative css-hover-product col-3 p-3 d-flex flex-wrap justify-content-start align-items-center">
                             <div class="overflow-hidden w-100 text-center" style="height: 180px; line-height: 180px">
                                 <img style="max-height: 100%; max-width: 100%" src="{{ asset('images/products/`+ element.images[0].name +`') }}" alt="">
-                            </div>
-                            <div class="percent">
-                                -`+percent+`%
-                            </div>
+                            </div>`+sale_dom+`
                             <p class="text-2 col-12">`+element.name+`</p>
                             <div class="wrap-price">
                                 <div class="wrapp-swap">
                                     <div class="swap-elements">
                                         <div class="css-price">
-                                            <span class="small price">`+element.price+`</span> 
-                                            <span class="promotion fs-5">`+element.promotion+`</span>
+                                            `+price_dom+`
+                                            <span class="promotion fs-5">`+number_format(promotion, 0, '.', ',')+`</span>
                                         </div>
                                         <div class="btn-add">
                                             <a class="w-100" href="">

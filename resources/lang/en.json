@@ -92,7 +92,7 @@
     "product info": "Product information",
     "product detail": "Product detail #:attr",
     "no data": "No :attr information yet",
-    "no product in cat": "There are no products in this category",
+    "no product in": "There are no products in this :attr",
     "filter by": "Filter by :attr",
     "m_price": "Price"
 }
