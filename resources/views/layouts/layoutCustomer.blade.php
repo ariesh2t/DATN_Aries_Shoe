@@ -129,7 +129,7 @@
                                     <ul class="row list-unstyled">
                                         @foreach ($categories as $category)
                                             <div class="col-3">
-                                                <li class="ps-2 py-1"><a class="nav-a" href="">{{ $category->name }}</a></li>
+                                                <li class="ps-2 py-1"><a class="nav-a" href="{{ route('category', $category->id) }}">{{ $category->name }}</a></li>
                                             </div>
                                         @endforeach
                                     </ul>

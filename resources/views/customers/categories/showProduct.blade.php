@@ -1,7 +1,7 @@
 @extends('layouts.layoutCustomer')
 
 @section('title')
-    {{ $brand->name }}    
+    {{ $category->name }}    
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
         <div class="ps-3">
             <a class="text-white" href="{{ url()->previous() }}" title="{{ __('back') }}"><i class="fa-solid fa-left-long"></i></a>
         </div>
-        <div class="text-uppercase text-white">{{ $brand->name }}</div>
+        <div class="text-uppercase text-white">{{ $category->name }}</div>
         <div></div>
     </div>
     <div class="row mt-5">
@@ -110,7 +110,7 @@
                     </div>
                 @else
                 <div class="col">
-                    {{ __('no product in', ['attr' => __('brand')]) }}
+                    {{ __('no product in', ['attr' => __('category')]) }}
                 </div>
                 @endif
             </div>

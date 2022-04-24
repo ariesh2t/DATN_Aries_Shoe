@@ -22,10 +22,9 @@ $(document).ready(function() {
     $(document).ready(function() {
         $(window).scroll(function(event) {
             var pos_body = $('html,body').scrollTop();
-            if(pos_body>270){
+            if (pos_body > 270) {
                 $('.nav-scroll-top').addClass('act-scroll');
-            }
-            else{
+            } else {
                 $('.nav-scroll-top').removeClass('act-scroll');
             }
         });

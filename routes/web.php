@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\User\BrandController as UserBrandController;
+use App\Http\Controllers\User\CategoryController as UserCategoryController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\ProductController as UserProductController;
 
@@ -69,4 +70,5 @@ Route::middleware(['auth', 'customer'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/home-cat/{id}', [UserProductController::class, 'get4ProductByCat'])->name('home-cat');
     Route::get('/brand/{id}', [UserBrandController::class, 'showProduct'])->name('brand');
+    Route::get('/category/{id}', [UserCategoryController::class, 'showProduct'])->name('category');
 });
