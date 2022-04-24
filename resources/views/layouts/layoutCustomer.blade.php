@@ -97,109 +97,113 @@
                 </div>
             </div>
         </nav>
-        <div class="d-none d-md-block">
-            <div class="container-fluid navbar justify-content-between shadow-sm" style="background: #fff">
-                <div></div>
-                <div class="js-navbar">
-                    <ul class="list-unstyled d-flex m-0">
-                        <li class="px-3 py-2"><a class="text-uppercase nav-a" href="">{{ __('home') }}</a></li>
-                        <li class="px-3 hover-subnav-brand py-2">
-                            <a class="text-uppercase nav-a" href="">
-                                {{ __('brands') }}
-                                <i class="fa-solid fa-chevron-down"></i>
-                            </a>
-                            <div class="sub subnav-brand position-absolute p-3" style="width: 75vw">
-                                <ul class="row list-unstyled">
-                                    @foreach ($brands as $brand)
-                                        <div class="col-3">
-                                            <li class="ps-2 py-1"><a class="nav-a" href="">{{ $brand->name }}</a></li>
-                                        </div>
-                                    @endforeach
-                                </ul>
+        @guest
+        @else
+            <div class="d-none d-md-block">
+                <div class="container-fluid navbar justify-content-between shadow-sm" style="background: #fff">
+                    <div></div>
+                    <div class="js-navbar">
+                        <ul class="list-unstyled d-flex m-0">
+                            <li class="px-3 py-2"><a class="text-uppercase nav-a" href="">{{ __('home') }}</a></li>
+                            <li class="px-3 hover-subnav-brand py-2">
+                                <a class="text-uppercase nav-a" href="">
+                                    {{ __('brands') }}
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </a>
+                                <div class="sub subnav-brand position-absolute p-3" style="width: 75vw">
+                                    <ul class="row list-unstyled">
+                                        @foreach ($brands as $brand)
+                                            <div class="col-3">
+                                                <li class="ps-2 py-1"><a class="nav-a" href="{{ route('brand', $brand->id) }}">{{ $brand->name }}</a></li>
+                                            </div>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="px-3 hover-subnav-category py-2">
+                                <a class="text-uppercase nav-a" href="">
+                                    {{ __('categories') }}
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </a>
+                                <div class="sub subnav-category position-absolute p-3" style="width: 75vw">
+                                    <ul class="row list-unstyled">
+                                        @foreach ($categories as $category)
+                                            <div class="col-3">
+                                                <li class="ps-2 py-1"><a class="nav-a" href="">{{ $category->name }}</a></li>
+                                            </div>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="px-3 py-2"><a class="text-uppercase nav-a" href="">{{ __('products') }}</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <form action="">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="{{ __('enter') . __("product name")}}">
+                                <button class="btn btn-outline-secondary" type="submit">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
                             </div>
-                        </li>
-                        <li class="px-3 hover-subnav-category py-2">
-                            <a class="text-uppercase nav-a" href="">
-                                {{ __('categories') }}
-                                <i class="fa-solid fa-chevron-down"></i>
-                            </a>
-                            <div class="sub subnav-category position-absolute p-3" style="width: 75vw">
-                                <ul class="row list-unstyled">
-                                    @foreach ($categories as $category)
-                                        <div class="col-3">
-                                            <li class="ps-2 py-1"><a class="nav-a" href="">{{ $category->name }}</a></li>
-                                        </div>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="px-3 py-2"><a class="text-uppercase nav-a" href="">{{ __('products') }}</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <form action="">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="{{ __('enter') . __("product name")}}">
-                            <button class="btn btn-outline-secondary" type="submit">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="nav-scroll-top d-none d-md-block">
-            <div class="navbar justify-content-between align-items-center shadow-sm px-5" style="background: #fff">
-                <div class="">
-                    <img height="40" src="{{ asset('images/logo/logo-shop.png') }}" alt="">
-                </div>
-                <div class="js-navbar">
-                    <ul class="list-unstyled d-flex m-0">
-                        <li class="px-3 py-2"><a class="text-uppercase nav-a" href="">{{ __('home') }}</a></li>
-                        <li class="px-3 hover-subnav-brand py-2">
-                            <a class="text-uppercase nav-a" href="">
-                                {{ __('brands') }}
-                                <i class="fa-solid fa-chevron-down"></i>
-                            </a>
-                            <div class="sub subnav-brand position-absolute p-3" style="width: 75vw">
-                                <ul class="row list-unstyled">
-                                    @foreach ($brands as $brand)
-                                        <div class="col-3">
-                                            <li class="ps-2 py-1"><a class="nav-a" href="">{{ $brand->name }}</a></li>
-                                        </div>
-                                    @endforeach
-                                </ul>
+            <div class="nav-scroll-top d-none d-md-block">
+                <div class="navbar justify-content-between align-items-center shadow-sm px-5" style="background: #fff">
+                    <div class="">
+                        <img height="40" src="{{ asset('images/logo/logo-shop.png') }}" alt="">
+                    </div>
+                    <div class="js-navbar">
+                        <ul class="list-unstyled d-flex m-0">
+                            <li class="px-3 py-2"><a class="text-uppercase nav-a" href="">{{ __('home') }}</a></li>
+                            <li class="px-3 hover-subnav-brand py-2">
+                                <a class="text-uppercase nav-a" href="">
+                                    {{ __('brands') }}
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </a>
+                                <div class="sub subnav-brand position-absolute p-3" style="width: 75vw">
+                                    <ul class="row list-unstyled">
+                                        @foreach ($brands as $brand)
+                                            <div class="col-3">
+                                                <li class="ps-2 py-1"><a class="nav-a" href="{{ route('brand', $brand->id) }}">{{ $brand->name }}</a></li>
+                                            </div>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="px-3 hover-subnav-category py-2">
+                                <a class="text-uppercase nav-a" href="">
+                                    {{ __('categories') }}
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </a>
+                                <div class="sub subnav-category position-absolute p-3" style="width: 75vw">
+                                    <ul class="row list-unstyled">
+                                        @foreach ($categories as $category)
+                                            <div class="col-3">
+                                                <li class="ps-2 py-1"><a class="nav-a" href="">{{ $category->name }}</a></li>
+                                            </div>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="px-3 py-2"><a class="text-uppercase nav-a" href="">{{ __('products') }}</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <form action="">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="{{ __('enter') . __("product name")}}">
+                                <button class="btn btn-outline-secondary" type="submit">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
                             </div>
-                        </li>
-                        <li class="px-3 hover-subnav-category py-2">
-                            <a class="text-uppercase nav-a" href="">
-                                {{ __('categories') }}
-                                <i class="fa-solid fa-chevron-down"></i>
-                            </a>
-                            <div class="sub subnav-category position-absolute p-3" style="width: 75vw">
-                                <ul class="row list-unstyled">
-                                    @foreach ($categories as $category)
-                                        <div class="col-3">
-                                            <li class="ps-2 py-1"><a class="nav-a" href="">{{ $category->name }}</a></li>
-                                        </div>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <form action="">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="{{ __('enter') . __("product name")}}">
-                            <button class="btn btn-outline-secondary" type="submit">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endguest
         <div class="d-sm-block d-md-none float-right">
             <button class="btn p-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                 <i class="fa-solid fa-bars"></i>
@@ -233,7 +237,7 @@
                         <li class="nav-item">
                             <a class="nav-link disabled">Disabled</a>
                         </li>
-                        </ul>
+                    </ul>
                 </div>
             </div>
         </div>

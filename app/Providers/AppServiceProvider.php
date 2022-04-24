@@ -21,6 +21,7 @@ use App\Repositories\Size\SizeRepository;
 use App\Repositories\Size\SizeRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -50,6 +51,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Paginator::useBootstrap();
         view()->composer('partials.language_switcher', function ($view) {
             $view->with('current_locale', app()->getLocale());
             $view->with('available_locales', config('app.available_locales'));
@@ -62,6 +64,12 @@ class AppServiceProvider extends ServiceProvider
         $brands = Brand::all();
         $categories = Category::all();
 
-        View::share(compact('totalCategories', 'totalBrands', 'totalProducts', 'brands', 'categories'));
+        View::share(compact(
+            'totalCategories',
+            'totalBrands',
+            'totalProducts',
+            'brands',
+            'categories',
+        ));
     }
 }
