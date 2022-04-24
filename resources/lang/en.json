@@ -94,5 +94,11 @@
     "no data": "No :attr information yet",
     "no product in": "There are no products in this :attr",
     "filter by": "Filter by :attr",
-    "m_price": "Price"
+    "m_price": "Price",
+    "enter": "Enter ",
+    "offer for customers": "Offer for customers",
+    "can check": "Customers can check the product before paying",
+    "return goods": "If you have not used it, you can change the size within 7 days",
+    "out of stock": "This product is currently out of stock. Please come back later",
+    "guide choose size": "Size selection guide"
 }

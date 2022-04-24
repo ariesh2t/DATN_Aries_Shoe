@@ -139,9 +139,9 @@
                         </ul>
                     </div>
                     <div>
-                        <form action="">
+                        <form action="{{ route('products') }}" method="GET">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="{{ __('enter') . __("product name")}}">
+                                <input type="text" name="name_value" value="{{ request()->name_value ?? '' }}" class="form-control" placeholder="{{ __('enter') . __("product name")}}">
                                 <button class="btn btn-outline-secondary" type="submit">
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                 </button>
@@ -192,7 +192,7 @@
                         </ul>
                     </div>
                     <div>
-                        <form action="">
+                        <form action="{{ route('products') }}" method="GET">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="{{ __('enter') . __("product name")}}">
                                 <button class="btn btn-outline-secondary" type="submit">

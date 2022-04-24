@@ -94,5 +94,11 @@
     "no data": "Chưa có thông tin :attr",
     "no product in": "Chưa có sản phẩm thuộc :attr này",
     "filter by": "Lọc theo :attr",
-    "m_price": "Giá"
+    "m_price": "Giá",
+    "enter": "Nhập ",
+    "offer for customers": "Ưu đãi cho khách hàng",
+    "can check": "Khách hàng được kiểm tra sản phẩm trước khi thanh toán",
+    "return goods": "Trường hợp chưa sử dụng còn mác, tem nguyên vẹn như chưa nhận hàng được phép đổi size trong 7 ngày",
+    "out of stock": "Sản phẩm này hiện đang hết hàng. Quý khách vui lòng quay lại sau",
+    "guide choose size": "Hướng dẫn chọn kích thước"
 }

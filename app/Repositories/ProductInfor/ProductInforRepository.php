@@ -25,4 +25,9 @@ class ProductInforRepository extends BaseRepository implements ProductInforRepos
     {
         return $this->model->with('color', 'size')->where('product_id', $product_id)->get();
     }
+
+    public function getDistinct($product_id, $key)
+    {
+        return $this->model->where('product_id', $product_id)->select($key)->distinct()->get();
+    }
 }

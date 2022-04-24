@@ -38,7 +38,16 @@
                         </div>
                     </div>
                     <div class="mt-5" id="filter-by-size">
-                        <div class="head-filter">2
+                        <div class="head-filter">
+                            {{ __('filter by', ['attr' => __('size')]) }}
+                        </div>
+                        <div class="row">
+                            @foreach ($sizes as $size)
+                                @php
+                                    $checked = '';
+                                    if (request()->list_size !== null && in_array($size->id, request()->list_size)) {
+                                        $checked = "checked";
+                                    }
                                 @endphp
                                 <div class="col-lg-3 col-md-4 col-6 mb-2">
                                     <input class="form-check-input" {{ $checked }} type="checkbox" name="list_size[]" value="{{ $size->id }}" id="size_{{ $size->id }}">
@@ -85,7 +94,7 @@
                                                 <span class="promotion fs-5">{{ @money($product->promotion) }}</span>
                                             </div>
                                             <div class="btn-add">
-                                                <a class="w-100" href="">
+                                                <a class="w-100" href="{{ route('product.detail', $product->id) }}">
                                                     <i class="fa-solid fa-cart-shopping"></i>
                                                     Chon mua
                                                 </a>

@@ -78,6 +78,10 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             }
         }
 
+        if ($request->name_value) {
+            $products->where('name', 'like', '%'.$request->name_value.'%');
+        }
+
         return $products->paginate(config('paginate.pagination.list_12'));
     }
 }
