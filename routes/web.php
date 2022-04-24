@@ -71,4 +71,5 @@ Route::middleware(['auth', 'customer'])->group(function () {
     Route::get('/home-cat/{id}', [UserProductController::class, 'get4ProductByCat'])->name('home-cat');
     Route::get('/brand/{id}', [UserBrandController::class, 'showProduct'])->name('brand');
     Route::get('/category/{id}', [UserCategoryController::class, 'showProduct'])->name('category');
+    Route::get('/products', [UserProductController::class, 'showAll'])->name('products');
 });

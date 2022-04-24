@@ -59,7 +59,7 @@
                         </div>
                     </div>
                     <div class="text-end">
-                        <a class="btn btn-warning" href="">{{ __('clear') }}</a>
+                        <a class="btn btn-warning" href="{{ route('category', $category->id) }}">{{ __('clear') }}</a>
                         <button class="btn btn-success" type="submit">{{ __('filter') }}</button>
                     </div>
                 </form>

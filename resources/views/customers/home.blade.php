@@ -118,12 +118,12 @@
                         `;
                     }
                     let dom = `
-                    <div class="position-relative css-hover-product col-3 p-3 d-flex flex-wrap justify-content-start align-items-center">
-                        <div class="overflow-hidden w-100 text-center" style="height: 180px; line-height: 180px">
+                    <div class="position-relative col-3 p-3 d-flex flex-wrap justify-content-start align-items-center">
+                        <div class="overflow-hidden hover-img-product w-100 text-center" style="height: 180px; line-height: 180px">
                             <img style="max-height: 100%; max-width: 100%" src="{{ asset('images/products/`+ element.images[0].name +`') }}" alt="">
                         </div>`+sale_dom+`
                         <p class="text-2 col-12">`+element.name+`</p>
-                        <div class="wrap-price">
+                        <div class="wrap-price css-hover-product">
                             <div class="wrapp-swap">
                                 <div class="swap-elements">
                                     <div class="css-price">
@@ -172,12 +172,12 @@
                             `;
                         }
                         let dom = `
-                        <div class="position-relative css-hover-product col-3 p-3 d-flex flex-wrap justify-content-start align-items-center">
-                            <div class="overflow-hidden w-100 text-center" style="height: 180px; line-height: 180px">
+                        <div class="position-relative col-3 p-3 d-flex flex-wrap justify-content-start align-items-center">
+                            <div class="overflow-hidden hover-img-product w-100 text-center" style="height: 180px; line-height: 180px">
                                 <img style="max-height: 100%; max-width: 100%" src="{{ asset('images/products/`+ element.images[0].name +`') }}" alt="">
                             </div>`+sale_dom+`
                             <p class="text-2 col-12">`+element.name+`</p>
-                            <div class="wrap-price">
+                            <div class="wrap-price css-hover-product">
                                 <div class="wrapp-swap">
                                     <div class="swap-elements">
                                         <div class="css-price">

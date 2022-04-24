@@ -1,5 +1,8 @@
 <?php
 
 return [
-    'pagination' => 8,
+    'pagination' => [
+        'list_8' => 8,
+        'list_12' => 12,
+    ]
 ];

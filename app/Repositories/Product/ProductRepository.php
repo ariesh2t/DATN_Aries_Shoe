@@ -30,7 +30,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             }
         }
 
-        return $products->paginate(config('paginate.pagination'));
+        return $products->paginate(config('paginate.pagination.list_8'));
     }
 
     public function getAllByCategory($category_id, $request)
@@ -46,7 +46,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             }
         }
 
-        return $products->paginate(config('paginate.pagination'));
+        return $products->paginate(config('paginate.pagination.list_8'));
     }
     
     public function getMinMax($condition, $key)
@@ -56,5 +56,28 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         } else {
             return $this->model->max($key);
         }
+    }
+
+    public function getAllWithSearch($request) {
+        $products = $this->model->orderBy('updated_at', 'desc');
+        if ($request->min_value) {
+            $products->whereBetween('promotion', [$request->min_value, $request->max_value]);
+
+            if ($request->list_size) {
+                $products->whereHas('productInfors', function ($query) use($request) {
+                    $query->whereIn('size_id', $request->list_size);
+                });
+            }
+
+            if ($request->list_brand) {
+                $products->whereIn('brand_id', $request->list_brand);
+            }
+
+            if ($request->list_category) {
+                $products->whereIn('category_id', $request->list_category);
+            }
+        }
+
+        return $products->paginate(config('paginate.pagination.list_12'));
     }
 }

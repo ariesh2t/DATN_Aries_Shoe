@@ -104,7 +104,7 @@
                     <div></div>
                     <div class="js-navbar">
                         <ul class="list-unstyled d-flex m-0">
-                            <li class="px-3 py-2"><a class="text-uppercase nav-a" href="">{{ __('home') }}</a></li>
+                            <li class="px-3 py-2"><a class="text-uppercase nav-a" href="{{ url('/') }}">{{ __('home') }}</a></li>
                             <li class="px-3 hover-subnav-brand py-2">
                                 <a class="text-uppercase nav-a" href="">
                                     {{ __('brands') }}
@@ -135,7 +135,7 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li class="px-3 py-2"><a class="text-uppercase nav-a" href="">{{ __('products') }}</a></li>
+                            <li class="px-3 py-2"><a class="text-uppercase nav-a" href="{{ route('products') }}">{{ __('products') }}</a></li>
                         </ul>
                     </div>
                     <div>
@@ -157,7 +157,7 @@
                     </div>
                     <div class="js-navbar">
                         <ul class="list-unstyled d-flex m-0">
-                            <li class="px-3 py-2"><a class="text-uppercase nav-a" href="">{{ __('home') }}</a></li>
+                            <li class="px-3 py-2"><a class="text-uppercase nav-a" href="{{ url('/') }}">{{ __('home') }}</a></li>
                             <li class="px-3 hover-subnav-brand py-2">
                                 <a class="text-uppercase nav-a" href="">
                                     {{ __('brands') }}
@@ -188,7 +188,7 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li class="px-3 py-2"><a class="text-uppercase nav-a" href="">{{ __('products') }}</a></li>
+                            <li class="px-3 py-2"><a class="text-uppercase nav-a" href="{{ route('products') }}">{{ __('products') }}</a></li>
                         </ul>
                     </div>
                     <div>
@@ -216,7 +216,7 @@
                 <div class="offcanvas-body justify-content-end">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item text-end">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="{{ url('/') }}">Home</a>
                         </li>
                         <li class="nav-item text-end">
                             <a class="nav-link" href="#">Link</a>
