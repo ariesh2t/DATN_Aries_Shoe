@@ -16,4 +16,29 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     {
         return $this->model->with('images')->where('category_id', $id)->take(4)->get();
     }
+
+    public function getAllByBrand($brand_id, $request)
+    {
+        $products = $this->model->where('brand_id', $brand_id);
+        if ($request->all()) {
+            $products->whereBetween('promotion', [$request->min_value, $request->max_value]);
+
+            if ($request->list_size) {
+                $products->whereHas('productInfors', function ($query) use($request) {
+                    $query->whereIn('size_id', $request->list_size);
+                });
+            }
+        }
+
+        return $products->paginate(config('paginate.pagination'));
+    }
+    
+    public function getMinMax($condition, $key)
+    {
+        if ($condition == 'min') {
+            return $this->model->min($key);
+        } else {
+            return $this->model->max($key);
+        }
+    }
 }

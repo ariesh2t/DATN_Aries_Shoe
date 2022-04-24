@@ -110,7 +110,6 @@
 @section('script')
     <script>
         $('.btn-del').click(function(){
-            console.log($(this).attr("data-confirm"))
             return confirm($(this).attr("data-confirm"));    
         }); 
     </script>

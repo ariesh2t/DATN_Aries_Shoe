@@ -65,33 +65,79 @@
     </div>
 
     <div class="mt-5 shadow-lg p-3">
-        <div class="d-flex justify-content-center list-cat">
+        <div class="d-flex justify-content-center list-cat mb-3">
             @foreach ($categories as $category)
                 <div class="">
                     <i class="fa-regular fa-circle-down"></i> 
-                    <a href="{{ route('home-cat', $category->id) }}" class="text-black text-uppercase fw-bold js-select-cat">{{ $category->name }}</a>
+                    <a href="{{ route('home-cat', $category->id) }}" data-id="{{ $category->id }}" class="text-black text-uppercase fw-bold js-select-cat">
+                        {{ $category->name }}
+                    </a>
                 </div>
             @endforeach
         </div>
+        <div class="row js-show-product" data-id="{{ $categories->first()->id }}"></div>
     </div>
 @endsection
 
 @section('script')
     <script>
+        let id = $('.js-show-product').attr('data-id')
+        $.get(window.location.protocol + '//' + window.location.host + "/home-cat/" + id, function(response) {
+            $('.list-cat div:first .js-select-cat').css('border-bottom', '3px solid orange')
+            if (response.length === 0) {
+                $('.js-show-product').html("{{ __('no product in cat') }}");
+            } else {
+                
+                response.forEach(element => {
+                    let percent = parseInt((element.price - element.promotion) / element.price * 100);
+                    let dom = `
+                    <div class="position-relative css-hover-product col-3 p-3 d-flex flex-wrap justify-content-start align-items-center">
+                        <div class="overflow-hidden w-100 text-center" style="height: 180px; line-height: 180px">
+                            <img style="max-height: 100%; max-width: 100%" src="{{ asset('images/products/`+ element.images[0].name +`') }}" alt="">
+                        </div>
+                        <div class="percent">
+                            -`+percent+`%
+                        </div>
+                        <p class="text-2 col-12">`+element.name+`</p>
+                        <div class="wrap-price">
+                            <div class="wrapp-swap">
+                                <div class="swap-elements">
+                                    <div class="css-price">
+                                        <span class="small price">`+element.price+`</span> 
+                                        <span class="promotion fs-5">`+element.promotion+`</span>
+                                    </div>
+                                    <div class="btn-add">
+                                        <a class="w-100" href="">
+                                            <i class="fa-solid fa-cart-shopping"></i>
+                                            Chon mua
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                    $('.js-show-product').append(dom)
+                });
+            }
+        });
+
         $('.js-select-cat').click(function(e) {
             e.preventDefault();
+            $('.list-cat div .js-select-cat').css('border-bottom', 'none')
+            $(this).css('border-bottom', '3px solid orange')
+
+            $('.js-show-product').attr('data-id', $(this).attr('data-id'))
             $.get($(this).attr('href'), function(response) {
-                console.log(response)
                 $('.js-show-product').html('')
                 if (response.length === 0) {
-                    console.log('abc')
                     $('.js-show-product').html("{{ __('no product in cat') }}");
                 } else {
                     response.forEach(element => {
                         let percent = parseInt((element.price - element.promotion) / element.price * 100);
                         let dom = `
-                        <div class="position-relative css-hover-product col-3 p-2 d-flex flex-wrap justify-content-start align-items-center">
-                            <div class="overflow-hidden w-100" style="height: 180px; line-height: 180px">
+                        <div class="position-relative css-hover-product col-3 p-3 d-flex flex-wrap justify-content-start align-items-center">
+                            <div class="overflow-hidden w-100 text-center" style="height: 180px; line-height: 180px">
                                 <img style="max-height: 100%; max-width: 100%" src="{{ asset('images/products/`+ element.images[0].name +`') }}" alt="">
                             </div>
                             <div class="percent">
