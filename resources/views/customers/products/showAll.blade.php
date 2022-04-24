@@ -1,7 +1,7 @@
 @extends('layouts.layoutCustomer')
 
 @section('title')
-    {{ $brand->name }}    
+    {{ __('list') . __('products') }}
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
         <div class="ps-3">
             <a class="text-white" href="{{ url()->previous() }}" title="{{ __('back') }}"><i class="fa-solid fa-left-long"></i></a>
         </div>
-        <div class="text-uppercase text-white">{{ $brand->name }}</div>
+        <div class="text-uppercase text-white">{{ __('list') . __('products') }}</div>
         <div></div>
     </div>
     <div class="row mt-5">
@@ -37,8 +37,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-5" id="filter-by-size">
-                        <div class="head-filter">2
+                    <div class="mt-3" id="filter-by-size">
+                        <div class="head-filter">
+                            {{ __('filter by', ['attr' => __('size')]) }}
+                        </div>
+                        <div class="row">
+                            @foreach ($sizes as $size)
+                                @php
+                                    $checked = '';
+                                    if (request()->list_size !== null && in_array($size->id, request()->list_size)) {
+                                        $checked = "checked";
+                                    }
                                 @endphp
                                 <div class="col-lg-3 col-md-4 col-6 mb-2">
                                     <input class="form-check-input" {{ $checked }} type="checkbox" name="list_size[]" value="{{ $size->id }}" id="size_{{ $size->id }}">
@@ -49,8 +58,40 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="text-end">
-                        <a class="btn btn-warning" href="{{ route('brand', $brand->id) }}">{{ __('clear') }}</a>
+                    <div class="mt-3" id="filter-by-brand">
+                        <div class="head-filter">
+                            {{ __('brands') }}
+                        </div>
+                        <select class="form-select" name="list_brand[]" size="5" multiple>
+                            @foreach ($brands as $brand)
+                                @php
+                                    $selected = '';
+                                    if (request()->list_brand !== null && in_array($brand->id, request()->list_brand)) {
+                                        $selected = 'selected';
+                                    }
+                                @endphp
+                                <option value="{{ $brand->id }}" {{ $selected }}>{{ $brand->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mt-3" id="filter-by-category">
+                        <div class="head-filter">
+                            {{ __('categories') }}
+                        </div>
+                        <select class="form-select" name="list_category[]" size="5" multiple>
+                            @foreach ($categories as $category)
+                                @php
+                                    $selected = '';
+                                    if (request()->list_category !== null && in_array($category->id, request()->list_category)) {
+                                        $selected = 'selected';
+                                    }
+                                @endphp
+                                <option value="{{ $category->id }}" {{ $selected }}>{{ $category->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="text-end mt-3">
+                        <a class="btn btn-warning" href="{{ route('products') }}">{{ __('clear') }}</a>
                         <button class="btn btn-success" type="submit">{{ __('filter') }}</button>
                     </div>
                 </form>
@@ -96,7 +137,7 @@
                             </div>
                         </div>
                     @endforeach
-                    <div class="d-flex justify-content-center align-items-center">
+                    <div class="d-flex justify-content-center align-items-center mt-5">
                         {!! $products->appends(request()->all())->links('partials.paginate') !!}
                     </div>
                 @else

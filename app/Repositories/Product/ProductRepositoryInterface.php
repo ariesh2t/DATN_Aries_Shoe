@@ -12,4 +12,6 @@ interface ProductRepositoryInterface extends RepositoryInterface
     public function getAllByCategory($category_id, $request);
 
     public function getMinMax($condition, $key);
+
+    public function getAllWithSearch($request);
 }
