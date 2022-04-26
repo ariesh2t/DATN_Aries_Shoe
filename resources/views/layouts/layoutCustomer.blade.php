@@ -59,11 +59,7 @@
                         <div class="btn-group col-8 float-right">
                             <button type="button" class="btn py-1 dropdown-toggle d-flex align-items-center justify-content-end" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="d-inline-block avatar">
-                                    @if (Auth::user()->image)
-                                        <img src="{{ asset('images/users/' . Auth::user()->avatar) }}" alt="{{ Auth::user()->name }}">
-                                    @else
-                                        <img src="{{ asset('images/users/img.png') }}" alt="{{ Auth::user()->name }}">
-                                    @endif
+                                    <img src="{{ asset('images/users/' . Auth::user()->image->name) }}" alt="{{ Auth::user()->fullname }}">
                                 </div>
                                 <div class="d-none d-lg-inline">{{ Auth::user()->fullname }}</div>
                             </button>
@@ -74,6 +70,12 @@
                             <ul class="dropdown-menu dropdown-menu-start">
                                 <li class="dropdown-item d-lg-none d-sm-block">
                                     {{ Auth::user()->fullname }}
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ route('profile', Auth::user()) }}">
+                                        <i class="fa-solid fa-address-card"></i>
+                                        {{ __('profile') }}
+                                    </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -245,8 +247,8 @@
 
         <main class="py-4 px-2">
             @if ($message = Session::get('success'))
-                <div class="custom-alert-success custom-alert mx-2" id="flash">
-                    <p class="btn custom-btn-success py-1">{{ $message }}</p>
+                <div class="custom-alert-success btn btn-success pb-2 custom-alert mx-2" id="flash">
+                    <p class="text-white mb-0 btn custom-btn-success py-1">{{ $message }}</p>
                 </div>
                 @php
                     session()->forget('success');
@@ -286,7 +288,7 @@
                     </div>
 					<div class="row text-white">
                         <div class="col-4">
-                            <h3>{{ __('contact') }}</h3>
+                            <h3 class="text-uppercase fw-bold">{{ __('contact') }}</h3>
                             <div>
                                 <i class="fa-solid fa-location-dot"></i>
                                 No. 8, alley 112/29 Minh Khai ward, Bac Tu Liem district, Hanoi
@@ -297,22 +299,22 @@
                             </div>
                         </div>
                         <div class="col-4">
-                            <h3>{{ __('about') }}</h3>
+                            <h3 class="text-uppercase fw-bold">{{ __('about') }}</h3>
                             <div>
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item" style="background: none"><a href="">{{ __('about') }}</a></li>
-                                    <li class="list-group-item" style="background: none"><a href="">{{ __('contact') }}</a></li>
-                                    <li class="list-group-item" style="background: none"><a href="">{{ __('news') }}</a></li>
+                                    <li class="list-group-item px-2" style="background: none"><a class="text-white nav-a" href="">{{ __('about') }}</a></li>
+                                    <li class="list-group-item px-2" style="background: none"><a class="text-white nav-a" href="">{{ __('contact') }}</a></li>
+                                    <li class="list-group-item px-2" style="background: none"><a class="text-white nav-a" href="">{{ __('news') }}</a></li>
                                   </ul>
                             </div>
                         </div>
                         <div class="col-4">
-                            <h3>{{ __('utilities') }}</h3>
+                            <h3 class="text-uppercase fw-bold">{{ __('utilities') }}</h3>
                             <div>
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item" style="background: none"><a href="">{{ __('choose size') }}</a></li>
-                                    <li class="list-group-item" style="background: none"><a href="">{{ __('best sale') }}</a></li>
-                                    <li class="list-group-item" style="background: none"><a href="">{{ __('new product') }}</a></li>
+                                    <li class="list-group-item px-2" style="background: none"><a class="text-white nav-a" href="">{{ __('guide choose size') }}</a></li>
+                                    <li class="list-group-item px-2" style="background: none"><a class="text-white nav-a" href="">{{ __('best sale') }}</a></li>
+                                    <li class="list-group-item px-2" style="background: none"><a class="text-white nav-a" href="">{{ __('new product') }}</a></li>
                                   </ul>
                             </div>
                         </div>

@@ -14,6 +14,7 @@ use App\Http\Controllers\User\BrandController as UserBrandController;
 use App\Http\Controllers\User\CategoryController as UserCategoryController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\ProductController as UserProductController;
+use App\Http\Controllers\User\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,4 +74,8 @@ Route::middleware(['auth', 'customer'])->group(function () {
     Route::get('/category/{id}', [UserCategoryController::class, 'showProduct'])->name('category');
     Route::get('/products', [UserProductController::class, 'showAll'])->name('products');
     Route::get('/product/{id}', [UserProductController::class, 'detail'])->name('product.detail');
+    Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile');
+    Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/{id}/change-pass', [ProfileController::class, 'changePass'])->name('profile.change-pass');
 });

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,12 +26,12 @@ class RegisterRequest extends FormRequest
         return [
             'fname' => 'required|string|max:50',
             'lname' => 'required|string|max:50',
-            'email' => 'required|email|max:320|unique:users',
-            'phone' => ['required', 'regex:/(0[3|5|7|8|9])+([0-9]{8})\b/', 'unique:users'],
-            'password' => 'required|string|min:8|max:20|confirmed',
+            'email' => 'required|email|max:320|unique:users,email,' . request()->id,
+            'phone' => ['required', 'regex:/(0[3|5|7|8|9])+([0-9]{8})\b/', 'unique:users,phone,'  . request()->id],
+            'image.*' => 'mimes:png,jpg,jpeg,gif',
         ];
     }
-    
+
     public function messages()
     {
         return [
@@ -48,11 +48,7 @@ class RegisterRequest extends FormRequest
             'phone.required' => __('required', ['attr' => __('phone')]),
             'phone.regex' => __('regex phone'),
             'phone.unique' => __('unique', ['attr' => __('phone')]),
-            'password.required' => __('required', ['attr' => __('password')]),
-            'password.string' => __('string', ['attr' => __('password')]),
-            'password.min' => __('min', ['attr' => __('password'), 'value' => '8']),
-            'password.max' => __('max', ['attr' => __('password'), 'value' => '20']),
-            'password.confirmed' => __('confirmed', ['attr' => __('password')]),
+            'image.*.mimes' => __('mimes', ['attr' => __('image')]),
         ];
     }
 }
