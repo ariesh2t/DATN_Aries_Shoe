@@ -16,6 +16,7 @@
     "max": "The :attr must not be greater than :value characters.",
     "max numeric": "The :attr must not be greater than :value",
     "min numeric": "The :attr must be at least :value.",
+    "regex phone": "Enter the wrong format of Vietnamese phone numbers",
     "numeric": "The :attr must be a number.",
     "email_val": "Wrong email format entered.",
     "string": "The :attr must be a string.",
@@ -100,5 +101,18 @@
     "can check": "Customers can check the product before paying",
     "return goods": "If you have not used it, you can change the size within 7 days",
     "out of stock": "This product is currently out of stock. Please come back later",
-    "guide choose size": "Size selection guide"
+    "guide choose size": "Size selection guide",
+    "avatar": "Avatar",
+    "fullname": "Fullname",
+    "address": "Address",
+    "phone": "Phone",
+    "no info": "No information",
+    "edit profile": "Edit profile",
+    "new password": "New password",
+    "about": "About us",
+    "contact": "Contact",
+    "utilities": "Utilities",
+    "news": "News",
+    "best sale": "Bestseller",
+    "new product": "New products"
 }

@@ -105,6 +105,7 @@
             } else {
                 response.forEach(element => {
                     let price = Number(element.price)
+                    let url = window.location.protocol + '//' + window.location.host + "/product/" + element.id
                     let promotion = Number(element.promotion)
                     let percent = -number_format((price - promotion) /price * 100, 1, '.', ',');
                     let sale_dom = ''; let price_dom = '';
@@ -131,9 +132,9 @@
                                         <span class="promotion fs-5">`+number_format(promotion, 0, '.', ',')+`</span>
                                     </div>
                                     <div class="btn-add">
-                                        <a class="w-100" href="">
+                                        <a class="w-100" href="`+url+`">
                                             <i class="fa-solid fa-cart-shopping"></i>
-                                            Chon mua
+                                            {{ __('detail') }}
                                         </a>
                                     </div>
                                 </div>
@@ -159,6 +160,7 @@
                 } else {
                     response.forEach(element => {
                         let price = Number(element.price)
+                        let url = window.location.protocol + '//' + window.location.host + "/product/" + element.id
                         let promotion = Number(element.promotion)
                         let percent = -number_format((price - promotion) /price * 100, 1, '.', ',');
                         let sale_dom = ''; let price_dom = '';
@@ -185,9 +187,9 @@
                                             <span class="promotion fs-5">`+number_format(promotion, 0, '.', ',')+`</span>
                                         </div>
                                         <div class="btn-add">
-                                            <a class="w-100" href="">
+                                            <a class="w-100" href="`+url+`">
                                                 <i class="fa-solid fa-cart-shopping"></i>
-                                                Chon mua
+                                                {{ __('detail') }}
                                             </a>
                                         </div>
                                     </div>

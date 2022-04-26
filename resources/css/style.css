@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 .btn:focus,
 input:focus,
 select:focus {
@@ -46,6 +50,7 @@ select:focus {
 
 a {
     text-decoration: none;
+    transition: .5s;
 }
 
 a.nav-a {
@@ -54,7 +59,8 @@ a.nav-a {
 }
 
 a.nav-a:hover {
-    color: #e87c1e;
+    color: #e87c1e !important;
+    letter-spacing: .1rem;
 }
 
 .subnav-brand::before,
@@ -654,4 +660,126 @@ select option:checked {
 .nav-tab li:hover a::after {
     background: #e74c3c;
     width: 100%;
+}
+
+.carousel-indicators.custom-carousel {
+    position: absolute;
+    right: 0;
+    top: 300px;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin-right: 0;
+    margin-bottom: 1rem;
+    margin-left: 0;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+.carousel-indicators [data-bs-target] {
+    position: relative;
+    top: 130px;
+    width: 90px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    text-indent: 0px;
+}
+
+.dropdown-menu-start[data-bs-popper] {
+    right: 50px;
+    left: auto;
+}
+
+.form-upload__preview {
+    display: flex;
+    width: calc(100% + 15px);
+    margin-left: -7.5px;
+    justify-content: center;
+}
+.form-upload__title {
+    position: relative;
+    margin: 0 auto;
+}
+.form-upload__control {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+.form-upload__item {
+    width: 230px;
+    margin: 0 7.5px 10px;
+    position: relative;
+}
+.form-upload__item-thumbnail {
+    padding-top: 100%;
+    background-size: auto 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px solid #d2d2d2;
+    border-radius: 4px;
+}
+.form-upload__item-name {
+    word-break: break-all;
+    text-align: center;
+    margin-top: 8px;
+    font-size: 13px;
+}
+
+.form-upload__close {
+    position: absolute;
+    z-index: 100;
+    width: 30px;
+    height: 30px;
+    background: #f4f6f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: -10px;
+    border-radius: 50%;
+    border: 5px solid #f4f6f9;
+    top: -10px;
+    color: red;
+    cursor: pointer;
+}
+
+.custom-alert-success {
+    position: fixed;
+    top: 50px;
+    right: -10000px;
+    animation: fadeLeft 6s;
+    animation-delay: .5s;
+    z-index: 350;
+}
+
+@keyframes fadeLeft {
+    0% {
+        opacity: 0;
+        right: -10000px;
+    }
+    10%, 80% {
+        opacity: 1;
+        right: 10px;
+    }
+    100% {
+        opacity: 0;
+        right: 300px;
+    }
+}
+
+.ajax-message {
+    position: fixed;
+    top: 60px;
+    right: 10px;
+    z-index: 100;
+    opacity: 0;
+}
+
+.ajax-message.ajax-message-active {
+    opacity: 1;
+    animation: fadeLeft ease 6s;
 }

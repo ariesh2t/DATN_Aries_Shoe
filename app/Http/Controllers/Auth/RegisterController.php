@@ -8,8 +8,10 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -48,14 +50,21 @@ class RegisterController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $this->userRepo->insertDB([
+        $id = $this->userRepo->insertDB([
             'first_name' => $request->input('fname'),
             'last_name' => $request->input('lname'),
             'email' => $request->input('email'),
+            'phone' => $request->phone,
             'password' => bcrypt($request->input('password')),
             'status' => config('auth.status.active'),
             'role_id' => config('auth.roles.customer'),
         ]);
+
+        $user = $this->userRepo->find($id);
+
+        $avatar = time() . "-user-" . Str::slug($user->fullname) . ".png"; 
+        File::copy(public_path('images/users/img.png'), public_path('images/users/' . $avatar));
+        $user->image()->create(['name' => $avatar]);
 
         return redirect()
             ->route('login')

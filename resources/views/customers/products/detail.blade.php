@@ -5,9 +5,16 @@
 @endsection
 
 @section('content')
-    <div class="row">
+    <div class="row mb-5">
         <div class="col-6 p-3">
-            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators custom-carousel">
+                    @foreach ($product->images as $key=>$image)
+                        <button class="border rounded" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ $key }}">
+                            <img class="w-100" src="{{ asset('images/products/' . $image->name) }}" alt="">
+                        </button>
+                    @endforeach
+                </div>
                 <div class="carousel-inner bg-warning">
                     @foreach ($product->images as $image)
                         <div class="carousel-item">
@@ -17,26 +24,20 @@
                             </div>
                         </div>
                     @endforeach
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
                         data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
                         data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
             </div>
-            <div class="row d-flex justify-content-center">
-                @foreach ($product->images as $image)
-                    <div class="col-2 p-2 m-2 d-flex justify-content-center align-items-center border rounded">
-                        <div class="">
-                            <img class="w-100" src="{{ asset('images/products/' . $image->name) }}" alt="">
-                        </div>
-                    </div>
-                @endforeach
+            <div style="height: 120px">
+
             </div>
         </div>
         <div class="col-6 p-3">
@@ -51,13 +52,17 @@
                     100 sold
                 </div>
             </div>
-            <div class="p-3">
-                <div class="d-inline price fs-6">{{ @money($product->price) }}</div>
-                <div class="d-inline promotion fs-2">{{ @money($product->promotion) }}</div>
-                @php
-                    $sale = -round((($product->price - $product->promotion) / $product->price) * 100, 1);
-                @endphp
-                <div class="mb-1 ms-3 badge bg-danger">{{ $sale }}%</div>
+            <div class="my-2 p-2 rounded" style="background: #f1efef">
+                @if ($product->price == $product->promotion)
+                    <div class="d-inline promotion fs-2">{{ @money($product->promotion) }}</div>
+                @else
+                    <div class="d-inline price fs-6">{{ @money($product->price) }}</div>
+                    <div class="d-inline promotion fs-2">{{ @money($product->promotion) }}</div>
+                    @php
+                        $sale = -round((($product->price - $product->promotion) / $product->price) * 100, 1);
+                    @endphp
+                    <div class="mb-1 ms-3 badge bg-danger">{{ $sale }}%</div>
+                @endif
             </div>
             <form action="">
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -203,6 +208,7 @@
 @section('script')
     <script>
         $('.carousel-inner .carousel-item:first').addClass('active')
+        $('.carousel-indicators :first').addClass('active')
         $('input.input-qty').each(function() {
             var $this = $(this),
                 qty = $this.parent().find('.is-form'),

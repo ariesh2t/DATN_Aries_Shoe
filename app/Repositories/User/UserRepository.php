@@ -14,10 +14,11 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function insertDB($attributes = [])
     {
-        DB::table('users')->insert([
+        return DB::table('users')->insertGetId([
             'first_name' => $attributes['first_name'],
             'last_name' => $attributes['last_name'],
             'email' => $attributes['email'],
+            'phone' => $attributes['phone'],
             'password' => $attributes['password'],
             'status' => $attributes['status'],
             'role_id' => $attributes['role_id'],

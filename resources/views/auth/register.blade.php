@@ -40,6 +40,20 @@
                         </div>
 
                         <div class="d-flex mb-3">
+                            <label for="lname" class="col-md-4 col-form-label text-md-end">{{ __('phone') }} <sup class="text-danger">*</sup></label>
+
+                            <div class="col-md-6 ms-3">
+                                <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
+
+                                @error('phone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <small>{{ $message }}</small>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="d-flex mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('email') }} <sup class="text-danger">*</sup></label>
 
                             <div class="col-md-6 ms-3">
@@ -57,7 +71,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('password') }} <sup class="text-danger">*</sup></label>
 
                             <div class="col-md-6 ms-3">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -75,7 +89,7 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('confirm password') }} <sup class="text-danger">*</sup></label>
 
                             <div class="col-md-6 ms-3">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="password-confirm">
                             </div>
                             <div id="eye-pass-cf" class="col-md-1 ps-2 mt-2">
                                 <i class="fa-regular fa-eye-slash d-none"></i>
