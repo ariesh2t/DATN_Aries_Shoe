@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Helper\CartHelper;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -56,6 +57,12 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('partials.language_switcher', function ($view) {
             $view->with('current_locale', app()->getLocale());
             $view->with('available_locales', config('app.available_locales'));
+        });
+
+        view()->composer('*', function ($view) {
+            $view->with([
+                'cart' => new CartHelper(),
+            ]);
         });
 
         Blade::directive('money', function ($price) {

@@ -128,7 +128,7 @@
                                             <div class="btn-add">
                                                 <a class="w-100" href="{{ route('product.detail', $product->id) }}">
                                                     <i class="fa-solid fa-cart-shopping"></i>
-                                                    Chon mua
+                                                    {{ __('detail') }}
                                                 </a>
                                             </div>
                                         </div>

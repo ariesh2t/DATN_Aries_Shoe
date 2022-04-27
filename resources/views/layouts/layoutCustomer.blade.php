@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title')</title>
+    <title>Aries Shoe | @yield('title')</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -56,40 +56,52 @@
                             </ul>
                         </div>
                     @else
-                        <div class="btn-group col-8 float-right">
-                            <button type="button" class="btn py-1 dropdown-toggle d-flex align-items-center justify-content-end" data-bs-toggle="dropdown" aria-expanded="false">
-                                <div class="d-inline-block avatar">
-                                    <img src="{{ asset('images/users/' . Auth::user()->image->name) }}" alt="{{ Auth::user()->fullname }}">
-                                </div>
-                                <div class="d-none d-lg-inline">{{ Auth::user()->fullname }}</div>
-                            </button>
-                            <div class="d-flex align-items-center justify-content-end">
-                                <i class="fa-regular fa-bell"></i>
-                                <sup class="badge bg-warning" style="font-size: 8px">1</sup>
+                        <div class="btn-group col-8 text-end justify-content-end">
+                            <div class="position-relative mx-lg-2 mx-1">
+                                <button type="button" class="btn py-1 dropdown-toggle d-flex align-items-center justify-content-end" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <div class="d-inline-block avatar">
+                                        <img src="{{ asset('images/users/' . Auth::user()->image->name) }}" alt="{{ Auth::user()->fullname }}">
+                                    </div>
+                                    <div class="d-none d-lg-inline">{{ Auth::user()->fullname }}</div>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-start">
+                                    <li class="dropdown-item d-lg-none d-sm-block">
+                                        {{ Auth::user()->fullname }}
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" href="{{ route('profile', Auth::user()) }}">
+                                            <i class="fa-solid fa-address-card"></i>
+                                            {{ __('profile') }}
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                            document.getElementById('logout-form').submit();">
+                                            <i class="fa-solid fa-right-from-bracket me-1"></i>
+                                            {{ __('logout') }}
+                                        </a>
+    
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </li>
+                                </ul>
                             </div>
-                            <ul class="dropdown-menu dropdown-menu-start">
-                                <li class="dropdown-item d-lg-none d-sm-block">
-                                    {{ Auth::user()->fullname }}
-                                </li>
-                                <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ route('profile', Auth::user()) }}">
-                                        <i class="fa-solid fa-address-card"></i>
-                                        {{ __('profile') }}
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
-                                        <i class="fa-solid fa-right-from-bracket me-1"></i>
-                                        {{ __('logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </li>
-                            </ul>
+                            <div class="d-flex align-items-center justify-content-end mx-lg-2 mx-2">
+                                <a class="text-dark position-relative" href="{{ route('cart') }}">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    <span class="position-absolute badge bg-primary" style="top: -5px; left: 13px; font-size: 8px">{{ $cart->total_quantity }}</span>
+                                    <sub class="d-none d-md-inline">{{ @money($cart->total_price) }}</sub>
+                                </a>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-end mx-lg-2 mx-2" style="cursor: pointer">
+                                <a class="text-dark position-relative" href="">
+                                    <i class="fa-regular fa-bell"></i>
+                                    <sup class="badge bg-warning position-absolute" style="top: -5px; left: 10px; font-size: 8px">1</sup>
+                                </a>
+                            </div>
+                           
                         </div>
                     @endguest
 

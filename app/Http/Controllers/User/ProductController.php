@@ -55,7 +55,15 @@ class ProductController extends Controller
         $product = $this->productRepo->find($id);
         $sizes = $this->productInforRepo->getDistinct($id, 'size_id');
         $colors = $this->productInforRepo->getDistinct($id, 'color_id');
+        $totalQuantity = $this->productRepo->getQuantity(['id' => $id]);
 
-        return view('customers.products.detail', compact('product', 'sizes', 'colors'));
+        return view('customers.products.detail', compact('product', 'totalQuantity', 'sizes', 'colors'));
+    }
+
+    public function getQuantity(Request $request)
+    {
+        $totalQuantity = $this->productRepo->getQuantity($request->all());
+
+        return response()->json($totalQuantity);
     }
 }

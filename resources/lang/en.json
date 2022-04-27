@@ -114,5 +114,18 @@
     "utilities": "Utilities",
     "news": "News",
     "best sale": "Bestseller",
-    "new product": "New products"
+    "new product": "New products",
+    "not select": "No :attr selected yet, please choose the :attr that suits you",
+    "your cart": "Your cart",
+    "total price": "Total price",
+    "total": "Total",
+    "checkout": "Checkout",
+    "empty cart": "There are no products in your cart",
+    "shop now": "Show now",
+    "add to cart": "Add to cart",
+    "add cart fail": "Add to cart failed",
+    "additional infor": "Additional information",
+    "related products": "Related products",
+    "change pass": "Change password",
+    "home": "Home"
 }
