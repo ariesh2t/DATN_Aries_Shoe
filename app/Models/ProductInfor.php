@@ -18,12 +18,6 @@ class ProductInfor extends Model
         'color_id',
         'quantity',
     ];
-
-    public function getQauntityAttribute()
-    {
-        return Helper::numberFormat($this->attributes['cost']);
-    }
-
     public function product()
     {
         return $this->belongsTo(Product::class);

@@ -84,4 +84,41 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
         return $products->paginate(config('paginate.pagination.list_12'));
     }
+
+
+    public function getQuantity($attr)
+    {
+        $totalQuantity = 0;
+        $product = $this->model->find($attr['id']);
+
+        if(array_key_exists('color_id', $attr) && array_key_exists('size_id', $attr)) {
+            if (!empty($attr['color_id']) && !empty($attr['size_id'])) {
+                $callback = function($query) use($attr) {
+                    $query->where('color_id', $attr['color_id'])
+                    ->where('product_id', $attr['id'])
+                    ->where('size_id', $attr['size_id']);
+                };
+                $product = $product->whereHas('productInfors', $callback)->with(['productInfors' => $callback])->first();
+            } elseif (empty($attr['size_id'])) {
+                $callback = function($query) use($attr) {
+                    $query->where('color_id', $attr['color_id'])
+                    ->where('product_id', $attr['id']);
+                };
+                $product = $product->whereHas('productInfors', $callback)->with(['productInfors' => $callback])->first();
+            } elseif (empty($attr['color_id'])) {
+                $callback = function($query) use($attr) {
+                    $query->where('size_id', $attr['size_id'])
+                    ->where('product_id', $attr['id']);
+                };
+                $product = $product->whereHas('productInfors', $callback)->with(['productInfors' => $callback])->first();
+            }
+        }
+        if ($product) {
+            foreach ($product->productInfors as $infor) {
+                $totalQuantity += $infor->quantity;
+            }
+        }
+
+        return $totalQuantity;
+    }
 }

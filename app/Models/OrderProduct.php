@@ -20,14 +20,4 @@ class OrderProduct extends Model
         'color',
         'size',
     ];
-    
-    public function getQuantityAttribute()
-    {
-        return Helper::numberFormat($this->attributes['quantity']);
-    }
-    
-    public function getPriceAttribute()
-    {
-        return Helper::numberFormat($this->attributes['price']);
-    }
 }

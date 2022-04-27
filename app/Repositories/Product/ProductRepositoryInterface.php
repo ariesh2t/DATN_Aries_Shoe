@@ -14,4 +14,6 @@ interface ProductRepositoryInterface extends RepositoryInterface
     public function getMinMax($condition, $key);
 
     public function getAllWithSearch($request);
+
+    public function getQuantity($attr);
 }

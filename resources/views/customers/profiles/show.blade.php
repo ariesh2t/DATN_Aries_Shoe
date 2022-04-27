@@ -49,7 +49,6 @@
                 <div class="card-body">
                     <form id="form-change-pass" action="{{ route('profile.change-pass', $user->id) }}" method="post">
                         @csrf
-                        @method('PATCH')
                         <div class="d-flex mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('password') }} <sup class="text-danger">*</sup></label>
 

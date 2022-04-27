@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\User\BrandController as UserBrandController;
+use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\CategoryController as UserCategoryController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\ProductController as UserProductController;
@@ -75,7 +76,15 @@ Route::middleware(['auth', 'customer'])->group(function () {
     Route::get('/products', [UserProductController::class, 'showAll'])->name('products');
     Route::get('/product/{id}', [UserProductController::class, 'detail'])->name('product.detail');
     Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile');
+    Route::get('/product/{id}/quantity', [UserProductController::class, 'getQuantity']);
     Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile/{id}/change-pass', [ProfileController::class, 'changePass'])->name('profile.change-pass');
+    Route::prefix('cart')->group(function () {
+        Route::get('/', [CartController::class, 'index'])->name('cart');
+        Route::get('add/{id}', [CartController::class, 'add'])->name('cart.add');
+        Route::get('remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+        Route::get('update/{id}', [CartController::class, 'update'])->name('cart.update');
+        Route::get('clear', [CartController::class, 'clear'])->name('cart.clear');
+    });
 });

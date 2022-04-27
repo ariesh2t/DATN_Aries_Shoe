@@ -690,11 +690,6 @@ select option:checked {
     text-indent: 0px;
 }
 
-.dropdown-menu-start[data-bs-popper] {
-    right: 50px;
-    left: auto;
-}
-
 .form-upload__preview {
     display: flex;
     width: calc(100% + 15px);
@@ -782,4 +777,11 @@ select option:checked {
 .ajax-message.ajax-message-active {
     opacity: 1;
     animation: fadeLeft ease 6s;
+}
+
+.name-2 {
+    height: 60px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
 }

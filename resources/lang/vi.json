@@ -114,5 +114,18 @@
     "utilities": "Tiện ích",
     "news": "Tin tức",
     "best sale": "Bán chạy nhất",
-    "new product": "Sản phẩm mới"
+    "new product": "Sản phẩm mới",
+    "not select": "Chưa chọn :attr nào, vui lòng chọn :attr phù hợp với bạn",
+    "your cart": "Giỏ hàng của bạn",
+    "total price": "Số tiền",
+    "total": "Tổng thanh toán",
+    "checkout": "Đến trang thanh toán",
+    "empty cart": "Giỏ hàng của bạn chưa có sản phẩm nào",
+    "shop now": "Mua ngay",
+    "add to cart": "Thêm vào giỏ",
+    "add cart fail": "Thêm vào giỏ hàng thất bại",
+    "additional infor": "Thông tin bổ sung",
+    "related products": "Sản phẩm liên quan",
+    "change pass": "Đổi mật khẩu",
+    "home": "Trang chủ"
 }

@@ -64,23 +64,26 @@
                     <div class="mb-1 ms-3 badge bg-danger">{{ $sale }}%</div>
                 @endif
             </div>
-            <form action="">
-                <input type="hidden" name="product_id" value="{{ $product->id }}">
+            <form action="{{ route('cart.add', $product->id) }}" method="GET">
+                @csrf
+                <input type="hidden" name="id" value="{{ $product->id }}">
                 @if ($sizes->count() > 0)
                     <div class="row my-2">
                         <div class="col-2">{{ __('sizes') }}</div>
                         <div class="col-9 row">
                             @foreach ($sizes as $size)
-                                <div class="col-2 pb-2">
-                                    <input class="checkbox-tools" type="radio" name="size_id"
-                                        id="size_{{ $size->size->id }}">
+                                <div class="col-2">
+                                    <input class="checkbox-tools" type="radio" name="size_id" {{(old('size_id') == $size->size->id) ? 'checked' : ''}}
+                                        id="size_{{ $size->size->id }}" value="{{ $size->size->id }}">
                                     <label class="for-checkbox-tools px-3 py-2" for="size_{{ $size->size->id }}">
                                         {{ $size->size->size }}
                                     </label>
                                 </div>
                             @endforeach
-                            <input type="hidden" name="size_id" value="">
-                            <div class="col-12">
+                            @error('size_id')
+                                <small class="text-danger fst-italic">{{ $message }}</small>
+                            @enderror
+                            <div class="col-12 my-3">
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     {{ __('guide choose size') }}
@@ -107,9 +110,9 @@
                         <div class="col-2">{{ __('colors') }}</div>
                         <div class="col-9 row custom-radios">
                             @foreach ($colors as $color)
-                                <div class="col-3 pb-2">
+                                <div class="col-3 mb-2">
                                     <input type="radio" id="color_{{ $color->color->id }}" name="color_id"
-                                        value="{{ $color->color->id }}">
+                                        value="{{ $color->color->id }}" {{(old('color_id') == $color->color->id) ? 'checked' : ''}}>
                                     <label class="w-100" for="color_{{ $color->color->id }}">
                                         <span class="w-100 rounded" style="background: {{ $color->color->color }}">
                                             <i class="fs-5 fa-solid fa-circle-check"></i>
@@ -117,20 +120,28 @@
                                     </label>
                                 </div>
                             @endforeach
+                            @error('color_id')
+                                <small class="text-danger fst-italic">{{ $message }}</small>
+                            @enderror
                         </div>
                     </div>
-                    <div class="row my-2">
+                    <div class="row my-3">
                         <div class="col-2">{{ __('quantity') }}</div>
                         <div class="col-9">
-                            <div class="buttons_added">
+                            <div class="buttons_added mb-2">
                                 <input class="minus is-form" type="button" value="-">
-                                <input aria-label="quantity" class="input-qty" max="100" min="1" name="" type="number"
-                                    value="1">
+                                <input aria-label="quantity" id="input-qty" class="input-qty" max="{{ $totalQuantity }}" min="1" name="quantity" type="number"
+                                    value="{{ old('quantity') ?? 1 }}">
                                 <input class="plus is-form" type="button" value="+">
+                                <div id="totalQuantity" class="d-flex ms-3 align-items-center"><span class="mx-1">{{ $totalQuantity }}</span>{{ __('products') }}</div>
                             </div>
+
+                            @error('quantity')
+                                <small class="text-danger d-block fst-italic">{{ $message }}</small>
+                            @enderror
                         </div>
                     </div>
-                    <div class="text-end">
+                    <div class="text-end js-button">
                         <button class="btn btn-danger" type="submit">
                             <i class="fa-solid fa-cart-plus"></i>
                             {{ __('add to cart') }}
@@ -212,12 +223,12 @@
         $('input.input-qty').each(function() {
             var $this = $(this),
                 qty = $this.parent().find('.is-form'),
-                min = Number($this.attr('min')),
-                max = Number($this.attr('max'))
-            if (min == 0) {
-                var d = 0
+                min = Number($this.attr('min'))
+            if (min == 1) {
+                var d = 1
             } else d = min
             $(qty).on('click', function() {
+                max = Number($('.buttons_added').find('#input-qty').attr('max'))
                 if ($(this).hasClass('minus')) {
                     if (d > min) d += -1
                 } else if ($(this).hasClass('plus')) {
@@ -239,5 +250,39 @@
             $('.tab-content-item').hide()
             $(id).fadeIn()
         })
+
+        var color_id = ''
+        var size_id = ''
+        var id =  $("input[name='id']").val()
+        var url = window.location.protocol + '//' + window.location.host + "/product/"+ id +"/quantity"
+        $("input[name='color_id']").click(function() {
+            color_id = $(this).val();
+            $.get(url, { id: id, color_id: color_id, size_id: size_id } )
+            .done(function( data ) {
+                $('#totalQuantity span').html(data)
+                $("input[name='quantity']").attr('max', data)
+                if (data == 0) {
+                    $(".js-button").find('button').attr('disabled', 'disabled')
+                } else {
+                    $(".js-button").find('button').removeAttr('disabled')
+                }
+            })
+        })
+
+        $("input[name='size_id']").click(function() {
+            size_id = $(this).val();
+            $.get(url, { id: id, color_id: color_id, size_id: size_id } )
+            .done(function( data ) {
+                $('#totalQuantity span').html(data)
+                $("input[name='quantity']").attr('max', data)
+                if (data == 0) {
+                    $(".js-button").find('button').attr('disabled', 'disabled')
+                } else {
+                    $(".js-button").find('button').removeAttr('disabled')
+                }
+            })
+        })
+
+
     </script>
 @endsection
