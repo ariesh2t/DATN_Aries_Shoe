@@ -678,7 +678,7 @@ select option:checked {
     flex-wrap: wrap;
 }
 
-.carousel-indicators [data-bs-target] {
+.carousel-indicators.custom-carousel [data-bs-target] {
     position: relative;
     top: 130px;
     width: 90px;

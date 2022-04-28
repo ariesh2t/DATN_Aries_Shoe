@@ -80,6 +80,12 @@
             </div>
             <div class="col-1"></div>
         </div>
+        <div class="text-end">
+            <a class="btn btn-danger" href="{{ route('checkout') }}">
+                <i class="fa-solid fa-circle-dollar-to-slot"></i>
+                {{ __('checkout') }}
+            </a>
+        </div>
     @else
         <div class="d-flex justify-content-center align-items-center flex-column">
             <img src="{{ asset('images/logo/no-cart.png') }}" alt="">

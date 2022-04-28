@@ -15,7 +15,7 @@
         <div class="col d-flex flex-wrap">
             @foreach ($product->images as $image)
                 <div class="col-3 p-2">
-                    <div class="img-product">
+                    <div class="img-product shadow-sm">
                         <img src="{{ asset('images/products/' . $image->name) }}" alt="">
                     </div>
                 </div>
@@ -25,17 +25,17 @@
     <div class="d-flex mb-3">
         <div class="col-2 me-5 text-danger text-end">{{ __('cost') }}</div>
         <div class="col-6">
-            {{ $product->cost }}
+            {{ @money($product->cost) }}
         </div>
     </div><div class="d-flex mb-3">
         <div class="col-2 me-5 text-danger text-end">{{ __('price') }}</div>
         <div class="col-6">
-            {{ $product->price }}
+            {{ @money($product->price) }}
         </div>
     </div><div class="d-flex mb-3">
         <div class="col-2 me-5 text-danger text-end">{{ __('promotion') }}</div>
         <div class="col-6">
-            {{ $product->promotion }}
+            {{ @money($product->promotion) }}
         </div>
     </div>
     <div class="d-flex mb-3">
@@ -56,7 +56,7 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="list-prinfor">
                     @php
                         $dem = 0;
                         foreach($product->productInfors as $productInfor) {
@@ -92,6 +92,64 @@
                 </tbody>
             </table>
         </div>
+        <div class="col-4">
+            <a class="col-5 btn btn-primary" data-toggle="modal" data-target="#product_{{ $product->id }}"  title="{{ __('add info') }}">
+                <i class="fa-regular fa-square-plus"></i>
+                {{ __('add info') }}
+            </a>
+        </div>
+    </div>
+    <div class="modal fade" id="product_{{ $product->id }}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title">{{ __('form add info') . " $product->name" }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <form action="{{ route('product-infors.store') }}" data-id="{{ $product->id }}" class="js-form-add" method="POST">
+                    <div class="small px-3 py-2 text-danger text-left" id="list_error_{{ $product->id }}"></div>
+                    @csrf
+                    <div class="modal-body row">
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <div class="col-4">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">{{ __('colors') }}</button>
+                                    <div class="dropdown-menu" style="height: 200px; overflow: auto">
+                                        @foreach ($colors as $color)
+                                            <div class="dropdown-item" data-value="{{ $color->color }}" data-product-id={{ $product->id }} data-color-id={{ $color->id }}
+                                                style="margin: 5px auto !important; height: 20px; width: 75%; background: {{ $color->color }}"></div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <input type="hidden" id="color_{{ $product->id }}" name="color_id" value="{{ $color->first()->id }}">
+                                <input type="color" class="form-control" value="{{ $color->first()->color }}" readonly disabled>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <select id="size_{{ $product->id }}" class="form-control">
+                                    <option disabled selected>{{ __('sizes') }}</option>
+                                    @foreach ($sizes as $size)
+                                        <option value="{{ $size->id }}">{{ $size->size }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <input id="quantity_{{ $product->id }}" class="form-control" placeholder="{{ __('quantity') }}" type="number" name="quantity">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">{{ __('save') }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     <div class="d-flex mt-5">
         <div class="col-6 text-start">
@@ -112,5 +170,44 @@
         $('.btn-del').click(function(){
             return confirm($(this).attr("data-confirm"));    
         }); 
+        $('.dropdown-item').click(function() {
+            let id = $(this).attr('data-product-id')
+            $('#color_'+id).val($(this).attr('data-color-id'))
+            $("input[type='color']").val($(this).attr('data-value'))
+        })
+
+        $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('.js-form-add').submit(function(e) {
+            e.preventDefault()
+            let id = $(this).attr('data-id')
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'post',
+                data: {
+                    product_id: id,
+                    color_id: $("#color_"+ id).val(),
+                    size_id: $("#size_"+ id +" :selected").val(),
+                    quantity: $("#quantity_"+ id).val()
+                },
+                success: function(result){
+                    if(result.errors) {
+                        $('#list_error_'+id).html('');
+
+                        $.each(result.errors, function(key, value){
+                            $('#list_error_'+id).show();
+                            $('#list_error_'+id).append(value + "<br>");
+                        });
+                    }
+                    else {
+                        location.reload();
+                    }
+                }
+            })
+        })
     </script>
 @endsection

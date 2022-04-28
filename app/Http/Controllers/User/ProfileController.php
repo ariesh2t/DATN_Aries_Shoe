@@ -9,6 +9,7 @@ use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProfileController extends Controller
@@ -39,13 +40,9 @@ class ProfileController extends Controller
     {
         $user = $this->userRepo->find($id);
         $currentFile = $user->image->name;
-        $path = public_path('images/users/');
-        DB::transaction(function() use($request, $path, $user, $currentFile){
+        DB::transaction(function() use($request, $user, $currentFile){
             $file = $request->image;
-            if (empty($file)) {
-                $extension = pathinfo($path . $currentFile)['extension'];
-                $new_name = time() . '-user-' . Str::slug($request->fname) . '-' . Str::slug($request->lname) . '.' . $extension;
-            } else {
+            if (!empty($file)) {
                 $new_name = time() . '-user-' . Str::slug($request->fname) . '-' . Str::slug($request->lname) . '.' . $file->getClientOriginalExtension();
             }
 
@@ -56,13 +53,11 @@ class ProfileController extends Controller
                 'email' => $request->email,
                 'phone' => $request->phone,
             ]);
-            $user->image()->update(['name' => $new_name]);
 
-            if (empty($file)) {
-                rename($path . $currentFile, $path . $new_name);
-            } else {
-                unlink($path . $currentFile);
-                $file->move($path, $new_name);
+            if (!empty($file)) {
+                $user->image()->update(['name' => $new_name]);
+                Storage::delete('users/' . $currentFile);
+                $file->storeAs('users', $new_name);
             }
 
             return redirect()->route('profile', $user->id)->with('success', __('update success', ['attr' => __('profile')]));

@@ -88,17 +88,16 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="d-flex align-items-center justify-content-end mx-lg-2 mx-2">
+                            <div class="d-flex align-items-center justify-content-end mx-3">
                                 <a class="text-dark position-relative" href="{{ route('cart') }}">
                                     <i class="fa-solid fa-cart-shopping"></i>
-                                    <span class="position-absolute badge bg-primary" style="top: -5px; left: 13px; font-size: 8px">{{ $cart->total_quantity }}</span>
-                                    <sub class="d-none d-md-inline">{{ @money($cart->total_price) }}</sub>
+                                    <sup class="position-absolute badge rounded-pill" style="background:orange; top: -5px; left: 13px; font-size: 8px">{{ $cart->total_quantity }}</sup>
                                 </a>
                             </div>
-                            <div class="d-flex align-items-center justify-content-end mx-lg-2 mx-2" style="cursor: pointer">
+                            <div class="d-flex align-items-center justify-content-end mx-2" style="cursor: pointer">
                                 <a class="text-dark position-relative" href="">
                                     <i class="fa-regular fa-bell"></i>
-                                    <sup class="badge bg-warning position-absolute" style="top: -5px; left: 10px; font-size: 8px">1</sup>
+                                    <sup class="position-absolute badge rounded-pill" style="background:orange; top: -5px; left: 13px; font-size: 8px">1</sup>
                                 </a>
                             </div>
                            

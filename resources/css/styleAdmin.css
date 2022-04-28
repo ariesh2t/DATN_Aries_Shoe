@@ -136,3 +136,22 @@ table.dataTable tbody th, table.dataTable tbody td {
     height: 100%;
     max-height: 100%;
 }
+
+.paginate_button {
+    border-radius: 50% !important;
+    border: none !important;
+    padding: 0.25em 0.75em !important;
+}
+
+.paginate_button.current {
+    box-shadow: 0 0 5px #cecece;
+    background: linear-gradient(258deg, rgb(5, 210, 40), rgb(243, 255, 9)) !important;
+}
+
+.paginate_button:not(.disabled, .current):hover {
+    background: linear-gradient(258deg, rgb(239, 239, 152), rgb(227, 74, 74)) !important;
+}
+
+.paginate_button.next, .paginate_button.previous {
+    border-radius: 2px !important;
+}

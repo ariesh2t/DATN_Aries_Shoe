@@ -14,6 +14,10 @@ use App\Repositories\Color\ColorRepository;
 use App\Repositories\Color\ColorRepositoryInterface;
 use App\Repositories\Image\ImageRepository;
 use App\Repositories\Image\ImageRepositoryInterface;
+use App\Repositories\Order\OrderRepository;
+use App\Repositories\Order\OrderRepositoryInterface;
+use App\Repositories\OrderProduct\OrderProductRepository;
+use App\Repositories\OrderProduct\OrderProductRepositoryInterface;
 use App\Repositories\Product\ProductRepository;
 use App\Repositories\Product\ProductRepositoryInterface;
 use App\Repositories\ProductInfor\ProductInforRepository;
@@ -44,6 +48,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ColorRepositoryInterface::class, ColorRepository::class);
         $this->app->bind(SizeRepositoryInterface::class, SizeRepository::class);
         $this->app->bind(ImageRepositoryInterface::class, ImageRepository::class);
+        $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
+        $this->app->bind(OrderProductRepositoryInterface::class, OrderProductRepository::class);
     }
 
     /**

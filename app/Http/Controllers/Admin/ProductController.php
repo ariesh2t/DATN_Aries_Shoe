@@ -14,7 +14,7 @@ use App\Repositories\ProductInfor\ProductInforRepositoryInterface;
 use App\Repositories\Size\SizeRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -52,11 +52,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $colors = $this->colorRepo->getAll();
-        $sizes = $this->sizeRepo->getAll();
         $products = $this->productRepo->getAll();
 
-        return view('admins.products.showAll', compact('products', 'colors', 'sizes'));
+        return view('admins.products.showAll', compact('products'));
     }
 
     /**
@@ -82,12 +80,11 @@ class ProductController extends Controller
     {
         $files = $request->images;
 
-        $path = public_path('images/products/');
-        if (!file_exists($path)) {
-            mkdir($path, 0777, true);
+        if(!Storage::exists('products')){
+            Storage::makeDirectory('products');
         }
 
-        DB::transaction(function() use($request, $files, $path) {
+        DB::transaction(function() use($request, $files) {
             $product = $this->productRepo->create([
                 'brand_id' => $request->brand_id,
                 'category_id' => $request->category_id,
@@ -101,7 +98,7 @@ class ProductController extends Controller
             foreach($files as $key => $file) {
                 $new_name = time() . "-product-$key-" . Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
                 $product->images()->create(['name' => $new_name]);
-                $file->move($path, $new_name);
+                $file->storeAs('products', $new_name);
             }
 
             return redirect()->route('products.create')->with('success', __('create success', ['attr' => __('product')]));
@@ -118,9 +115,11 @@ class ProductController extends Controller
      */
     public function show($id)
     {
+        $colors = $this->colorRepo->getAll();
+        $sizes = $this->sizeRepo->getAll();
         $product = $this->productRepo->find($id);
 
-        return view('admins.products.detail', compact('product'));
+        return view('admins.products.detail', compact('product', 'colors', 'sizes'));
     }
 
     /**
@@ -157,14 +156,9 @@ class ProductController extends Controller
                 'images.required' => __('required', ['attr' => __('image')]),
             ]);
         }
-        $files = $request->images;
 
-        $path = public_path('images/products/');
-        if (!file_exists($path)) {
-            mkdir($path, 0777, true);
-        }
-
-        DB::transaction(function() use($request, $product, $files, $path) {
+        DB::transaction(function() use($request, $product, $files) {
+            $files = $request->images;
             $product->update([
                 'brand_id' => $request->brand_id,
                 'category_id' => $request->category_id,
@@ -179,7 +173,7 @@ class ProductController extends Controller
                 foreach($files as $key => $file) {
                     $new_name = time() . "-product-$key-" . Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
                     $product->images()->create(['name' => $new_name]);
-                    $file->move($path, $new_name);
+                    $file->storeAs('products', $new_name);
                 }
             }
 
@@ -203,7 +197,7 @@ class ProductController extends Controller
             foreach($product->images as $image) {
                 $image->delete();
 
-                unlink(public_path('/images/products/' .  $image->name));
+                Storage::delete('products/' . $image->name);
             }
             $product->delete();
 
@@ -218,7 +212,7 @@ class ProductController extends Controller
         $image = $this->imageRepo->find($request->id);
         $image->delete();
 
-        unlink(public_path('/images/products/' .  $image->name));
+        Storage::delete('products/' . $image->name);
 
         return response()->json(['success' => 'delete success']);
     }

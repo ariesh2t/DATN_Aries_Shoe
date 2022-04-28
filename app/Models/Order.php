@@ -20,6 +20,8 @@ class Order extends Model
         'note',
         'total_price',
         'order_status_id',
+        'shipping',
+        'reason',
     ];
 
     public function user()

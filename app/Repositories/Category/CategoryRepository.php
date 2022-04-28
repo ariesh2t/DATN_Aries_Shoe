@@ -11,4 +11,9 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     {
         return Category::class;
     }
+
+    public function get7Categories()
+    {
+        return $this->model->take(7)->get();
+    }
 }

@@ -10,6 +10,7 @@ use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -62,8 +63,12 @@ class RegisterController extends Controller
 
         $user = $this->userRepo->find($id);
 
-        $avatar = time() . "-user-" . Str::slug($user->fullname) . ".png"; 
-        File::copy(public_path('images/users/img.png'), public_path('images/users/' . $avatar));
+        $avatar = time() . "-user-" . Str::slug($user->fullname) . ".png";
+ 
+        if(!Storage::exists('users')){
+            Storage::makeDirectory('users');
+        }
+        Storage::copy('users/img.png', 'users/' . $avatar);
         $user->image()->create(['name' => $avatar]);
 
         return redirect()

@@ -16,4 +16,6 @@ interface ProductRepositoryInterface extends RepositoryInterface
     public function getAllWithSearch($request);
 
     public function getQuantity($attr);
+
+    public function getRelatedProduct($brand_id, $category_id);
 }
