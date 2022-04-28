@@ -81,7 +81,9 @@
                                 </div>
                             @endforeach
                             @error('size_id')
-                                <small class="text-danger fst-italic">{{ $message }}</small>
+                                <span class="invalid-feedback" role="alert">
+                                    <small>{{ $message }}</small>
+                                </span>
                             @enderror
                             <div class="col-12 my-3">
                                 <!-- Button trigger modal -->
@@ -121,7 +123,9 @@
                                 </div>
                             @endforeach
                             @error('color_id')
-                                <small class="text-danger fst-italic">{{ $message }}</small>
+                                <span class="invalid-feedback" role="alert">
+                                    <small>{{ $message }}</small>
+                                </span>
                             @enderror
                         </div>
                     </div>
@@ -137,7 +141,9 @@
                             </div>
 
                             @error('quantity')
-                                <small class="text-danger d-block fst-italic">{{ $message }}</small>
+                                <span class="invalid-feedback" role="alert">
+                                    <small>{{ $message }}</small>
+                                </span>
                             @enderror
                         </div>
                     </div>
@@ -209,7 +215,44 @@
                     </div>
                 </div>
                 <div id="tab-content-3" class="tab-content-item">
-                    {!! $product->desc !!}
+                    <div class="d-flex flex-wrap">
+                        @foreach ($relatedProducts as $product)
+                            <div class="col-md-4 col-lg-3 col-6 p-2">
+                                <div class="position-relative p-2 border rounded d-flex flex-wrap justify-content-start align-items-center">
+                                    <div class="overflow-hidden hover-img-product w-100 text-center" style="height: 180px; line-height: 180px">
+                                        <img style="max-height: 100%; max-width: 100%" src="{{ asset('images/products/' . $product->images->first()->name) }}" alt="">
+                                    </div>
+                                    @php
+                                        if ($product->price != $product->promotion) {
+                                            $sale = -round(($product->price - $product->promotion) / $product->price * 100, 1);
+                                            echo "<div class='percent'>";
+                                            echo $sale . "%";
+                                            echo "</div>";
+                                        }
+                                    @endphp
+                                    <p class="text-2 col-12">{{ $product->name }}</p>
+                                    <div class="wrap-price css-hover-product">
+                                        <div class="wrapp-swap">
+                                            <div class="swap-elements">
+                                                <div class="css-price">
+                                                    @if ($product->price != $product->promotion)
+                                                        <span class="price">{{ @money($product->price) }}</span> 
+                                                    @endif
+                                                    <span class="promotion fs-5">{{ @money($product->promotion) }}</span>
+                                                </div>
+                                                <div class="btn-add">
+                                                    <a class="w-100" href="{{ route('product.detail', $product->id) }}">
+                                                        <i class="fa-solid fa-cart-shopping"></i>
+                                                        {{ __('detail') }}
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>

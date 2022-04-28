@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Brand\StoreRequest;
 use App\Http\Requests\Brand\UpdateRequest;
 use App\Repositories\Brand\BrandRepositoryInterface;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class BrandController extends Controller
@@ -51,19 +51,18 @@ class BrandController extends Controller
         $file = $request->image;
         $new_name = time() . '-brand-' . Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
 
-        $path = public_path('images/brands/');
-        if (!file_exists($path)) {
-            mkdir($path, 0777, true);
+        if(!Storage::exists('brands')){
+            Storage::makeDirectory('brands');
         }
 
-        DB::transaction(function() use($request, $new_name, $file, $path) {
+        DB::transaction(function() use($request, $new_name, $file) {
             $brand = $this->brandRepo->create([
                 'name' => $request->name,
                 'desc' => $request->desc
             ]);
             $brand->image()->create(['name' => $new_name]);
 
-            $file->move($path, $new_name);
+            $file->storeAs('brands', $new_name);
 
             return redirect()->route('brands.create')->with('success', __('create success', ['attr' => __('brand')]));
         });
@@ -108,14 +107,10 @@ class BrandController extends Controller
     {
         $brand = $this->brandRepo->find($id);
         $currentFile = $brand->image->name;
-        $path = public_path('images/brands/');
 
-        DB::transaction(function() use($request, $brand, $path, $currentFile) {
+        DB::transaction(function() use($request, $brand, $currentFile) {
             $file = $request->image;
-            if (empty($file)) {
-                $extension = pathinfo($path . $currentFile)['extension'];
-                $new_name = time() . '-brand-' . Str::slug($request->name) . '.' . $extension;
-            } else {
+            if (!empty($file)) {
                 $new_name = time() . '-brand-' . Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
             }
 
@@ -123,13 +118,11 @@ class BrandController extends Controller
                 'name' => $request->name,
                 'desc' => $request->desc
             ]);
-            $brand->image()->update(['name' => $new_name]);
 
-            if (empty($file)) {
-                rename($path . $currentFile, $path . $new_name);
-            } else {
-                unlink($path . $currentFile);
-                $file->move($path, $new_name);
+            if (!empty($file)) {
+                $brand->image()->update(['name' => $new_name]);
+                Storage::delete('brands/' . $currentFile);
+                $file->storeAs('brands', $new_name);
             }
 
             return redirect()->route('brands.index')->with('success', __('update success', ['attr' => __('brand')]));
@@ -152,7 +145,7 @@ class BrandController extends Controller
             $brand->delete();
             $brand->image->delete();
 
-            unlink(public_path('/images/brands/' .  $brand->image->name));
+            Storage::delete('brands/' . $brand->image->name);
 
             return redirect()->route('brands.index')->with('success', __('delete success', ['attr' => __('brand')]));
         });

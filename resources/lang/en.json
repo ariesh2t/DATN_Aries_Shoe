@@ -127,5 +127,10 @@
     "additional infor": "Additional information",
     "related products": "Related products",
     "change pass": "Change password",
-    "home": "Home"
+    "home": "Home",
+    "consignee information": "Consignee information",
+    "note": "Notes for the shop",
+    "payment": "Payment",
+    "cash": "Cash",
+    "shipping": "Delivery charges"
 }

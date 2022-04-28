@@ -14,6 +14,7 @@ use App\Http\Controllers\User\BrandController as UserBrandController;
 use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\CategoryController as UserCategoryController;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\ProductController as UserProductController;
 use App\Http\Controllers\User\ProfileController;
 
@@ -87,4 +88,6 @@ Route::middleware(['auth', 'customer'])->group(function () {
         Route::get('update/{id}', [CartController::class, 'update'])->name('cart.update');
         Route::get('clear', [CartController::class, 'clear'])->name('cart.clear');
     });
+    Route::get('/cart/checkout', [OrderController::class, 'infoOrder'])->name('checkout');
+    Route::post('/post-order', [OrderController::class, 'postOrder'])->name('post-order');
 });

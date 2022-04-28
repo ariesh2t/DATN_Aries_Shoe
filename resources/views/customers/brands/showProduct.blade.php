@@ -109,8 +109,9 @@
                         {!! $products->appends(request()->all())->links('partials.paginate') !!}
                     </div>
                 @else
-                <div class="col">
-                    {{ __('no product in', ['attr' => __('brand')]) }}
+                <div class="col text-center">
+                    <img height="200" src="{{ asset('images/logo/no-product.png') }}" alt="">
+                    <h2>{{ __('no product in', ['attr' => __('brand')]) }}</h2>
                 </div>
                 @endif
             </div>

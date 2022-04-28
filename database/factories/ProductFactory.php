@@ -13,11 +13,12 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
+        $cost = rand(300000, 2000000);
         return [
             'name' => $this->faker->unique()->text(10),
-            'cost' => rand(300000, 2000000),
-            'price' => rand(300000, 2000000),
-            'promotion' => rand(300000, 2000000),
+            'cost' => $cost,
+            'price' => $cost * rand(14, 17) / 10,
+            'promotion' => $cost * rand(10, 14) / 10,
             'desc' => $this->faker->text(200),
             'category_id' => rand(1, 20),
             'brand_id' => rand(1, 20),

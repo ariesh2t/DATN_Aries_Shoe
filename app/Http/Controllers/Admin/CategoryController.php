@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\StoreRequest;
 use App\Http\Requests\Category\UpdateRequest;
 use App\Repositories\Category\CategoryRepositoryInterface;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
@@ -51,19 +51,18 @@ class CategoryController extends Controller
         $file = $request->image;
         $new_name = time() . '-category-' . Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
 
-        $path = public_path('images/categories/');
-        if (!file_exists($path)) {
-            mkdir($path, 0777, true);
+        if(!Storage::exists('categories')){
+            Storage::makeDirectory('categories');
         }
 
-        DB::transaction(function() use($request, $new_name, $file, $path) {
+        DB::transaction(function() use($request, $new_name, $file) {
             $category = $this->categoryRepo->create([
                 'name' => $request->name,
                 'desc' => $request->desc
             ]);
             $category->image()->create(['name' => $new_name]);
 
-            $file->move($path, $new_name);
+            $file->storeAs('categories', $new_name);
 
             return redirect()->route('categories.create')->with('success', __('create success', ['attr' => __('category')]));
         });
@@ -108,14 +107,10 @@ class CategoryController extends Controller
     {
         $category = $this->categoryRepo->find($id);
         $currentFile = $category->image->name;
-        $path = public_path('images/categories/');
 
-        DB::transaction(function() use($request, $category, $path, $currentFile) {
+        DB::transaction(function() use($request, $category, $currentFile) {
             $file = $request->image;
-            if (empty($file)) {
-                $extension = pathinfo($path . $currentFile)['extension'];
-                $new_name = time() . '-category-' . Str::slug($request->name) . '.' . $extension;
-            } else {
+            if (!empty($file)) {
                 $new_name = time() . '-category-' . Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
             }
 
@@ -123,13 +118,11 @@ class CategoryController extends Controller
                 'name' => $request->name,
                 'desc' => $request->desc
             ]);
-            $category->image()->update(['name' => $new_name]);
 
-            if (empty($file)) {
-                rename($path . $currentFile, $path . $new_name);
-            } else {
-                unlink($path . $currentFile);
-                $file->move($path, $new_name);
+            if (!empty($file)) {
+                $category->image()->update(['name' => $new_name]);
+                Storage::delete('categories/' . $currentFile);
+                $file->storeAs('categories', $new_name);
             }
 
             return redirect()->route('categories.index')->with('success', __('update success', ['attr' => __('category')]));
@@ -152,7 +145,7 @@ class CategoryController extends Controller
             $category->delete();
             $category->image->delete();
 
-            unlink(public_path('/images/categories/' .  $category->image->name));
+            Storage::delete('categories/' . $category->image->name);
 
             return redirect()->route('categories.index')->with('success', __('delete success', ['attr' => __('category')]));
         });

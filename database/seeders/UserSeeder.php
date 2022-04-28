@@ -5,7 +5,10 @@ namespace Database\Seeders;
 use App\Models\Image;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -29,10 +32,22 @@ class UserSeeder extends Seeder
                 'role_id' => 1,
             ]
         ]);
+        if(!Storage::exists('users')){
+            Storage::makeDirectory('users');
+        }
         $user = User::first();
-        Image::factory()->for($user, 'imageable')->create();
+        $name = time() . '-user-' . Str::slug(Str::random(20)) . ".png";
+        Image::factory()->for($user, 'imageable')->create([
+            'name' => $name,
+        ]);
+        Storage::put('users/' . $name, '');
+
         for($i = 0; $i < 20; $i++) {
-            Image::factory()->for(User::factory(), 'imageable')->create();
+            $name = time() . '-user-' . Str::slug(Str::random(20)) . ".png";
+            Image::factory()->for(User::factory(), 'imageable')->create([
+                'name' => $name,
+            ]);
+            Storage::put('users/' . $name, '');
         }
     }
 }

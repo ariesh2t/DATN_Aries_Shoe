@@ -63,13 +63,7 @@ class ProductInforController extends Controller
         if ($validator->fails())
         {
             return response()->json(['errors' => $validator->errors()->all()]);
-        } 
-
-        // $exists = $this->productInforRepo->checkExist($request->product_id, $request->color_id, $request->size_id);
-        // if ($exists) {
-        //     return response()->json(['errors' => __('exists', ['attr' => __('product info')])]);
-        // }
-
+        }
         $productInfor = $this->productInforRepo->create($request->all());
 
         return response()->json($productInfor);

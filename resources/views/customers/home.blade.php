@@ -66,7 +66,7 @@
 
     <div class="mt-5 shadow-lg p-3">
         <div class="d-flex justify-content-center list-cat mb-3">
-            @foreach ($categories as $category)
+            @foreach ($get7Categories as $category)
                 <div class="">
                     <i class="fa-regular fa-circle-down"></i> 
                     <a href="{{ route('home-cat', $category->id) }}" data-id="{{ $category->id }}" class="text-black text-uppercase fw-bold js-select-cat">
@@ -101,7 +101,12 @@
         $.get(window.location.protocol + '//' + window.location.host + "/home-cat/" + id, function(response) {
             $('.list-cat div:first .js-select-cat').css('border-bottom', '3px solid orange')
             if (response.length === 0) {
-                $('.js-show-product').html("{{ __('no product in cat') }}");
+                let dom = `
+                    <div class="d-flex justify-content-center align-items-center flex-column">
+                        <img height="200" src="{{ asset('images/logo/no-product.png') }}">
+                        <p>{{ __('no product in', ['attr' => __('category')]) }}</p>
+                `;
+                $('.js-show-product').html(dom);
             } else {
                 response.forEach(element => {
                     let price = Number(element.price)
@@ -156,7 +161,12 @@
             $.get($(this).attr('href'), function(response) {
                 $('.js-show-product').html('')
                 if (response.length === 0) {
-                    $('.js-show-product').html("{{ __('no product in cat') }}");
+                    let dom = `
+                        <div class="d-flex justify-content-center align-items-center flex-column">
+                            <img height="200" src="{{ asset('images/logo/no-product.png') }}">
+                            <p>{{ __('no product in', ['attr' => __('category')]) }}</p>
+                    `;
+                    $('.js-show-product').html(dom);
                 } else {
                     response.forEach(element => {
                         let price = Number(element.price)

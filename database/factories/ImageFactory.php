@@ -15,7 +15,7 @@ class ImageFactory extends Factory
     public function definition()
     {
         return [
-            'name' => Str::slug($this->faker->text(20)) . '.png',
+            // 
         ];
     }
 }

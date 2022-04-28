@@ -21,6 +21,8 @@ class CreateOrdersTable extends Migration
             $table->text('address');
             $table->text('note')->nullable();
             $table->integer('total_price');
+            $table->integer('shipping');
+            $table->text('reason');
             $table->foreignId('order_status_id')->constrained();
             $table->timestamps();
         });

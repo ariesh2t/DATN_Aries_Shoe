@@ -121,4 +121,12 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
         return $totalQuantity;
     }
+    
+    public function getRelatedProduct($brand_id, $category_id)
+    {
+        return $this->model->where('brand_id', $brand_id)
+            ->orWhere('category_id', $category_id)
+            ->take(8)
+            ->get();
+    }
 }

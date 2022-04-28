@@ -33,6 +33,7 @@ class HomeController extends Controller
     public function index()
     {
         $get4Brands = $this->brandRepo->get4Brands();
-        return view('customers.home', compact('get4Brands'));
+        $get7Categories = $this->categoryRepo->get7Categories();
+        return view('customers.home', compact('get4Brands', 'get7Categories'));
     }
 }
