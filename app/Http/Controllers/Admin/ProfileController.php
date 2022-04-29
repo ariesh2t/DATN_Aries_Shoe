@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\PasswordRequest;
 use App\Http\Requests\User\UpdateRequest;
 use App\Repositories\User\UserRepositoryInterface;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -26,14 +27,14 @@ class ProfileController extends Controller
     {
         $user = $this->userRepo->find($id);
 
-        return view('customers.profiles.show', compact('user'));
+        return view('admins.profiles.show', compact('user'));
     }
 
     public function edit($id)
     {
         $user = $this->userRepo->find($id);
 
-        return view('customers.profiles.edit', compact('user'));
+        return view('admins.profiles.edit', compact('user'));
     }
 
     public function update(UpdateRequest $request, $id)
@@ -60,10 +61,10 @@ class ProfileController extends Controller
                 $file->storeAs('users', $new_name);
             }
 
-            return redirect()->route('profile', $user->id)->with('success', __('update success', ['attr' => strtolower(__('profile'))]));
+            return redirect()->route('admin.profile', $user->id)->with('success', __('update success', ['attr' => strtolower(__('profile'))]));
         });
 
-        return redirect()->route('profile', $user->id)->with('error', __('update fail', ['attr' => strtolower(__('profile'))]));
+        return redirect()->route('admin.profile', $user->id)->with('error', __('update fail', ['attr' => strtolower(__('profile'))]));
     }
 
     public function changePass(PasswordRequest $request)

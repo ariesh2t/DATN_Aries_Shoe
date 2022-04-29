@@ -157,5 +157,7 @@
     "cannot cancel someone else order": "Không thể hủy đơn đặt hàng của người khác",
     "cannot cancel": "Chỉ những đơn hàng đang chờ hoặc đang chuẩn bị mới có thể bị hủy",
     "empty reason": "Huỷ thất bại, bạn chưa nhập lý do huỷ đơn hàng",
-    "cannot re-order": "Chỉ những đơn hàng đã giao hoặc đã huỷ mới có thể đặt lại"
+    "cannot re-order": "Chỉ những đơn hàng đã giao hoặc đã huỷ mới có thể đặt lại",
+    "change pass success": "Bạn đã thay đổi mật khẩu thành công",
+    "change pass fail": "Mật khẩu không đúng, yêu cầu đổi mật khẩu thất bại"
 }

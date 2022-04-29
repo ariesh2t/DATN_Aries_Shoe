@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ColorSizeController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductInforController;
+use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LangController;
@@ -52,6 +53,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('add-color', [ColorSizeController::class, 'addColor'])->name('add-color');
         Route::post('add-size', [ColorSizeController::class, 'addSize'])->name('add-size');
         Route::post('delete-image', [ProductController::class, 'deleteImage'])->name('delete-image');
+        Route::get('profile/{id}', [AdminProfileController::class, 'show'])->name('admin.profile');
+        Route::get('profile/{id}/edit', [AdminProfileController::class, 'edit'])->name('admin.profile.edit');
+        Route::put('profile/{id}', [AdminProfileController::class, 'update'])->name('admin.profile.update');
+        Route::post('profile/{id}/change-pass', [AdminProfileController::class, 'changePass'])->name('admin.profile.change-pass');
         // Route::resource('users', UserController::class);
         // Route::resource('orders', AdminOrderController::class);
         // Route::delete('products/image/{id}', [ProductController::class, 'deleteImage'])->name('delete.image');

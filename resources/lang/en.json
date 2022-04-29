@@ -157,5 +157,7 @@
     "cannot cancel someone else order": "Can't cancel someone else's order",
     "cannot cancel": "Only waiting or preparing orders can be canceled",
     "empty reason": "Cancellation failed, you have not entered the reason for order cancellation",
-    "cannot re-order": "Only orders that have been delivered or canceled can be re-ordered"
+    "cannot re-order": "Only orders that have been delivered or canceled can be re-ordered",
+    "change pass success": "You have successfully changed your password",
+    "change pass fail": "Password is incorrect, request to change password failed"
 }
