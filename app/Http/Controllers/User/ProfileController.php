@@ -60,10 +60,10 @@ class ProfileController extends Controller
                 $file->storeAs('users', $new_name);
             }
 
-            return redirect()->route('profile', $user->id)->with('success', __('update success', ['attr' => __('profile')]));
+            return redirect()->route('profile', $user->id)->with('success', __('update success', ['attr' => strtolower(__('profile'))]));
         });
 
-        return redirect()->route('profile', $user->id)->with('error', __('update fail', ['attr' => __('profile')]));
+        return redirect()->route('profile', $user->id)->with('error', __('update fail', ['attr' => strtolower(__('profile'))]));
     }
 
     public function changePass(PasswordRequest $request)
@@ -75,6 +75,6 @@ class ProfileController extends Controller
             $user->save();
         }
 
-        return redirect()->route('profile', $user->id)->with('success', __('update success', ['attr' => __('profile')]));
+        return redirect()->route('profile', $user->id)->with('success', __('update success', ['attr' => strtolower(__('profile'))]));
     }
 }

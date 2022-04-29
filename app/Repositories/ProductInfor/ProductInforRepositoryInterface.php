@@ -5,7 +5,7 @@ use App\Repositories\RepositoryInterface;
 
 interface ProductInforRepositoryInterface extends RepositoryInterface
 {
-    public function checkExist($product_id, $color_id, $size_id);
+    public function getProductInfor($product_id, $color_id, $size_id);
 
     public function getAllByProduct($product_id);
 

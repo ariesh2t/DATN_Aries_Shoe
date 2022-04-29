@@ -90,4 +90,8 @@ Route::middleware(['auth', 'customer'])->group(function () {
     });
     Route::get('/cart/checkout', [OrderController::class, 'infoOrder'])->name('checkout');
     Route::post('/post-order', [OrderController::class, 'postOrder'])->name('post-order');
+    Route::get('/orders', [OrderController::class, 'showAll'])->name('orders');
+    Route::get('/order/{id}', [OrderController::class, 'detail'])->name('order.detail');
+    Route::patch('/order/cancel-order/{id}', [OrderController::class, 'cancelOrder'])->name('order.cancel');
+    Route::post('/order/re-order/{id}', [OrderController::class, 'reOrder'])->name('order.reOrder');
 });

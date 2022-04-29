@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Helper\Helper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Order extends Model
 {
@@ -24,6 +25,10 @@ class Order extends Model
         'reason',
     ];
 
+    protected $appends = [
+        'order_price',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -36,6 +41,11 @@ class Order extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'order_products')->withPivot('quantity');
+        return $this->belongsToMany(Product::class, 'order_products')->withPivot('quantity', 'price', 'color', 'size');
+    }
+    
+    public function getOrderPriceAttribute()
+    {
+        return $this->total_price + $this->shipping;
     }
 }

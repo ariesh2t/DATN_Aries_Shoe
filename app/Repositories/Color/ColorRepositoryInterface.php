@@ -5,4 +5,5 @@ use App\Repositories\RepositoryInterface;
 
 interface ColorRepositoryInterface extends RepositoryInterface
 {
+    public function getColor($color);
 }

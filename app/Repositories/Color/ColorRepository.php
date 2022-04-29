@@ -11,4 +11,8 @@ class ColorRepository extends BaseRepository implements ColorRepositoryInterface
     {
         return Color::class;
     }
+
+    public function getColor($color) {
+        return $this->model->where('color', $color)->first();
+    }
 }

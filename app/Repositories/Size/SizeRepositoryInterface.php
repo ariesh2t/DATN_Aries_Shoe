@@ -5,4 +5,5 @@ use App\Repositories\RepositoryInterface;
 
 interface SizeRepositoryInterface extends RepositoryInterface
 {
+    public function getSize($size);
 }

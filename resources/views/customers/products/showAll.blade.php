@@ -140,10 +140,16 @@
                     <div class="d-flex justify-content-center align-items-center mt-5">
                         {!! $products->appends(request()->all())->links('partials.paginate') !!}
                     </div>
+                @elseif ($products->count() == 0 && !empty(request()->all()))
+                    <div class="col text-center">
+                        <img height="200" src="{{ asset('images/logo/no-product.png') }}" alt="">
+                        <h2>{{ __('not found', ['attr' => strtolower(__('products'))]) }}</h2>
+                    </div>
                 @else
-                <div class="col">
-                    {{ __('no product in', ['attr' => __('brand')]) }}
-                </div>
+                    <div class="col text-center">
+                        <img height="200" src="{{ asset('images/logo/no-product.png') }}" alt="">
+                        <h2>{{ __('empty data') }}</h2>
+                    </div>
                 @endif
             </div>
         </div>
