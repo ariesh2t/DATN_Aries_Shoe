@@ -11,4 +11,16 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
     {
         return Order::class;
     }
+
+    public function getAll()
+    {
+        return $this->model->orderBy('created_at', 'desc')->paginate(config('paginate.pagination.list_12'));
+    }
+
+    public function getOrderDetail($user_id, $order_id)
+    {
+        return $this->model->where('user_id', $user_id)
+            ->with('products', 'orderStatus')
+            ->find($order_id);
+    }
 }

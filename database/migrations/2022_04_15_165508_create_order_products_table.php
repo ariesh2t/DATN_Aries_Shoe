@@ -17,7 +17,7 @@ class CreateOrderProductsTable extends Migration
             $table->id();
             $table->foreignId('order_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('product_id')->constrained();
-            $table->integer('quantity')->unique();
+            $table->integer('quantity')->unsigned();
             $table->integer('price')->unsigned();
             $table->string('color', 10);
             $table->smallInteger('size')->unsigned();

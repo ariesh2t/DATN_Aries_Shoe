@@ -65,7 +65,8 @@
             </div>
         </div>
     </div>
-    <form action="">
+    <form action="{{ route('post-order') }}" method="POST">
+        @csrf
         <div class="card mb-3">
             <div class="card-body">
                 <div class="row p-3">
@@ -77,39 +78,30 @@
                     <div class="col-6">
                         <div class="mb-3">
                             <label for="fullname" class="form-label">{{ __('fullname') }}</label>
-                            <input name="fullname" required  autocomplete="fullname" autofocus type="text" class="form-control" id="fullname" value="{{ Auth::user()->fullname }}">
-
-                            @error('fullname')
-                                <span class="invalid-feedback" role="alert">
-                                    <small>{{ $message }}</small>
-                                </span>
+                            <input name="fullname" required  autocomplete="fullname" autofocus type="text" class="form-control" id="fullname" value="{{ old('fullname') ?? Auth::user()->fullname }}">
+                            @error('fullname') 
+                                <span class="small text-danger"> {{ $message }}</span>
                             @enderror
                         </div>
                         <div class="mb-3">
                             <label for="phone" class="form-label">{{ __('phone') }}</label>
-                            <input name="phone" required  autocomplete="phone" autofocus type="text" class="form-control" id="phone" value="{{ Auth::user()->phone }}">
-
-                            @error('phone')
-                                <span class="invalid-feedback" role="alert">
-                                    <small>{{ $message }}</small>
-                                </span>
+                            <input name="phone" required  autocomplete="phone" autofocus type="text" class="form-control" id="phone" value="{{ old('phone') ??Auth::user()->phone }}">
+                            @error('phone') 
+                                <span class="small text-danger"> {{ $message }}</span>
                             @enderror
                         </div>
                         <div class="mb-3">
                             <label for="address" class="form-label">{{ __('address') }}</label>
-                            <input name="address" required  autocomplete="address" autofocus type="text" class="form-control" id="address" value="{{ Auth::user()->address }}">
-
-                            @error('address')
-                                <span class="invalid-feedback" role="alert">
-                                    <small>{{ $message }}</small>
-                                </span>
+                            <input name="address" required  autocomplete="address" autofocus type="text" class="form-control" id="address" value="{{ old('address') ??Auth::user()->address }}">
+                            @error('address') 
+                                <span class="small text-danger"> {{ $message }}</span>
                             @enderror
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="mb-3">
                             <label for="note" class="form-label">{{ __('note') }}</label>
-                            <textarea class="form-control" name="note" id="note" rows="8"></textarea>
+                            <textarea class="form-control" name="note" id="note" rows="8">{{ old('note') }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -119,7 +111,7 @@
             <div class="card-body">
                 <div class="row p-3">
                     <div class="list-inline-item">
-                        <span class="fs-4 title-check"><i class="fa-solid text-primary fa-money-bills"></i> {{ __('payment') }}</span>
+                        <span class="fs-4 title-check"><i class="fa-solid text-primary fa-money-bills"></i> {{ __('payment method') }}</span>
                         <span class="fs-5 float-end">{{ __('cash') }}</span>
                     </div>
                     <div>
@@ -127,16 +119,16 @@
                             <tbody>
                                 <tr>
                                     <td><strong>{{ __('total') }}<strong></td>
-                                    <td>{{ @money($total_price) }}</td>
+                                    <td class="float-end">{{ @money($total_price) }}</td>
                                 </tr>
                                 <tr>
-                                    <td ><strong>{{ __('shipping') }}</strong></td>
+                                    <td ><strong>{{ __('delivery charges') }}</strong></td>
                                     <td class="float-end">{{ @money($shipping) }}</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>{{ __('total') }}<strong></td>
-                                    <td class="total-check">{{ @money($total_price + $shipping) }}
-                                        <input type="hidden" name="total_price" value="{{ $total_price + $shipping }}">
+                                    <td><strong>{{ __('total payment') }}<strong></td>
+                                    <td class="fs-3 text-danger total-check">
+                                        {{ @money($total_price + $shipping) }}
                                     </td>
                                 </tr>
                             </tbody>
@@ -144,8 +136,12 @@
                         </table>
                     </div>
                 </div> 
-                <div class="line-space">
-                    <button type="submit" class="btn btn-danger float-end mt-3 fs-5 py-1">{{ __('place order') }}</button>
+                <div class="d-flex justify-content-around align-items-end mt-3">
+                    <div>
+                        {{ __('enter place order') }}
+                        <a href="">{{ __('term') }}</a>
+                    </div>
+                    <button type="submit" class="btn btn-danger float-end fs-5 py-1">{{ __('place order') }}</button>
                 </div>
             </div>
         </div>

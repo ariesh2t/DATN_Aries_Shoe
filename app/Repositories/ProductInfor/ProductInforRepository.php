@@ -12,13 +12,12 @@ class ProductInforRepository extends BaseRepository implements ProductInforRepos
         return ProductInfor::class;
     }
 
-    public function checkExist($product_id, $color_id, $size_id)
+    public function getProductInfor($product_id, $color_id, $size_id)
     {
-        return $this->model->whereColumn([
-            ['product_id', '=', $product_id],
-            ['color_id', '=', $color_id],
-            ['size_id', '=', $size_id],
-        ])->get();
+        return $this->model->where('product_id', $product_id)
+            ->where('color_id', $color_id)
+            ->where('size_id', $size_id)
+            ->first();
     }
 
     public function getAllByProduct($product_id)

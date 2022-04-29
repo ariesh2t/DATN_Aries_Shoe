@@ -75,6 +75,12 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
+                                        <a class="dropdown-item" href="{{ route('orders') }}">
+                                            <i class="fa-solid fa-cart-flatbed-suitcase"></i>
+                                            {{ __('my purchase') }}
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                             document.getElementById('logout-form').submit();">
@@ -354,6 +360,10 @@
                 $('div.sub', this).stop(true, false, true).slideUp(200)
             }
         )
+
+        $("a[aria-label='close']").click(function() {
+            $('#flash').fadeOut();
+        })
     </script>
     @yield('script')
 </body>

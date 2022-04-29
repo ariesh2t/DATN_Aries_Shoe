@@ -16,4 +16,8 @@ class SizeRepository extends BaseRepository implements SizeRepositoryInterface
     {
         return $this->model->orderBy('size', 'asc')->get();
     }
+
+    public function getSize($size) {
+        return $this->model->where('size', $size)->first();
+    }
 }
