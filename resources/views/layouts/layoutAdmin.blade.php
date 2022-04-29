@@ -62,15 +62,9 @@
                         {{ Auth::user()->fullname }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <a href="#" class="dropdown-item">
+                        <a href="{{ route('admin.profile', Auth::user()->id) }}" class="dropdown-item">
                             <i class="fa-solid fa-address-card mr-1"></i>
                             {{ __('profile') }}
-                        </a>
-                        <div class="dropdown-divider"></div>
-
-                        <a href="#" class="dropdown-item">
-                            <i class="fa fa-unlock-alt mr-1"></i>
-                            {{ __('change password') }}
                         </a>
                         <div class="dropdown-divider"></div>
 
@@ -139,11 +133,12 @@
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <div class="image" style="margin: auto 0">
+                    <img src="{{ asset('images/users/' . Auth()->user()->image->name) }}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">{{ Auth::user()->fullname }}</a>
+                    <p class="mb-0 text-success" style="font-size: 8px"><i class="fa-solid fa-circle"></i>Online</p>
                 </div>
             </div>
 
@@ -165,7 +160,7 @@
                     <!-- Add icons to the links using the .nav-icon class
                         with font-awesome or any other icon font library -->
                     <li class="nav-item menu-open">
-                        <a href="#" class="nav-link active">
+                        <a href="{{ route('admin') }}" class="nav-link active">
                             <i class="nav-icon fa-solid fa-chart-line"></i>
                             <p>
                                 Dashboard
