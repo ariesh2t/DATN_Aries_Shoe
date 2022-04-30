@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($cart->items as $item)
+                @foreach ($cart->items as $key => $item)
                     <tr style="vertical-align: middle">
                         <td>
                             <img style="height: 50px" class="img-product" src="{{ asset('images/products/'. $item['image']) }}">
@@ -48,7 +48,7 @@
                         </td>
                         <td class="text-center">{{ @money($item['price']) }}</td>
                         <td>
-                            <form id="update-price" class="row justify-content-center" action="{{ route('cart.update', $item['id']) }}">
+                            <form id="update-price" class="row justify-content-center" action="{{ route('cart.update', $key) }}">
                                 <div class="input-group w-75">
                                     <input type="number" name="quantity" class="border-start form-control input-qty" min="1" max="1000" value="{{ $item['quantity'] }}">
                                     <button style="padding: 0.25rem 0.75rem" class="btn btn-primary" type="submit">

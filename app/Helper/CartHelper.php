@@ -15,7 +15,7 @@ class CartHelper
         $this->total_price = $this->getTotalPrice();
     }
 
-    public function add($product, $quantity, $color, $size, $quantityRequest)
+    public function add($product, $productInfor, $quantityRequest)
     {
         $item = [
             'id' => $product->id,
@@ -24,20 +24,20 @@ class CartHelper
             'image' => $product->images->first()->name,
             'brand' => $product->brand->name,
             'category' => $product->category->name,
-            'color_id' => $color->id,
-            'color' => $color->color,
-            'size_id' => $size->id,
-            'size' => $size->size,
+            'color_id' => $productInfor->color->id,
+            'color' => $productInfor->color->color,
+            'size_id' => $productInfor->size->id,
+            'size' => $productInfor->size->size,
             'quantity' => $quantityRequest,
         ];
 
-        if (isset($this->items[$product->id])) {
-            $this->items[$product->id]['quantity'] += $quantityRequest;
-            if ($this->items[$product->id]['quantity'] > $quantity) {
-                $this->items[$product->id]['quantity'] = $quantity;
+        if (isset($this->items[$productInfor->id])) {
+            $this->items[$productInfor->id]['quantity'] += $quantityRequest;
+            if ($this->items[$productInfor->id]['quantity'] > $productInfor->quantity) {
+                $this->items[$productInfor->id]['quantity'] = $productInfor->quantity;
             }
         } else {
-            $this->items[$product->id] = $item;
+            $this->items[$productInfor->id] = $item;
         }
 
         session(['cart' => $this->items]);
@@ -50,11 +50,6 @@ class CartHelper
         }
 
         session(['cart' => $this->items]);
-    }
-
-    public function getProductById($id)
-    {
-        return $this->items[$id];
     }
 
     public function update($id, $quantity, $quantityRequest)
