@@ -126,7 +126,7 @@
                                 <td class="float-end">{{ @money($order->shipping) }}</td>
                             </tr>
                             <tr>
-                                <td><strong>{{ __('total') }}<strong></td>
+                                <td><strong>{{ __('total payment') }}<strong></td>
                                 <td class="fs-3 text-danger total-check">{{ @money($order->order_price) }}</td>
                             </tr>
                         </tbody>

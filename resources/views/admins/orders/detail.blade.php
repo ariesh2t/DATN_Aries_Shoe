@@ -5,36 +5,36 @@
 @endsection
 
 @section('content')
-    <div class="mb-3 col-6">
-        <strong>{{ __('fullname') }}</strong>
-        <p>{{ $order->fullname }}</p>
+    <div class="d-flex align-items-center mb-3">
+        <div class="col-2 me-5 text-danger text-end">{{ __('fullname') }}</div>
+        <div class="col-6">{{ $order->fullname }}</div>
     </div>
 
-    <div class="mb-3 col-6">
-        <strong>{{ __('phone') }}</strong>
-        <p>{{ $order->phone }}</p>
+    <div class="d-flex align-items-center mb-3">
+        <div class="col-2 me-5 text-danger text-end">{{ __('phone') }}</div>
+        <div class="col-6">{{ $order->phone }}</div>
     </div>
 
-    <div class="mb-3 col-6">
-        <strong>{{ __('address') }}</strong>
-        <p>{{ $order->address }}</p>
+    <div class="d-flex align-items-center mb-3">
+        <div class="col-2 me-5 text-danger text-end">{{ __('address') }}</div>
+        <div class="col-6">{{ $order->address }}</div>
     </div>
 
-    <div class="mb-3 col-12">
-        <strong>{{ __('list') . __('product') }}</strong>
-
-        <table class="table table-striped table-hover">
-            <thead class="table-dark">
-                <tr>
-                    <th>{{ __('product name') }}</th>
-                    <th>{{ __('product info') }}</th>
-                    <th class="text-center">{{ __('price') }}</th>
-                    <th class="text-center">{{ __('quantity') }}</th>
-                    <th class="text-center">{{ __('total price') }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($order->products as $product)
+    <div class="d-flex mb-3">
+        <div class="col-2 me-5 text-danger text-end">{{ __('product info') }}</div>
+        <div class="col-10">
+            <table class="table table-stripe">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th>{{ __('product name') }}</th>
+                        <th style="width: 10%">{{ __('product info') }}</th>
+                        <th>{{ __('price') }}</th>
+                        <th>{{ __('quantity') }}</th>
+                        <th>{{ __('total price') }}</th>
+                    </tr>
+                </thead>
+                <tbody id="list-prinfor">
+                    @foreach ($order->products as $product)
                     <tr>
                         <td><div id="desc">{{ $product->name }}</div></td>
                         <td>
@@ -56,14 +56,28 @@
                         <td class="text-center">{{ @money($product->price * $product->pivot->quantity) }}</td>
                     </tr>
                 @endforeach
-            </tbody>
-        </table>
-
+                <tr>
+                    <td colspan="4" class="text-right font-weight-bold">{{ __('total') }}</td>
+                    <td class="text-center">{{ @money($order->total_price) }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <div class="mb-3 col-6">
-        <strong>{{ __('total') }}</strong>
-        <p>{{ @money($order->total_price) }}</p>
+    <div class="d-flex align-items-center mb-3">
+        <div class="col-2 me-5 text-danger text-end">{{ __('delivery charges') }}</div>
+        <div class="col-6">{{ @money($order->shipping) }}</div>
+    </div>
+
+    <div class="d-flex align-items-center mb-3">
+        <div class="col-2 me-5 text-danger text-end">{{ __('total payment') }}</div>
+        <div class="col-6 text-danger" style="font-size: 24px">{{ @money($order->order_price) }}</div>
+    </div>
+
+    <div class="d-flex align-items-center mb-3">
+        <div class="col-2 me-5 text-danger text-end">{{ __('created at') }}</div>
+        <div class="col-6">{{ $order->created_at }}</div>
     </div>
 
     @if ($order->order_status_id != config('orderstatus.cancelled') && $order->order_status_id != config('orderstatus.delivered'))

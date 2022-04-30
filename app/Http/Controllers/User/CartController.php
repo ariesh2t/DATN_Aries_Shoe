@@ -6,21 +6,25 @@ use App\Helper\CartHelper;
 use App\Http\Controllers\Controller;
 use App\Repositories\Color\ColorRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
+use App\Repositories\ProductInfor\ProductInforRepositoryInterface;
 use App\Repositories\Size\SizeRepositoryInterface;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
     protected $productRepo;
+    protected $productInforRepo;
     protected $sizeRepo;
     protected $colorRepo;
 
     public function __construct(
         ProductRepositoryInterface $productRepo,
+        ProductInforRepositoryInterface $productInforRepo,
         ColorRepositoryInterface $colorRepo,
         SizeRepositoryInterface $sizeRepo
     ) {
         $this->productRepo = $productRepo;
+        $this->productInforRepo = $productInforRepo;
         $this->colorRepo = $colorRepo;
         $this->sizeRepo = $sizeRepo;
     }
@@ -54,16 +58,12 @@ class CartController extends Controller
         $product = $this->productRepo->find($id);
         $color = $this->colorRepo->find($request->color_id);
         $size = $this->sizeRepo->find($request->size_id);
-        $quantity = $this->productRepo->getQuantity([
-            'id' => $product->id,
-            'color_id' => $color->id,
-            'size_id' => $size->id,
-        ]);
+        $productInfor = $this->productInforRepo->getProductInfor($product->id, $color->id, $size->id);
 
-        if ($quantity < 1) {
+        if ($productInfor->quantity < 1) {
             return redirect()->back()->with('error', __('add cart fail'));
         } else {
-            $cart->add($product, $quantity, $color, $size, $request->quantity);
+            $cart->add($product, $productInfor, $request->quantity);
     
             return redirect()->back();
         }
@@ -79,17 +79,11 @@ class CartController extends Controller
     public function update(CartHelper $cart, $id)
     {
         $quantityRequest = request()->quantity;
-
-        $product = $cart->getProductById($id);
-
-        $quantity = $this->productRepo->getQuantity([
-            'id' => $id,
-            'color_id', $product['color_id'],
-            'size_id', $product['size_id'],
-        ]);
+        
+        $productInfor = $this->productInforRepo->find($id);
 
         if (is_numeric($quantityRequest)) {
-            $cart->update($id, $quantity, $quantityRequest);
+            $cart->update($id, $productInfor->quantity, $quantityRequest);
 
             return redirect()->back();
         } else {
