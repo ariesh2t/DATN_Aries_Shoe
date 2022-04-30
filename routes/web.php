@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ColorSizeController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductInforController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
@@ -50,6 +51,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::resource('brands', BrandController::class);
         Route::resource('products', ProductController::class);
         Route::resource('product-infors', ProductInforController::class);
+        Route::resource('orders', AdminOrderController::class);
         Route::get('color-size/show-all', [ColorSizeController::class, 'showAll'])->name('color-size.show');
         Route::post('add-color', [ColorSizeController::class, 'addColor'])->name('add-color');
         Route::post('add-size', [ColorSizeController::class, 'addSize'])->name('add-size');

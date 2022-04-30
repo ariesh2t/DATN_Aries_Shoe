@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Helper\CartHelper;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use App\Repositories\Brand\BrandRepository;
 use App\Repositories\Brand\BrandRepositoryInterface;
@@ -18,6 +19,8 @@ use App\Repositories\Order\OrderRepository;
 use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\OrderProduct\OrderProductRepository;
 use App\Repositories\OrderProduct\OrderProductRepositoryInterface;
+use App\Repositories\OrderStatus\OrderStatusRepository;
+use App\Repositories\OrderStatus\OrderStatusRepositoryInterface;
 use App\Repositories\Product\ProductRepository;
 use App\Repositories\Product\ProductRepositoryInterface;
 use App\Repositories\ProductInfor\ProductInforRepository;
@@ -53,6 +56,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
         $this->app->bind(OrderProductRepositoryInterface::class, OrderProductRepository::class);
         $this->app->bind(RoleRepositoryInterface::class, RoleRepository::class);
+        $this->app->bind(OrderStatusRepositoryInterface::class, OrderStatusRepository::class);
     }
 
     /**
@@ -81,6 +85,7 @@ class AppServiceProvider extends ServiceProvider
         $totalCategories = Category::count();
         $totalBrands = Brand::count();
         $totalProducts = Product::count();
+        $totalOrders = Order::where('order_status_id', config('orderstatus.waiting'))->count();
 
         $brands = Brand::all();
         $categories = Category::all();
@@ -89,6 +94,7 @@ class AppServiceProvider extends ServiceProvider
             'totalCategories',
             'totalBrands',
             'totalProducts',
+            'totalOrders',
             'brands',
             'categories',
         ));

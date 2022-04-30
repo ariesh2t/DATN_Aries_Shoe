@@ -135,7 +135,7 @@ class OrderController extends Controller
 
     public function showAll()
     {
-        $orders = $this->orderRepo->getAll();
+        $orders = $this->orderRepo->getOrderByUserId(Auth::user()->id);
 
         return view('customers.orders.showAll', compact('orders'));
     }

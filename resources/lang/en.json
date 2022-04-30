@@ -172,5 +172,6 @@
     "no status": "This status was not found",
     "admin": "Admin",
     "customer": "Customer",
-    "staff": "Staff"
+    "staff": "Staff",
+    "cannot update order status": "Unable to update to previous status"
 }

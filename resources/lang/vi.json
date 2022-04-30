@@ -172,5 +172,6 @@
     "no status": "Không tìm thấy trạng thái này",
     "admin": "Người quản trị",
     "customer": "Khách hàng",
-    "staff": "Nhân viên"
+    "staff": "Nhân viên",
+    "cannot update order status": "Không thể cập nhật về trạng thái trước đó"
 }
