@@ -47,7 +47,6 @@ table.dataTable tbody th, table.dataTable tbody td {
     height: 0;
 }
 .form-upload__item, .aform-upload__item {
-    width: 230px;
     margin: 0 7.5px 10px;
     position: relative;
 }

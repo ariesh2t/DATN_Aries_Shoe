@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\OrderStatusRequest;
@@ -54,7 +54,7 @@ class OrderController extends Controller
     {
         $orders = $this->orderRepo->getAll();
 
-        return view('admins.orders.index', compact('orders'));
+        return view('staffs.orders.index', compact('orders'));
     }
 
     /**
@@ -89,7 +89,7 @@ class OrderController extends Controller
         $order = $this->orderRepo->find($id);
         $statuses = $this->orderStatusRepo->getAll();
 
-        return view('admins.orders.detail', compact('order', 'statuses'));
+        return view('staffs.orders.detail', compact('order', 'statuses'));
     }
 
     /**

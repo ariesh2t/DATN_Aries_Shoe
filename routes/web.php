@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LangController;
+use App\Http\Controllers\Staff\OrderController as StaffOrderController;
+use App\Http\Controllers\Staff\ProfileController as StaffProfileController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\User\BrandController as UserBrandController;
 use App\Http\Controllers\User\CartController;
@@ -65,19 +67,17 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('users', [UserController::class, 'store'])->name('users.store');
         Route::get('user/{id}/detail', [UserController::class, 'detail'])->name('users.detail');
         Route::patch('user/{id}/update-status', [UserController::class, 'updateStatus'])->name('users.updateStatus');
-        // Route::resource('users', UserController::class);
-        // Route::resource('orders', AdminOrderController::class);
-        // Route::delete('products/image/{id}', [ProductController::class, 'deleteImage'])->name('delete.image');
     });
 });
 
 Route::middleware(['auth', 'staff'])->group(function () {
     Route::prefix('staff')->group(function () {
         Route::get('/', [StaffController::class, 'index'])->name('staff');
-        // Route::resource('categories', CategoryController::class);
-        // Route::resource('products', ProductController::class);
-        // Route::resource('users', UserController::class);
-        // Route::resource('orders', AdminOrderController::class);
+        Route::resource('staff-orders', StaffOrderController::class);
+        Route::get('profile', [StaffProfileController::class, 'show'])->name('staff.profile');
+        Route::get('profile/edit', [StaffProfileController::class, 'edit'])->name('staff.profile.edit');
+        Route::put('profile', [StaffProfileController::class, 'update'])->name('staff.profile.update');
+        Route::post('profile/change-pass', [StaffProfileController::class, 'changePass'])->name('staff.profile.change-pass');
         // Route::delete('products/image/{id}', [ProductController::class, 'deleteImage'])->name('delete.image');
     });
 });

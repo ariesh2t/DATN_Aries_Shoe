@@ -1,4 +1,4 @@
-@extends('layouts.layoutAdmin')
+@extends('layouts.layoutStaff')
 
 @section('title')
     {{ __('edit profile') }}
@@ -7,7 +7,7 @@
 @section('content')
 <div class="container-xl px-4 mt-4">
     <hr class="mt-0 mb-4">
-    <form action="{{ route('admin.profile.update') }}" method="POST" id="form-profile" enctype="multipart/form-data">
+    <form action="{{ route('staff.profile.update') }}" method="POST" id="form-profile" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <input type="hidden" name="id" value="{{ $user->id }}">

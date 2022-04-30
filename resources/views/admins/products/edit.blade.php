@@ -11,16 +11,16 @@
         <input type="hidden" name="id" value="{{ $product->id }}">
         <div class="mb-3 form-group form-upload">
             <label class="form-label">{{ __('image') }}</label>
-            <div class="form-upload__preview">
+            <div class="form-upload__preview flex-wrap">
                 @foreach ($product->images as $image)
-                    <div class="form-upload__item"> 
+                    <div class="form-upload__item col-2"> 
                         <div class="form-upload__close js-delete-image" data-id="{{ $image->id }}">x</div> 
                         <div class="form-upload__item-thumbnail" style="background-image: url({{ asset('images/products/' . $image->name) }})"></div>
                     </div>
                 @endforeach
             </div>
-            <div class="d-flex mt-3">
-                <label class="form-upload__title btn btn-outline-success mb-0" for="upload"> {{ __('upload') }}
+            <div class="d-flex mt-3 justify-content-center">
+                <label class="form-upload__title btn btn-outline-success m-0" for="upload"> {{ __('upload') }}
                     <input class="form-upload__control js-form-upload-control" id="upload" type="file" name="images[]" multiple/>
                 </label>
                 <div class="btn btn-secondary btn-clear d-none ml-3">{{ __('clear') }}</div>
