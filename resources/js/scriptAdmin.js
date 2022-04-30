@@ -13,7 +13,7 @@ $(document).ready(function() {
                         var reader = new FileReader();
                         reader.addEventListener('load', function () {
                             const html =
-                                '<div class=\"form-upload__item\">' +
+                                '<div class=\"form-upload__item col-2\">' +
                                     '<div class=\"form-upload__close\">x</div>' +
                                     '<div class="form-upload__item-thumbnail" style="background-image: url(' + this.result + ')"></div>' +
                                 '</div>';

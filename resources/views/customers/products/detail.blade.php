@@ -4,7 +4,22 @@
     {{ $product->name }}
 @endsection
 
+
 @section('content')
+    <div class="d-flex justify-content-between align-items-center bg-dark py-4 fs-2">
+        <div class="ps-3">
+            <a class="text-white" href="{{ url()->previous() }}" title="{{ __('back') }}"><i class="fa-solid fa-left-long"></i></a>
+        </div>
+        <div class="text-uppercase text-white">{{ $product->name }}</div>
+        <div class="text-white col-1 d-flex">
+            <div class="previous col-6">
+                <i class="fa-solid fa-arrow-left-long"></i>
+            </div>
+            <div class="next col-6">
+                <i class="fa-solid fa-arrow-right-long"></i>
+            </div>
+        </div>
+    </div>
     <div class="row mb-5">
         <div class="col-6 p-3">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
