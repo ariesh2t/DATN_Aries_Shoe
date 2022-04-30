@@ -23,23 +23,23 @@ class ProfileController extends Controller
         $this->userRepo = $userRepo;
     }
 
-    public function show($id)
+    public function show()
     {
-        $user = $this->userRepo->find($id);
+        $user = Auth::user();
 
         return view('admins.profiles.show', compact('user'));
     }
 
-    public function edit($id)
+    public function edit()
     {
-        $user = $this->userRepo->find($id);
+        $user = Auth::user();
 
         return view('admins.profiles.edit', compact('user'));
     }
 
-    public function update(UpdateRequest $request, $id)
+    public function update(UpdateRequest $request)
     {
-        $user = $this->userRepo->find($id);
+        $user = $this->userRepo->find(Auth::user()->id);
         $currentFile = $user->image->name;
         DB::transaction(function() use($request, $user, $currentFile){
             $file = $request->image;

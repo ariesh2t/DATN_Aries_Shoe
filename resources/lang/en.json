@@ -159,5 +159,18 @@
     "empty reason": "Cancellation failed, you have not entered the reason for order cancellation",
     "cannot re-order": "Only orders that have been delivered or canceled can be re-ordered",
     "change pass success": "You have successfully changed your password",
-    "change pass fail": "Password is incorrect, request to change password failed"
+    "change pass fail": "Password is incorrect, request to change password failed",
+    "users": "Users",
+    "user": "User",
+    "create staff account": "Create staff account",
+    "unlock account": "Unlock account",
+    "lock account": "Lock account",
+    "user detail": "User detail",
+    "role": "Role",
+    "cannot update admin": "Unable to update admin account",
+    "no user": "Account #:attr not found",
+    "no status": "This status was not found",
+    "admin": "Admin",
+    "customer": "Customer",
+    "staff": "Staff"
 }

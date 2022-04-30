@@ -159,5 +159,18 @@
     "empty reason": "Huỷ thất bại, bạn chưa nhập lý do huỷ đơn hàng",
     "cannot re-order": "Chỉ những đơn hàng đã giao hoặc đã huỷ mới có thể đặt lại",
     "change pass success": "Bạn đã thay đổi mật khẩu thành công",
-    "change pass fail": "Mật khẩu không đúng, yêu cầu đổi mật khẩu thất bại"
+    "change pass fail": "Mật khẩu không đúng, yêu cầu đổi mật khẩu thất bại",
+    "users": "Tài khoản",
+    "user": "Tài khoản",
+    "create staff account": "Tạo tài khoản nhân viên",
+    "unlock account": "Mở khoá tài khoản",
+    "lock account": "Khoá tài khoản",
+    "user detail": "Thông tin người dùng",
+    "role": "Quyền",
+    "cannot update admin": "Không thể cập nhật tài khoản quản trị viên",
+    "no user": "Không tìm thấy tài khoản #:attr",
+    "no status": "Không tìm thấy trạng thái này",
+    "admin": "Người quản trị",
+    "customer": "Khách hàng",
+    "staff": "Nhân viên"
 }
