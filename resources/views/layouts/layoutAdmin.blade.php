@@ -269,11 +269,11 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="pages/widgets.html" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                        <a href="{{ route('orders.index') }}" class="nav-link">
+                            <i class="nav-icon fa-solid fa-cart-flatbed-suitcase"></i>
                             <p>
-                                Widgets
-                                <span class="right badge badge-danger">New</span>
+                                {{ __('orders') }}
+                                <span class="badge badge-info right">{{ $totalOrders }}</span>
                             </p>
                         </a>
                     </li>
