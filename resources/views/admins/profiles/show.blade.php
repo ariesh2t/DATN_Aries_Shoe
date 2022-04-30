@@ -41,13 +41,13 @@
                         {{ $user->address ?? __('no info') }}
                     </div>
 
-                    <a href="{{ route('admin.profile.edit', $user->id) }}" class="btn btn-outline-primary mt-2">{{ __('edit profile') }}</a>
+                    <a href="{{ route('admin.profile.edit') }}" class="btn btn-outline-primary mt-2">{{ __('edit profile') }}</a>
                 </div>
             </div>
             <div class="card mb-4" id="card-form-change-pass">
                 <div class="card-header bg-warning text-white h5">{{ __('change pass') }}</div>
                 <div class="card-body">
-                    <form id="form-change-pass" action="{{ route('admin.profile.change-pass', $user->id) }}" method="post">
+                    <form id="form-change-pass" action="{{ route('admin.profile.change-pass') }}" method="post">
                         @csrf
                         <div class="d-flex mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('password') }} <sup class="text-danger">*</sup></label>

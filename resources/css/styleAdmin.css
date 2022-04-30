@@ -31,26 +31,27 @@ table.dataTable tbody th, table.dataTable tbody td {
     word-break: break-all;
 }
 
-.form-upload__preview {
+.form-upload__preview, .aform-upload__preview {
     display: flex;
-    flex-wrap: wrap;
     width: calc(100% + 15px);
     margin-left: -7.5px;
+    justify-content: center;
 }
-.form-upload__title {
+.form-upload__title, .aform-upload__title {
     position: relative;
+    margin: 0 auto;
 }
-.form-upload__control {
+.form-upload__control, .aform-upload__control {
     position: absolute;
     width: 0;
     height: 0;
 }
-.form-upload__item {
-    width: 150px;
+.form-upload__item, .aform-upload__item {
+    width: 230px;
     margin: 0 7.5px 10px;
     position: relative;
 }
-.form-upload__item-thumbnail {
+.form-upload__item-thumbnail, .aform-upload__item-thumbnail {
     padding-top: 100%;
     background-size: auto 100%;
     background-position: center;
@@ -58,7 +59,7 @@ table.dataTable tbody th, table.dataTable tbody td {
     border: 1px solid #d2d2d2;
     border-radius: 4px;
 }
-.form-upload__item-name {
+.form-upload__item-name, .aform-upload__item-name {
     word-break: break-all;
     text-align: center;
     margin-top: 8px;

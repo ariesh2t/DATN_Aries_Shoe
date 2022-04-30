@@ -62,7 +62,7 @@
                         {{ Auth::user()->fullname }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <a href="{{ route('admin.profile', Auth::user()->id) }}" class="dropdown-item">
+                        <a href="{{ route('admin.profile') }}" class="dropdown-item">
                             <i class="fa-solid fa-address-card mr-1"></i>
                             {{ __('profile') }}
                         </a>
@@ -138,7 +138,7 @@
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">{{ Auth::user()->fullname }}</a>
-                    <p class="mb-0 text-success" style="font-size: 8px"><i class="fa-solid fa-circle"></i>Online</p>
+                    <p class="mb-0 text-success" style="font-size: 10px"><i class="fa-solid fa-circle"></i> Online</p>
                 </div>
             </div>
 
@@ -241,6 +241,29 @@
                                 <a href="{{ route('products.create') }}" class="nav-link">
                                     <i class="fa-solid fa-circle-plus mr-1"></i>
                                     <p>{{ __('create new') }}</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fa-solid fa-users nav-icon"></i>
+                            <p>
+                                {{ __('users') }}
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('users.index') }}" class="nav-link">
+                                    <i class="fa-solid fa-clipboard-list mr-1"></i>
+                                    <p>{{ __('list') . __('users') }}</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('users.create') }}" class="nav-link">
+                                    <i class="fa-solid fa-circle-plus mr-1"></i>
+                                    <p>{{ __('create staff account') }}</p>
                                 </a>
                             </li>
                         </ul>
