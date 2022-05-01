@@ -182,5 +182,7 @@
     "enter comment": "Enter your comment",
     "post comment": "Post comment",
     "cannot update comment": "Can't edit other people's comments",
-    "cannot delete comment": "Can't delete other people's comments"
+    "cannot delete comment": "Can't delete other people's comments",
+    "review": "reviews",
+    "filter": "Filter"
 }

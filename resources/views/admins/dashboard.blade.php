@@ -3,69 +3,69 @@
 @section('content')
 <section class="content">
     <div class="container-fluid">
-      <!-- Small boxes (Stat box) -->
-      <div class="row">
-        <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-info">
-            <div class="inner">
-              <h3>150</h3>
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>150</h3>
 
-              <p>New Orders</p>
+                        <p>{{ __('weekly revenue') }}</p>
+                    </div>
+                    <div class="icon">
+                        <i class="far fa-dollar-sign"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">{{ __('more') }} <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
             </div>
-            <div class="icon">
-              <i class="ion ion-bag"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-success">
-            <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
+          <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>53<sup style="font-size: 20px">%</sup></h3>
 
-              <p>Bounce Rate</p>
+                        <p>{{ __('new product') }}</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">{{ __('more' )}} <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
             </div>
-            <div class="icon">
-              <i class="ion ion-stats-bars"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-warning">
-            <div class="inner">
-              <h3>44</h3>
+          <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>44</h3>
 
-              <p>User Registrations</p>
+                        <p>User Registrations</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-person-add"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">{{ __('more' )}} <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
             </div>
-            <div class="icon">
-              <i class="ion ion-person-add"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-danger">
-            <div class="inner">
-              <h3>65</h3>
+          <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <h3>65</h3>
 
-              <p>Unique Visitors</p>
+                        <p>{{ __("new order") }}</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-luggage-cart"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">{{ __('more' )}} <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
             </div>
-            <div class="icon">
-              <i class="ion ion-pie-graph"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
+          <!-- ./col -->
         </div>
-        <!-- ./col -->
-      </div>
       <!-- /.row -->
       <!-- Main row -->
       <div class="row">
@@ -78,26 +78,13 @@
                 <i class="fas fa-chart-pie mr-1"></i>
                 Sales
               </h3>
-              <div class="card-tools">
-                <ul class="nav nav-pills ml-auto">
-                  <li class="nav-item">
-                    <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-                  </li>
-                </ul>
-              </div>
             </div><!-- /.card-header -->
             <div class="card-body">
               <div class="tab-content p-0">
                 <!-- Morris chart - Sales -->
                 <div class="chart tab-pane active" id="revenue-chart"
-                     style="position: relative; height: 300px;">
+                    style="position: relative; height: 300px;">
                     <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
-                 </div>
-                <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                  <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
                 </div>
               </div>
             </div><!-- /.card-body -->
@@ -511,21 +498,21 @@
               <div class="row">
                 <div class="col-4 text-center">
                   <input type="text" class="knob" data-readonly="true" value="20" data-width="60" data-height="60"
-                         data-fgColor="#39CCCC">
+                        data-fgColor="#39CCCC">
 
                   <div class="text-white">Mail-Orders</div>
                 </div>
                 <!-- ./col -->
                 <div class="col-4 text-center">
                   <input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60"
-                         data-fgColor="#39CCCC">
+                        data-fgColor="#39CCCC">
 
                   <div class="text-white">Online</div>
                 </div>
                 <!-- ./col -->
                 <div class="col-4 text-center">
                   <input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60"
-                         data-fgColor="#39CCCC">
+                        data-fgColor="#39CCCC">
 
                   <div class="text-white">In-Store</div>
                 </div>

@@ -6,11 +6,13 @@
 
 @section('content')
 <div class="container px-4 px-lg-5 mt-5">
-    <div class="d-flex justify-content-between align-items-center bg-dark py-4 fs-2 mb-5">
+    <div class="d-flex justify-content-between align-items-center bg-dark py-4 fs-5 mb-5">
         <div class="ps-3">
-            <a class="text-white" href="{{ url()->previous() }}" title="{{ __('back') }}"><i class="fa-solid fa-left-long"></i></a>
+            <a class="text-white" href="{{ url()->previous() }}" title="{{ __('back') }}">
+                <i class="fa-solid fa-chevron-left"></i> {{ __('back') }}
+            </a>
         </div>
-        <div class="text-uppercase text-white">{{ __('order infor') }}</div>
+        <div class="text-uppercase fs-2 text-white">{{ __('order infor') }}</div>
         <div></div>
     </div>
     <div class="card my-3">

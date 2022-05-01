@@ -182,5 +182,7 @@
     "enter comment": "Nhập bình luận của bạn",
     "post comment": "Gửi đánh giá",
     "cannot update comment": "Không thể chỉnh sửa bình luận của người khác",
-    "cannot delete comment": "Không thể xoá bình luận của người khác"
+    "cannot delete comment": "Không thể xoá bình luận của người khác",
+    "review": "đánh giá",
+    "filter": "Lọc"
 }

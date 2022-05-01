@@ -129,4 +129,30 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             ->take(8)
             ->get();
     }
+
+    public function getNextProduct($product_id)
+    {
+        $product = $this->model->where('id', '>', $product_id)->first();
+
+        if (!$product) {
+            return $this->model->first();
+        }
+        return $product;
+    }
+
+    public function getPreviousProduct($product_id)
+    {
+        $product = $this->model->where('id', '<', $product_id)->orderBy('id', 'desc')->first();
+
+        if (!$product) {
+            return $this->model->orderBy('id', 'desc')->first();
+        }
+        return $product;
+    }
+
+    public function getOrderDelivered($product_id) {
+        return $this->model->with(['orders' => function ($query) {
+            $query->where('order_status_id', config('orderstatus.delivered'));
+        }])->findOrFail($product_id);
+    }
 }

@@ -160,7 +160,7 @@
                     <div>
                         <form action="{{ route('products') }}" method="GET">
                             <div class="input-group">
-                                <input type="text" name="name_value" value="{{ request()->name_value ?? '' }}" class="form-control" placeholder="{{ __('enter') . __("product name")}}">
+                                <input type="text" name="name_value" value="{{ request()->name_value ?? '' }}" class="form-control" placeholder="{{ __('enter') . strtolower(__("product name"))}}">
                                 <button class="btn btn-outline-secondary" type="submit">
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                 </button>
@@ -213,7 +213,7 @@
                     <div>
                         <form action="{{ route('products') }}" method="GET">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="{{ __('enter') . __("product name")}}">
+                                <input type="text" class="form-control" placeholder="{{ __('enter') . strtolower(__("product name"))}}">
                                 <button class="btn btn-outline-secondary" type="submit">
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                 </button>
@@ -286,20 +286,20 @@
         <footer class="footer-container bg-dark">
 			<div class="container main-footer">
 		        <aside class="footer-sidebar widget-area p-5" role="complementary">
-					<div class="row justify-content-center align-items-center">
-                        <div class="col-1">
-                            <a href="">
-                                <i class="fa-brands fa-facebook-f"></i>
+					<div class="row justify-content-center align-items-center mb-4">
+                        <div class="col-1 text-center">
+                            <a href="https://www.facebook.com/aries.842">
+                                <i class="fa-brands fs-5 fa-facebook-f"></i>
                             </a>
                         </div>
-                        <div class="col-1">
-                            <a href="">
-                                <i class="fa-brands fa-twitter"></i>
+                        <div class="col-1 text-center">
+                            <a href="https://twitter.com/AriesHoang842">
+                                <i class="fa-brands fs-5 fa-twitter"></i>
                             </a>
                         </div>
-                        <div class="col-1">
-                            <a href="">
-                                <i class="fa-brands fa-github"></i>
+                        <div class="col-1 text-center">
+                            <a href="https://github.com/ariesh2t">
+                                <i class="fa-brands fs-5 fa-github"></i>
                             </a>
                         </div>
                     </div>
