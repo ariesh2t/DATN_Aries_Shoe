@@ -815,3 +815,35 @@ select option:checked {
     height: 3px;
     background: rgb(32, 132, 7);
 }
+
+.avt-cmt {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+}
+
+.star, #btn-edit-cmt {
+    cursor: pointer;
+}
+
+.size-item:not(:last-child):after {
+    content: ',';
+}
+
+.tab-content-item {
+    margin-top: 20px;
+}
+
+.vertical-right::after {
+    content: '';
+    position: absolute;
+    border-right: 1px solid #dee2e6;
+    height: 200%;
+    top: -37px;
+    right: 0;
+}

@@ -125,6 +125,7 @@
     "add to cart": "Thêm vào giỏ",
     "add cart fail": "Thêm vào giỏ hàng thất bại",
     "additional infor": "Thông tin bổ sung",
+    "comment": "Bình luận",
     "related products": "Sản phẩm liên quan",
     "change pass": "Đổi mật khẩu",
     "home": "Trang chủ",
@@ -173,5 +174,13 @@
     "admin": "Người quản trị",
     "customer": "Khách hàng",
     "staff": "Nhân viên",
-    "cannot update order status": "Không thể cập nhật về trạng thái trước đó"
+    "cannot update order status": "Không thể cập nhật về trạng thái trước đó",
+    "cannot comment by other account": "Không thể dùng tài khoản người khác để gửi bình luận",
+    "rating success": "Gửi đánh giá thành công",
+    "cannot comment": "Không thể đánh giá các sản phẩm chưa được mua hoặc chưa được giao thành công",
+    "update comment success": "Đã cập nhật nội dung bình luận",
+    "enter comment": "Nhập bình luận của bạn",
+    "post comment": "Gửi đánh giá",
+    "cannot update comment": "Không thể chỉnh sửa bình luận của người khác",
+    "cannot delete comment": "Không thể xoá bình luận của người khác"
 }

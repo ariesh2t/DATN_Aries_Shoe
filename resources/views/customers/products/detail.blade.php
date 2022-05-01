@@ -192,41 +192,174 @@
         <div class="tabs">
             <div class="d-flex justify-content-center border-bottom border-3">
                 <ul class="nav-tab mb-0 list-inline">
-                    <li class="list-inline-item px-3 py-2 nav-tab-active"><a class="text-uppercase text-dark fw-bold fs-4" href="#tab-content-1">{{ __('desc') }}</a></li>
-                    <li class="list-inline-item px-3 py-2"><a class="text-uppercase text-dark fw-bold fs-4" href="#tab-content-2">{{ __('additional infor') }}</a></li>
+                    <li class="list-inline-item px-3 py-2"><a class="text-uppercase text-dark fw-bold fs-4" href="#tab-content-1">{{ __('additional infor') }}</a></li>
+                    <li class="list-inline-item px-3 py-2 nav-tab-active"><a class="text-uppercase text-dark fw-bold fs-4" href="#tab-content-2">{{ __('comment') }}</a></li>
                     <li class="list-inline-item px-3 py-2"><a class="text-uppercase text-dark fw-bold fs-4" href="#tab-content-3">{{ __('related products') }}</a></li>
                 </ul>
             </div>
             <div class="tab-content p-2">
                 <div id="tab-content-1" class="tab-content-item">
-                    {!! $product->desc !!}
+                    <div>
+                        <div class="row justify-content-center">
+                            <div class="col-2 fs-5">
+                                {{ __('brands') }}
+                            </div>
+                            <div class="col-5 text-end">
+                                {{ $product->brand->name }}
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-2 fs-5">
+                                {{ __('categories') }}
+                            </div>
+                            <div class="col-5 text-end">
+                                {{ $product->category->name }}
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-2 fs-5">
+                                {{ __('sizes') }}
+                            </div>
+                            <div class="col-5 text-end">
+                                @foreach ($sizes as $size)
+                                    <span class="size-item">{{ $size->size->size }}</span>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-7">
+                                <hr style="height: 3px">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="fw-bold fs-4">
+                            {{ __('desc') }}
+                        </div>
+                        {!! $product->desc !!}
+                    </div>
                 </div>
                 <div id="tab-content-2" class="tab-content-item">
-                    <div class="row justify-content-center">
-                        <div class="col-3">
-                            {{ __('brands') }}
-                        </div>
-                        <div class="col-7">
-                            {{ $product->brand->name }}
+                    <div class="well well-sm mb-4 d-flex justify-content-center">
+                        <div class="col-9">
+                            <div class="row justify-content-center align-items-center mx-5 p-3 border rounded">
+                                <div class="col-3 text-center position-relative vertical-right">
+                                    <h1 class="rating-num text-warning fw-bold">{{ round($product->comments->avg('rating'), 2) }} <i class="fa-solid fa-star"></i></h1>
+                                    <div>
+                                        <span class="glyphicon glyphicon-user"></span>{{ $product->comments->count() }} total
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <div class="row rating-desc">
+                                        @php
+                                            $totalStar = 0;
+                                            foreach($list_star as $count) {
+                                                $totalStar += $count;
+                                            }
+                                        @endphp
+                                        @foreach ($list_star as $star => $count)
+                                            <div class="col-2 text-end">
+                                                <i class="fa-solid text-warning fa-star"></i>{{ $star }}
+                                            </div>
+                                            <div class="col-9">
+                                                <div class="progress progress-striped">
+                                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width: {{ $count/$totalStar *100 }}%">
+                                                        <span class="ms-2 text-dark position-absolute">{{ round($count/$totalStar *100, 2) }}%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <!-- end row -->
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row justify-content-center">
-                        <div class="col-3">
-                            {{ __('categories') }}
-                        </div>
-                        <div class="col-7">
-                            {{ $product->category->name }}
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-3">
-                            {{ __('sizes') }}
-                        </div>
-                        <div class="col-7">
-                            @foreach ($sizes as $size)
-                                <span>{{ $size->size->size }}</span>
+                    <div class="comment">
+                        <div class="all-comment">
+                            @foreach ($product->comments as $comment)
+                                <div class="row mb-4">
+                                    <div class="col-1">
+                                        <div class="avt-cmt text-end" style="box-shadow: 0 0 2px #000">
+                                            <img height="50" src="{{ asset('images/users/' . $comment->user->image->name) }}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-11">
+                                        <p class="mb-0 fw-bold">{{ $comment->user->fullname }}</p>
+                                        <div class="star_rating d-flex">
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                @if ($i <= $comment->rating)
+                                                    <div class="text-warning"><i class="fa-solid fa-star"></i></div>
+                                                @else
+                                                    <div class="text-warning"><i class="fa-regular fa-star"></i></div>
+                                                @endif
+                                            @endfor
+                                        </div>
+                                        <div class="mt-1">
+                                            {{ $comment->content }}
+                                        </div>
+                                        @if ($comment->user_id == Auth::user()->id)
+                                            <form class="ms-2" action="{{ route('comment.destroy', $comment->id) }}" method="POST">
+                                                <sup class="text-info" id="btn-edit-cmt">{{ __('edit') }}</sup>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" id="btn-del" class="btn btn-delete text-info" data-confirm="{{ __('delete confirm') }}">
+                                                    <sup>{{ __('delete') }}</sup>
+                                                </button>
+                                            </form>
+                                            <form method="POST" id="form-edit-cmt" class="visually-hidden" action="{{ route('comment.update', $comment->id) }}">
+                                                @csrf
+                                                @method('PUT')
+                                                <textarea class="form-control" name="content" id="comment-content" 
+                                                    placeholder="{{ __('enter comment') }}" rows="3">{{ $comment->content }}</textarea>
+                                                
+                                                <button type="submit" class="btn btn-primary mt-1">{{ __('update') }}</button>
+                                            </form>
+                                            @error('content')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        @endif
+                                    </div>
+                                </div>
                             @endforeach
                         </div>
+                        @if ($allowComment)
+                            <div class="my-comment">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <div class="avt-cmt text-end" style="box-shadow: 0 0 2px #000">
+                                            <img height="50" src="{{ asset('images/users/' . Auth::user()->image->name) }}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-11">
+                                        <p class="mb-0 fw-bold">{{ Auth::user()->fullname }}</p>
+                                        <form action="{{ route('comment', $product->id) }}" id="form-comment" method="POST" role="form">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                            <input type="hidden" name="rating" id="rating" value="5" />
+                                            <div class="star_rating d-flex">
+                                                <div class="star text-warning"><i class="fa-solid fa-star"></i></div>
+                                                <div class="star text-warning"><i class="fa-solid fa-star"></i></div>
+                                                <div class="star text-warning"><i class="fa-solid fa-star"></i></div>
+                                                <div class="star text-warning"><i class="fa-solid fa-star"></i></div>
+                                                <div class="star text-warning"><i class="fa-solid fa-star"></i></div>
+                                            </div>
+                                            <div class="mb-3 mt-1">
+                                                <textarea class="form-control" name="content" id="content" placeholder="{{ __('enter comment') }}" rows="3"></textarea>
+                                                @error('content')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="submit" id="btn-comment" class="btn btn-primary" value="{{ __('post comment') }}">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div id="tab-content-3" class="tab-content-item">
@@ -298,7 +431,7 @@
         })
 
         $('.tab-content-item').hide()
-        $('.tab-content-item:first').fadeIn()
+        $('.tab-content-item:nth-child(2)').fadeIn()
         $('.nav-tab li').click(function(e) {
             e.preventDefault()
             $('.nav-tab li').removeClass('nav-tab-active')
@@ -341,6 +474,24 @@
             })
         })
 
+        $('.star').each(function(i, star) {
+            $(star).click(function() {
+                let current_star = i + 1
+                $('#rating').val(current_star)
 
+                $('.star').each(function(j, star) {
+                    if (current_star >= j+1) {
+                        $(star).html(`<i class="fa-solid fa-star"></i>`)
+                    } else {
+                        $(star).html(`<i class="fa-regular fa-star"></i>`)
+                    }
+                })
+            })
+        })
+
+
+        $('#btn-edit-cmt').click(function () {
+            $('#form-edit-cmt').toggleClass('visually-hidden');
+        })
     </script>
 @endsection

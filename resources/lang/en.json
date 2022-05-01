@@ -125,6 +125,7 @@
     "add to cart": "Add to cart",
     "add cart fail": "Add to cart failed",
     "additional infor": "Additional information",
+    "comment": "Comment",
     "related products": "Related products",
     "change pass": "Change password",
     "home": "Home",
@@ -173,5 +174,13 @@
     "admin": "Admin",
     "customer": "Customer",
     "staff": "Staff",
-    "cannot update order status": "Unable to update to previous status"
+    "cannot update order status": "Unable to update to previous status",
+    "cannot comment by other account": "Can't use other people's accounts to post comments",
+    "rating success": "Submit a successful review",
+    "cannot comment": "Unable to rate products that have not been purchased or have not been delivered successfully",
+    "update comment success": "Comments have been updated",
+    "enter comment": "Enter your comment",
+    "post comment": "Post comment",
+    "cannot update comment": "Can't edit other people's comments",
+    "cannot delete comment": "Can't delete other people's comments"
 }
