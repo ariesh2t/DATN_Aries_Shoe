@@ -18,6 +18,7 @@ use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\User\BrandController as UserBrandController;
 use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\CategoryController as UserCategoryController;
+use App\Http\Controllers\User\CommentController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\ProductController as UserProductController;
@@ -107,4 +108,7 @@ Route::middleware(['auth', 'customer'])->group(function () {
     Route::get('/order/{id}', [OrderController::class, 'detail'])->name('order.detail');
     Route::patch('/order/cancel-order/{id}', [OrderController::class, 'cancelOrder'])->name('order.cancel');
     Route::post('/order/re-order/{id}', [OrderController::class, 'reOrder'])->name('order.reOrder');
+    Route::post('/comment/{product_id}', [CommentController::class, 'comment'])->name('comment');
+    Route::put('/comment/update/{id}', [CommentController::class, 'update'])->name('comment.update');
+    Route::delete('/comment/destroy/{id}', [CommentController::class, 'destroy'])->name('comment.destroy');
 });

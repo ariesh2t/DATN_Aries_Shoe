@@ -5,10 +5,13 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Repositories\Brand\BrandRepositoryInterface;
 use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\Comment\CommentRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
 use App\Repositories\ProductInfor\ProductInforRepositoryInterface;
 use App\Repositories\Size\SizeRepositoryInterface;
+use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -17,19 +20,25 @@ class ProductController extends Controller
     protected $brandRepo;
     protected $categoryRepo;
     protected $sizeRepo;
+    protected $userRepo;
+    protected $commentRepo;
 
     public function __construct(
         ProductRepositoryInterface $productRepo,
         ProductInforRepositoryInterface $productInforRepo,
         BrandRepositoryInterface $brandRepo,
         CategoryRepositoryInterface $categoryRepo,
-        SizeRepositoryInterface $sizeRepo
+        SizeRepositoryInterface $sizeRepo,
+        UserRepositoryInterface $userRepo,
+        CommentRepositoryInterface $commentRepo
     ) {
         $this->productRepo = $productRepo;
         $this->productInforRepo = $productInforRepo;
         $this->brandRepo = $brandRepo;
         $this->categoryRepo = $categoryRepo;
         $this->sizeRepo = $sizeRepo;
+        $this->userRepo = $userRepo;
+        $this->commentRepo = $commentRepo;
     }
     
     public function get4ProductByCat($id) {
@@ -57,8 +66,36 @@ class ProductController extends Controller
         $sizes = $this->productInforRepo->getDistinct($id, 'size_id');
         $colors = $this->productInforRepo->getDistinct($id, 'color_id');
         $totalQuantity = $this->productRepo->getQuantity(['id' => $id]);
+        $allowComment = false;
 
-        return view('customers.products.detail', compact('product', 'relatedProducts', 'totalQuantity', 'sizes', 'colors'));
+        $user = $this->userRepo->getUserByOrderDelivered(Auth::user()->id);
+        foreach ($user->orders as $order) {
+            foreach ($order->products as $p) {
+                if ($p->id == $id) {
+                    $allowComment = true;
+                    foreach ($product->comments as $comment) {
+                        if ($comment['product_id'] == $id && $comment['user_id'] == Auth::user()->id) {
+                            $allowComment = false;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        for ($star=5; $star >=1 ; $star--) { 
+            $count = $this->commentRepo->getTotalByStar($star, $id);
+            $list_star[$star] = $count;
+        }
+
+        return view('customers.products.detail', compact(
+            'product',
+            'list_star',
+            'relatedProducts',
+            'allowComment',
+            'totalQuantity',
+            'sizes',
+            'colors'
+        ));
     }
 
     public function getQuantity(Request $request)

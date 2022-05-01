@@ -24,4 +24,11 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             'role_id' => $attributes['role_id'],
         ]);
     }
+
+    public function getUserByOrderDelivered($user_id)
+    {
+        return $this->model->with(['orders' => function ($query) {
+            $query->where('order_status_id', config('orderstatus.delivered'));
+        }])->where('id', $user_id)->first();
+    }
 }
