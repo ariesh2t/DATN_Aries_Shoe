@@ -104,7 +104,7 @@
                 let dom = `
                     <div class="d-flex justify-content-center align-items-center flex-column">
                         <img height="200" src="{{ asset('images/logo/no-product.png') }}">
-                        <p>{{ __('no product in', ['attr' => __('category')]) }}</p>
+                        <p>{{ __('no product in', ['attr' => strtolower(__('category'))]) }}</p>
                 `;
                 $('.js-show-product').html(dom);
             } else {
@@ -164,7 +164,7 @@
                     let dom = `
                         <div class="d-flex justify-content-center align-items-center flex-column">
                             <img height="200" src="{{ asset('images/logo/no-product.png') }}">
-                            <p>{{ __('no product in', ['attr' => __('category')]) }}</p>
+                            <p>{{ __('no product in', ['attr' => strtolower(__('category'))]) }}</p>
                     `;
                     $('.js-show-product').html(dom);
                 } else {

@@ -5,11 +5,13 @@
 @endsection
 
 @section('content')
-    <div class="d-flex justify-content-between align-items-center bg-dark py-4 fs-2 mb-3">
+    <div class="d-flex justify-content-between align-items-center bg-dark py-4 fs-5 mb-3">
         <div class="ps-3">
-            <a class="text-white" href="{{ url()->previous() }}" title="{{ __('back') }}"><i class="fa-solid fa-left-long"></i></a>
+            <a class="text-white" href="{{ url()->previous() }}" title="{{ __('back') }}">
+                <i class="fa-solid fa-chevron-left"></i> {{ __('back') }}
+            </a>
         </div>
-        <div class="text-uppercase text-white">{{ __('my purchase') }}</div>
+        <div class="text-uppercase fs-2 text-white">{{ __('my purchase') }}</div>
         <div></div>
     </div>
     <div class="card">

@@ -18,4 +18,10 @@ interface ProductRepositoryInterface extends RepositoryInterface
     public function getQuantity($attr);
 
     public function getRelatedProduct($brand_id, $category_id);
+
+    public function getNextProduct($product_id);
+
+    public function getPreviousProduct($product_id);
+
+    public function getOrderDelivered($product_id);
 }

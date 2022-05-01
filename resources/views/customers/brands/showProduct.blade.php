@@ -6,11 +6,13 @@
 
 @section('content')
     <input type="hidden" id="min-max" data-min="{{ $min_price }}" data-max="{{ $max_price }}">
-    <div class="d-flex justify-content-between align-items-center bg-dark py-4 fs-2">
+    <div class="d-flex justify-content-between align-items-center bg-dark py-4 fs-5">
         <div class="ps-3">
-            <a class="text-white" href="{{ url()->previous() }}" title="{{ __('back') }}"><i class="fa-solid fa-left-long"></i></a>
+            <a class="text-white" href="{{ url()->previous() }}" title="{{ __('back') }}">
+                <i class="fa-solid fa-chevron-left"></i> {{ __('back') }}
+            </a>
         </div>
-        <div class="text-uppercase text-white">{{ $brand->name }}</div>
+        <div class="text-uppercase fs-2 text-white">{{ $brand->name }}</div>
         <div></div>
     </div>
     <div class="row mt-5">
@@ -96,7 +98,7 @@
                                             <div class="btn-add">
                                                 <a class="w-100" href="{{ route('product.detail', $product->id) }}">
                                                     <i class="fa-solid fa-cart-shopping"></i>
-                                                    Chon mua
+                                                    {{ __('detail') }}
                                                 </a>
                                             </div>
                                         </div>
@@ -121,6 +123,10 @@
                 @endif
             </div>
         </div>
+    </div>
+
+    <div class="brand-infor">
+        <div></div>
     </div>
 @endsection
 

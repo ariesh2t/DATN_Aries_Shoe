@@ -6,17 +6,55 @@
 
 
 @section('content')
-    <div class="d-flex justify-content-between align-items-center bg-dark py-4 fs-2">
+    <div class="d-flex justify-content-between align-items-center bg-dark py-4 fs-5">
         <div class="ps-3">
-            <a class="text-white" href="{{ url()->previous() }}" title="{{ __('back') }}"><i class="fa-solid fa-left-long"></i></a>
+            <a class="text-white" href="{{ url()->previous() }}" title="{{ __('back') }}">
+                <i class="fa-solid fa-chevron-left"></i> {{ __('back') }}
+            </a>
         </div>
-        <div class="text-uppercase text-white">{{ $product->name }}</div>
+        <div class="text-uppercase fs-2 text-white">{{ $product->name }}</div>
         <div class="text-white col-1 d-flex">
-            <div class="previous col-6">
-                <i class="fa-solid fa-arrow-left-long"></i>
+            <div class="previous col-6 position-relative">
+                <a class="js-hover" href="{{ route('product.detail', $productPrevious->id) }}">
+                    <i style="transition: .5s" class="fa-solid text-white fa-arrow-left-long"></i>
+                </a>
+                <div class="position-absolute" style="right: 0; display: none">
+                    <div class="p-2 bg-white shadow-sm" style="width: 230px">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-4 text-center">
+                                <img height="40" src="{{ asset('images/products/' . $productPrevious->images->first()->name) }}" alt="">
+                            </div>
+                            <div class="col-8 text-dark overflow-hidden">
+                                <p class="mb-0 fw-bold" style="font-size: 14px">{{ $productPrevious->name }}</p>
+                                <p class="mb-0">
+                                    <span style="font-size: 10px" class="text-decoration-line-through text-secondary">{{ @money($productPrevious->promotion) }}</span>
+                                    <span style="font-size: 14px" class="fst-italic text-danger">{{ @money($productPrevious->promotion) }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="next col-6">
-                <i class="fa-solid fa-arrow-right-long"></i>
+            <div class="next col-6 position-relative">
+                <a class="js-hover" href="{{ route('product.detail', $productNext->id) }}">
+                    <i style="transition: .5s" class="fa-solid text-white fa-arrow-right-long"></i>
+                </a>
+                <div class="position-absolute" style="right: 0; display: none">
+                    <div class="p-2 bg-white shadow-sm" style="width: 230px">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-4 text-center">
+                                <img height="40" src="{{ asset('images/products/' . $productNext->images->first()->name) }}" alt="">
+                            </div>
+                            <div class="col-8 text-dark overflow-hidden">
+                                <p class="mb-0 fw-bold" style="font-size: 14px">{{ $productNext->name }}</p>
+                                <p class="mb-0">
+                                    <span style="font-size: 10px" class="text-decoration-line-through text-secondary">{{ @money($productNext->promotion) }}</span>
+                                    <span style="font-size: 14px" class="fst-italic text-danger">{{ @money($productNext->promotion) }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -61,10 +99,12 @@
             </div>
             <div class="rate row">
                 <div class="col-4">
-                    5.00 ***** (2 rating)
+                    {{ round($product->comments->avg('rating'), 2) }}
+                    <i style="font-size: 12px" class="fa-solid text-warning fa-star"></i>
+                    <span class="ms-3">({{ $product->comments->count() . " " .__('review') }})</span>
                 </div>
                 <div class="col-3">
-                    100 sold
+                    {{ $quantitySold . " " . __('sold') }}
                 </div>
             </div>
             <div class="my-2 p-2 rounded" style="background: #f1efef">
@@ -246,7 +286,7 @@
                                 <div class="col-3 text-center position-relative vertical-right">
                                     <h1 class="rating-num text-warning fw-bold">{{ round($product->comments->avg('rating'), 2) }} <i class="fa-solid fa-star"></i></h1>
                                     <div>
-                                        <span class="glyphicon glyphicon-user"></span>{{ $product->comments->count() }} total
+                                        <span class="glyphicon glyphicon-user"></span>{{ $product->comments->count() . " " .__('review') }} 
                                     </div>
                                 </div>
                                 <div class="col-8">
@@ -256,6 +296,7 @@
                                             foreach($list_star as $count) {
                                                 $totalStar += $count;
                                             }
+                                            $totalStar = $totalStar == 0 ? 1 : $totalStar;
                                         @endphp
                                         @foreach ($list_star as $star => $count)
                                             <div class="col-2 text-end">
@@ -265,7 +306,7 @@
                                                 <div class="progress progress-striped">
                                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
                                                         aria-valuemin="0" aria-valuemax="100" style="width: {{ $count/$totalStar *100 }}%">
-                                                        <span class="ms-2 text-dark position-absolute">{{ round($count/$totalStar *100, 2) }}%</span>
+                                                        <span class="ms-2 {{ $count/$totalStar *100 > 0 ? "text-white" : "text-dark" }} position-absolute">{{ round($count/$totalStar *100, 2) }}%</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -489,6 +530,16 @@
             })
         })
 
+        $('.js-hover').hover(
+            function() {
+                $(this).next().stop(true, false, true).fadeIn();
+                $(this).find('i').css("transform", "scaleX(1.5)");
+            },
+            function() {
+                $(this).next().stop(true, false, true).fadeOut();
+                $(this).find('i').css("transform", "scaleX(1)");
+            }
+        )
 
         $('#btn-edit-cmt').click(function () {
             $('#form-edit-cmt').toggleClass('visually-hidden');

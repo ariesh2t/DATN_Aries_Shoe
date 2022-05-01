@@ -82,19 +82,30 @@ class ProductController extends Controller
                 }
             }
         }
-        for ($star=5; $star >=1 ; $star--) { 
+        for ($star = 5; $star >=1 ; $star--) { 
             $count = $this->commentRepo->getTotalByStar($star, $id);
             $list_star[$star] = $count;
+        }
+
+        $productNext = $this->productRepo->getNextProduct($id);
+        $productPrevious = $this->productRepo->getPreviousProduct($id);
+
+        $quantitySold = 0;
+        foreach($this->productRepo->getOrderDelivered($id)->orders as $order) {
+            $quantitySold += $order->pivot->quantity;
         }
 
         return view('customers.products.detail', compact(
             'product',
             'list_star',
+            'quantitySold',
             'relatedProducts',
             'allowComment',
             'totalQuantity',
             'sizes',
-            'colors'
+            'colors',
+            'productNext',
+            'productPrevious'
         ));
     }
 
