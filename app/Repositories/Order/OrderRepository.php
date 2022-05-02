@@ -33,5 +33,8 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
             ->with('products', 'orderStatus')
             ->find($order_id);
     }
-    
+
+    public function getBetweenDay($start, $end) {
+        return $this->model->whereBetween('updated_at', [$start, $end])->get();
+    }
 }

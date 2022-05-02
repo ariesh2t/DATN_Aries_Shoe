@@ -129,7 +129,7 @@ class OrderController extends Controller
 
             return redirect()->route('home')->with('success', __('thanks order'));
         } else {
-            return redirect()->back()->with('error', __('empty_cart'));
+            return redirect()->back()->with('error', __('empty cart'));
         }
     }
 
