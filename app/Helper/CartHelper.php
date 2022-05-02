@@ -20,7 +20,7 @@ class CartHelper
         $item = [
             'id' => $product->id,
             'name' => $product->name,
-            'price' => $product->price,
+            'price' => $product->promotion,
             'image' => $product->images->first()->name,
             'brand' => $product->brand->name,
             'category' => $product->category->name,
