@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Helper\CartHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\StoreRequest;
+use App\Mail\OrderShipped;
 use App\Repositories\Color\ColorRepositoryInterface;
 use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\OrderProduct\OrderProductRepositoryInterface;
@@ -14,6 +15,7 @@ use App\Repositories\Size\SizeRepositoryInterface;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -125,6 +127,7 @@ class OrderController extends Controller
                 ]);
             }
             
+            Mail::to($user)->send(new OrderShipped($order, $cart, $user));
             session()->forget('cart');
 
             return redirect()->route('home')->with('success', __('thanks order'));

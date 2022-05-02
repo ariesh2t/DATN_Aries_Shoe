@@ -186,5 +186,8 @@
     "review": "reviews",
     "filter": "Filter",
     "re-order": "Re-order",
-    "thanks order": "Thank you for your purchase"
+    "thanks order": "Thank you for your purchase",
+    "receive require": "We have received your order and are processing it. You will receive a follow-up notification when your order is ready to be shipped.",
+    "note email": "Note: You should only receive the goods when the order status is 'delivering'. When receiving, you should check the correct information to receive the correct package",
+    "show order status": "Show order status"
 }
