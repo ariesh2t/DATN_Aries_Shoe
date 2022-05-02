@@ -184,5 +184,8 @@
     "cannot update comment": "Không thể chỉnh sửa bình luận của người khác",
     "cannot delete comment": "Không thể xoá bình luận của người khác",
     "review": "đánh giá",
-    "filter": "Lọc"
+    "filter": "Lọc",
+    "re-order": "Đặt hàng lại",
+    "thanks order": "Cảm ơn bạn đã mua hàng",
+    "empty_cart": ""
 }
