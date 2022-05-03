@@ -8,4 +8,6 @@ interface UserRepositoryInterface extends RepositoryInterface
     public function insertDB($attributes = []);
 
     public function getUserByOrderDelivered($user_id);
+
+    public function getNewUserOnWeek($start);
 }

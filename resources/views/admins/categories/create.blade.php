@@ -4,6 +4,19 @@
     {{ __('create new') }}
 @endsection
 
+@section('breadcrumb')
+    <div class="col-6">
+        <h1 class="m-0">{{ __('create new') }}</h1>
+    </div>
+    <nav aria-label="breadcrumb" class="col-6">
+        <ol class="breadcrumb justify-content-end">
+        <li class="breadcrumb-item"><a href="{{ route('admin') }}">{{ __('home') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('categories.index') }}">{{ __('categories') }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ __('create new') }}</li>
+        </ol>
+    </nav>
+@endsection
+
 @section('content')
     <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
         @csrf

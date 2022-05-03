@@ -1,4 +1,4 @@
-@extends('layouts.layoutAdmin')
+@extends('layouts.layoutStaff')
 
 @section('title')
     {{ __('detail') }}
@@ -10,8 +10,8 @@
 </div>
 <nav aria-label="breadcrumb" class="col-6">
     <ol class="breadcrumb justify-content-end">
-      <li class="breadcrumb-item"><a href="{{ route('admin') }}">{{ __('home') }}</a></li>
-      <li class="breadcrumb-item"><a href="{{ route('products.index') }}">{{ __('products') }}</a></li>
+      <li class="breadcrumb-item"><a href="{{ route('staff') }}">{{ __('home') }}</a></li>
+      <li class="breadcrumb-item"><a href="{{ route('staff-products.index') }}">{{ __('products') }}</a></li>
       <li class="breadcrumb-item active" aria-current="page">{{ __('product detail', ['attr' => '']) }}</li>
     </ol>
 </nav>
@@ -90,7 +90,7 @@
                                 {{ $productInfor->quantity }}
                             </td>
                             <td>
-                                <form action="{{ route('product-infors.destroy', $productInfor->id) }}" method="POST">
+                                <form action="{{ route('staff-product-infors.destroy', $productInfor->id) }}" method="POST">
                                     @csrf
                                     @method("DELETE")
                                     <button type="submit" class="col-5 btn-del btn m-0 p-0" title="{{ __('delete') }}" 
@@ -120,7 +120,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
-                <form action="{{ route('product-infors.store') }}" data-id="{{ $product->id }}" class="js-form-add" method="POST">
+                <form action="{{ route('staff-product-infors.store') }}" data-id="{{ $product->id }}" class="js-form-add" method="POST">
                     <div class="small px-3 py-2 text-danger text-left" id="list_error_{{ $product->id }}"></div>
                     @csrf
                     <div class="modal-body row">
@@ -164,13 +164,8 @@
         </div>
     </div>
     <div class="d-flex mt-5">
-        <div class="col-6 text-start">
-            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning">
-                <i class="fa-solid fa-pen-to-square"></i> {{ __('edit') }}
-            </a>
-        </div>
         <div class="col-6 text-right">
-            <a href="{{ route('products.index') }}" class="btn btn-danger">
+            <a href="{{ route('staff-products.index') }}" class="btn btn-danger">
                 <i class="fa-solid fa-rotate-left"></i> {{ __('back') }}
             </a>
         </div>

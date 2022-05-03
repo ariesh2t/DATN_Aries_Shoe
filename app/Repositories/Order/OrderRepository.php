@@ -37,4 +37,31 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
     public function getBetweenDay($start, $end) {
         return $this->model->whereBetween('updated_at', [$start, $end])->get();
     }
+
+    public function getNewOrderOnWeek($start)
+    {
+        return $this->model->where('created_at', '>', $start)->count();
+    }
+
+    public function getWeekRevenue($start, $end)
+    {
+        $orders = $this->model->whereBetween('updated_at', [$start, $end])->get();
+        $revenue = 0;
+        foreach ($orders as $order) {
+            $revenue += $order->total_price;
+        }
+
+        return $revenue;
+    }
+
+    public function getMonthRevenue($start, $end)
+    {
+        $orders = $this->model->whereBetween('updated_at', [$start, $end])->get();
+        $revenue = 0;
+        foreach ($orders as $order) {
+            $revenue += $order->total_price;
+        }
+
+        return $revenue;
+    }
 }

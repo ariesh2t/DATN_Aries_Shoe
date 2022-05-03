@@ -1,7 +1,20 @@
 @extends('layouts.layoutStaff')
 
 @section('title')
-    {{ __('order detail') }}
+    {{ __('order detail', ['attr' => '']) }}
+@endsection
+
+@section('breadcrumb')
+<div class="col-6">
+    <h1 class="m-0">{{ __('order detail', ['attr' => '#'.$order->id]) }}</h1>
+</div>
+<nav aria-label="breadcrumb" class="col-6">
+    <ol class="breadcrumb justify-content-end">
+      <li class="breadcrumb-item"><a href="{{ route('staff') }}">{{ __('home') }}</a></li>
+      <li class="breadcrumb-item"><a href="{{ route('staff-orders.index') }}">{{ __('orders') }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ __('order detail', ['attr' => '']) }}</li>
+    </ol>
+</nav>
 @endsection
 
 @section('content')
@@ -26,6 +39,7 @@
             <table class="table table-stripe">
                 <thead class="table-dark text-center">
                     <tr>
+                        <th></th>
                         <th>{{ __('product name') }}</th>
                         <th style="width: 10%">{{ __('product info') }}</th>
                         <th>{{ __('price') }}</th>
@@ -36,6 +50,11 @@
                 <tbody id="list-prinfor">
                     @foreach ($order->products as $product)
                     <tr>
+                        <td>
+                            <div class="text-center">
+                                <img height="50" src="{{ asset('images/products/' . $product->images->first()->name) }}" alt="">
+                            </div>
+                        </td>
                         <td><div id="desc">{{ $product->name }}</div></td>
                         <td>
                             <div class="row small fst-italic">
@@ -51,9 +70,9 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="text-center">{{ @money($product->price) }}</td>
+                        <td class="text-center">{{ @money($product->promotion) }}</td>
                         <td class="text-center">{{ $product->pivot->quantity }}</td>
-                        <td class="text-center">{{ @money($product->price * $product->pivot->quantity) }}</td>
+                        <td class="text-center">{{ @money($product->promotion * $product->pivot->quantity) }}</td>
                     </tr>
                 @endforeach
                 <tr>

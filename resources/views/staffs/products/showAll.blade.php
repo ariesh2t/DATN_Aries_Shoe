@@ -1,4 +1,4 @@
-@extends('layouts.layoutAdmin')
+@extends('layouts.layoutStaff')
 
 @section('title')
     {{ __('list') . strtolower(__('products')) }}
@@ -10,17 +10,14 @@
     </div>
     <nav aria-label="breadcrumb" class="col-6">
         <ol class="breadcrumb justify-content-end">
-        <li class="breadcrumb-item"><a href="{{ route('admin') }}">{{ __('home') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('staff') }}">{{ __('home') }}</a></li>
         <li class="breadcrumb-item active" aria-current="page">{{ __('products') }}</li>
         </ol>
     </nav>
 @endsection
 
 @section('content')
-    <div class="d-flex justify-content-between mb-4">
-        <a id="btn-create-brand" href="{{ route('products.create') }}" class="btn btn-info">
-            <i class="fa-light fa-plus"></i> {{ __('create new') }}
-        </a>
+    <div class="ajax-message btn btn-success">
     </div>
     <table id="datatable" class="table table-bordered mb-3">
         <thead class="table-dark align-content-center">
@@ -74,21 +71,9 @@
                         </div>
                     </td>
                     <td class="text-center px-0">
-                        <form action="{{ route('products.destroy', $product->id) }}" method="POST">
-                            <a href="{{ route('products.show', $product->id) }}" title="{{ __('detail') }}">
-                                <i class="fa-solid fa-eye"></i>
-                            </a>
-                            <a class="px-1" href="{{ route('products.edit', $product->id) }}" title="{{ __('edit') }}">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        
-                            @csrf
-                            @method("DELETE")
-                            <button type="submit" class="btn-del btn m-0 px-0" title="{{ __('delete') }}" 
-                                data-confirm="{{ __('delete confirm', ['attr' => __('product'), 'child' => __('product info'), 'id' => $product->id]) }}">
-                                <a href=""><i class="fa-solid fa-trash"></i></a>
-                            </button>
-                        </form>
+                        <a href="{{ route('staff-products.show', $product->id) }}" title="{{ __('detail') }}">
+                            <i class="fa-solid fa-eye"></i>
+                        </a>
                     </td>
                 </tr>
             @endforeach

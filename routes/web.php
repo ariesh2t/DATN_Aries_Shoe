@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\Staff\OrderController as StaffOrderController;
+use App\Http\Controllers\Staff\ProductController as StaffProductController;
+use App\Http\Controllers\Staff\ProductInforController as StaffProductInforController;
 use App\Http\Controllers\Staff\ProfileController as StaffProfileController;
 use App\Http\Controllers\Staff\StaffController;
 use App\Http\Controllers\User\BrandController as UserBrandController;
@@ -76,11 +78,12 @@ Route::middleware(['auth', 'staff'])->group(function () {
     Route::prefix('staff')->group(function () {
         Route::get('/', [StaffController::class, 'index'])->name('staff');
         Route::resource('staff-orders', StaffOrderController::class);
+        Route::resource('staff-products', StaffProductController::class);
+        Route::resource('staff-product-infors', StaffProductInforController::class);
         Route::get('profile', [StaffProfileController::class, 'show'])->name('staff.profile');
         Route::get('profile/edit', [StaffProfileController::class, 'edit'])->name('staff.profile.edit');
         Route::put('profile', [StaffProfileController::class, 'update'])->name('staff.profile.update');
         Route::post('profile/change-pass', [StaffProfileController::class, 'changePass'])->name('staff.profile.change-pass');
-        // Route::delete('products/image/{id}', [ProductController::class, 'deleteImage'])->name('delete.image');
     });
 });
 

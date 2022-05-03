@@ -4,6 +4,18 @@
     {{ __('profile') }}
 @endsection
 
+@section('breadcrumb')
+    <div class="col-6">
+        <h1 class="m-0">{{ __('profile') }}</h1>
+    </div>
+    <nav aria-label="breadcrumb" class="col-6">
+        <ol class="breadcrumb justify-content-end">
+            <li class="breadcrumb-item"><a href="{{ route('staff') }}">{{ __('home') }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ __('profile') }}</li>
+        </ol>
+    </nav>
+@endsection
+
 @section('content')
 <div class="container-xl px-4 mt-4">
     <div class="row">

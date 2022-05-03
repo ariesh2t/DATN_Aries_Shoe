@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\OrderProduct\OrderProductRepositoryInterface;
 use App\Repositories\ProductInfor\ProductInforRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -11,12 +10,10 @@ use Illuminate\Support\Facades\Validator;
 class ProductInforController extends Controller
 {
     protected $productInforRepo;
-    protected $orderProductRepo;
 
-    public function __construct(ProductInforRepositoryInterface $productInforRepo, OrderProductRepositoryInterface $orderProductRepo)
+    public function __construct(ProductInforRepositoryInterface $productInforRepo)
     {
         $this->productInforRepo = $productInforRepo;
-        $this->orderProductRepo = $orderProductRepo;
     }
     /**
      * Display a listing of the resource.
@@ -121,10 +118,7 @@ class ProductInforController extends Controller
      */
     public function destroy($id)
     {
-        $productInfor = $this->productInforRepo->find($id);
-        if ($this->orderProductRepo->checkExists($productInfor->product_id, $productInfor->color->color, $productInfor->size->size)) {
-            return redirect()->back()->with('error', __('cannot delete'));
-        }
+        $this->productInforRepo->delete($id);
         
         return redirect()->back()->with('success', __('delete success', ['attr' => __('product info')]));
     }

@@ -1,13 +1,24 @@
 @extends('layouts.layoutAdmin')
 
 @section('title')
-    {{ __('list') . __('categories') }}
+    {{ __('list') . strtolower(__('categories')) }}
+@endsection
+
+@section('breadcrumb')
+    <div class="col-6">
+        <h1 class="m-0">{{ __('list') . strtolower(__('categories')) }}</h1>
+    </div>
+    <nav aria-label="breadcrumb" class="col-6">
+        <ol class="breadcrumb justify-content-end">
+        <li class="breadcrumb-item"><a href="{{ route('admin') }}">{{ __('home') }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ __('categories') }}</li>
+        </ol>
+    </nav>
 @endsection
 
 @section('content')
     <div class="d-flex justify-content-between mb-4">
-        <h4>{{ __('list') . __('categories') }}</h4>
-        <a id="btn-create-brand" href="{{ route('categories.create') }}" class="btn btn-info">
+        <a id="btn-create-category" href="{{ route('categories.create') }}" class="btn btn-info">
             <i class="fa-light fa-plus"></i> {{ __('create new') }}
         </a>
     </div>

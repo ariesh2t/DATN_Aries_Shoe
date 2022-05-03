@@ -1,7 +1,20 @@
 @extends('layouts.layoutAdmin')
 
 @section('title')
-    {{ __('create new') }}
+    {{ __('create staff account') }}
+@endsection
+
+@section('breadcrumb')
+    <div class="col-6">
+        <h1 class="m-0">{{ __('create staff account')}}</h1>
+    </div>
+    <nav aria-label="breadcrumb" class="col-6">
+        <ol class="breadcrumb justify-content-end">
+        <li class="breadcrumb-item"><a href="{{ route('admin') }}">{{ __('home') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('users.index') }}">{{ __('users') }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ __('create staff account') }}</li>
+        </ol>
+    </nav>
 @endsection
 
 @section('content')

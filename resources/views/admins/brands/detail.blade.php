@@ -1,11 +1,23 @@
 @extends('layouts.layoutAdmin')
 
 @section('title')
-    {{ __('detail') }}
+    {{ __('brand detail', ['attr' => '']) }}
+@endsection
+
+@section('breadcrumb')
+    <div class="col-6">
+        <h1 class="m-0">{{ __('brand detail', ['attr' => '#'. $brand->id]) }}</h1>
+    </div>
+    <nav aria-label="breadcrumb" class="col-6">
+        <ol class="breadcrumb justify-content-end">
+        <li class="breadcrumb-item"><a href="{{ route('admin') }}">{{ __('home') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('brands.index') }}">{{ __('brands') }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ __('brand detail', ['attr' => '']) }}</li>
+        </ol>
+    </nav>
 @endsection
 
 @section('content')
-    <h4 class="mb-3">{{ __('brand detail', ['attr' => $brand->id]) }}</h4>
     <div class="d-flex align-items-center mb-3">
         <div class="col-2 me-5 text-danger text-end">{{ __('brand name') }}</div>
         <div class="col-6">{{ $brand->name }}</div>
