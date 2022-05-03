@@ -847,3 +847,16 @@ select option:checked {
     top: -37px;
     right: 0;
 }
+
+.unread {
+    background: #fcf7ac;
+}
+
+.content-noti {
+    font-size: 11px;
+}
+
+#notification-list {
+    height: 250px;
+    overflow: auto;
+}

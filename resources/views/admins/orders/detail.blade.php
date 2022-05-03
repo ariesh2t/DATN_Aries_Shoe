@@ -81,12 +81,11 @@
     </div>
 
     @if ($order->order_status_id != config('orderstatus.cancelled') && $order->order_status_id != config('orderstatus.delivered'))
-        <div class="mb-3 col-6">
-            <form action="{{ route('orders.update', $order->id) }}" method="post">
+            <form class="d-flex mb-3 align-items-center" action="{{ route('orders.update', $order->id) }}" method="post">
                 @csrf
                 @method('PATCH')
-                <strong>{{ __('status') }}</strong>
-                <div>
+                <div class="col-2 me-5 text-danger text-end">{{ __('status') }}</div>
+                <div class="col-6">
                     <select class="form-control" name="status">
                         @foreach ($statuses as $status)
                             <option value="{{ $status->id }}" {{ $status->id == $order->order_status_id ? "selected" : '' }}>{{ __($status->status) }}</option>
@@ -96,28 +95,28 @@
                         <small class="text-danger fst-italic">{{ $message }}</small>
                     @enderror
                 </div>
-                <button type="submit" class="mt-3 btn btn-success">{{ __('save') }}</button>
+                <button type="submit" class="btn btn-success">{{ __('save') }}</button>
             </form>
-        </div>
     @else
-        <div class="mb-3 col-6">
-            <strong>{{ __('status') }}</strong>
-            <p>
+        <div class="d-flex align-items-center mb-3">
+            <div class="col-2 me-5 text-danger text-end">{{ __('status') }}</div>
+            <div class="col-6">
                 @switch($order->orderStatus->id)
-                    @case(config('orderstatus.waiting'))
-                        <span class="badge bg-primary">{{ Str::ucfirst(__($order->orderStatus->status)) }}</span>
-                        @break
                     @case(config('orderstatus.delivered'))
                         <span class="badge bg-success">{{ Str::ucfirst(__($order->orderStatus->status)) }}</span>
                         @break
                     @case(config('orderstatus.cancelled'))
                         <span class="badge bg-secondary">{{ Str::ucfirst(__($order->orderStatus->status)) }}</span>
                         @break
-                    @default
-                        <span class="badge bg-warning">{{ Str::ucfirst(__($order->orderStatus->status)) }}</span>
                 @endswitch
-            </p>
+            </div>
         </div>
+        @if ($order->order_status_id == config('orderstatus.cancelled'))
+            <div class="d-flex align-items-center mb-3">
+                <div class="col-2 me-5 text-danger text-end">{{ __('reason') }}</div>
+                <div class="col-10">{{ __($order->reason) }}</div>
+            </div>
+        @endif
     @endif
     
 @endsection
