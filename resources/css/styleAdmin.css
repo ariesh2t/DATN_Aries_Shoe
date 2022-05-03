@@ -39,7 +39,7 @@ table.dataTable tbody th, table.dataTable tbody td {
 }
 .form-upload__title, .aform-upload__title {
     position: relative;
-    margin: 0 auto;
+    margin: 0;
 }
 .form-upload__control, .aform-upload__control {
     position: absolute;

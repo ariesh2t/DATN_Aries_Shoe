@@ -82,6 +82,8 @@ class ProductController extends Controller
 
         if(!Storage::exists('products')){
             Storage::makeDirectory('products');
+        } elseif ($request->promotion > $request->price) {
+            return redirect()->back()->with('error', __('not greater than price'));
         }
 
         DB::transaction(function() use($request, $files) {
@@ -193,6 +195,9 @@ class ProductController extends Controller
     {
         $product = $this->productRepo->find($id);
 
+        if ($product->orders->count() > 0) {
+            return redirect()->route('products.index')->with('error', __('delete fail', ['attr' => __('product')]));
+        }
         DB::transaction(function() use($product) {
             foreach($product->images as $image) {
                 $image->delete();
@@ -200,11 +205,9 @@ class ProductController extends Controller
                 Storage::delete('products/' . $image->name);
             }
             $product->delete();
-
-            return redirect()->route('products.index')->with('success', __('delete success', ['attr' => __('product')]));
         });
-            
-        return redirect()->route('products.index')->with('error', __('delete fail', ['attr' => __('product')]));
+           
+        return redirect()->route('products.index')->with('success', __('delete success', ['attr' => __('product')])); 
     }
     
     public function deleteImage(Request $request)

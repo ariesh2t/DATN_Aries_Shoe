@@ -1,7 +1,20 @@
 @extends('layouts.layoutAdmin')
 
 @section('title')
-    {{ __('detail') }}
+    {{ __('user detail') }}
+@endsection
+
+@section('breadcrumb')
+<div class="col-6">
+    <h1 class="m-0">{{ __('user detail') }}</h1>
+</div>
+<nav aria-label="breadcrumb" class="col-6">
+    <ol class="breadcrumb justify-content-end">
+      <li class="breadcrumb-item"><a href="{{ route('admin') }}">{{ __('home') }}</a></li>
+      <li class="breadcrumb-item"><a href="{{ route('users.index') }}">{{ __('users') }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ __('user detail') }}</li>
+    </ol>
+</nav>
 @endsection
 
 @section('content')

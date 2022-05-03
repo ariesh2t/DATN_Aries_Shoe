@@ -1,5 +1,16 @@
 @extends('layouts.layoutAdmin')
 
+@section('breadcrumb')
+    <div class="col-6">
+        <h1 class="m-0">Dashboard</h1>
+    </div>
+    <nav aria-label="breadcrumb" class="col-6">
+        <ol class="breadcrumb justify-content-end">
+            <li class="breadcrumb-item"><a href="{{ route('admin') }}">{{ __('home') }}</a></li>
+        </ol>
+    </nav>
+@endsection
+
 @section('content')
 <section class="content">
     <div class="container-fluid">
@@ -9,14 +20,14 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>150</h3>
+                        <h4 class="font-weight-bold">{{ @money($weekRevenue) }}</h4>
 
                         <p>{{ __('weekly revenue') }}</p>
                     </div>
                     <div class="icon">
                         <i class="far fa-dollar-sign"></i>
                     </div>
-                    <a href="#" class="small-box-footer">{{ __('more') }} <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer"><i class="fa-solid fa-cart-flatbed-boxes"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -24,14 +35,14 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>53<sup style="font-size: 20px">%</sup></h3>
+                        <h4 class="font-weight-bold">{{ @money($monthRevenue) }}</h4>
 
-                        <p>{{ __('new product') }}</p>
+                        <p>{{ __('monthly revenue') }}</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-boxes"></i>
                     </div>
-                    <a href="#" class="small-box-footer">{{ __('more' )}} <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer"><i class="fa-solid fa-cart-flatbed-boxes"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -39,14 +50,14 @@
                 <!-- small box -->
                 <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3>44</h3>
+                        <h4 class="font-weight-bold">{{ $countUser }}</h4>
 
-                        <p>User Registrations</p>
+                        <p>{{ __('user register') }}</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
                     </div>
-                    <a href="#" class="small-box-footer">{{ __('more' )}} <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('users.index') }}" class="small-box-footer">{{ __('more' )}} <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -54,14 +65,14 @@
                     <!-- small box -->
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3>65</h3>
+                        <h4 class="font-weight-bold">{{ $countOrder }}</h4>
 
                         <p>{{ __("new order") }}</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-luggage-cart"></i>
                     </div>
-                    <a href="#" class="small-box-footer">{{ __('more' )}} <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('orders.index') }}" class="small-box-footer">{{ __('more' )}} <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->

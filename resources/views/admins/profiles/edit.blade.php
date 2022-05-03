@@ -4,6 +4,19 @@
     {{ __('edit profile') }}
 @endsection
 
+@section('breadcrumb')
+<div class="col-6">
+    <h1 class="m-0">{{ __('edit profile') }}</h1>
+</div>
+<nav aria-label="breadcrumb" class="col-6">
+    <ol class="breadcrumb justify-content-end">
+      <li class="breadcrumb-item"><a href="{{ route('admin') }}">{{ __('home') }}</a></li>
+      <li class="breadcrumb-item"><a href="{{ route('admin.profile') }}">{{ __('profile') }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ __('edit profile') }}</li>
+    </ol>
+</nav>
+@endsection
+
 @section('content')
 <div class="container-xl px-4 mt-4">
     <hr class="mt-0 mb-4">

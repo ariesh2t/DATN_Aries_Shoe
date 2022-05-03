@@ -11,4 +11,12 @@ class OrderProductRepository extends BaseRepository implements OrderProductRepos
     {
         return OrderProduct::class;
     }
+
+    public function checkExists($product_id, $color, $size) {
+        return $this->model
+            ->where('product_id', $product_id)
+            ->where('color', $color)
+            ->where('size', $size)
+            ->count() > 0;
+    }
 }

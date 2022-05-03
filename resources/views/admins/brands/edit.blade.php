@@ -4,6 +4,19 @@
     {{ __('edit') }}
 @endsection
 
+@section('breadcrumb')
+    <div class="col-6">
+        <h1 class="m-0">{{ __('edit') }}</h1>
+    </div>
+    <nav aria-label="breadcrumb" class="col-6">
+        <ol class="breadcrumb justify-content-end">
+        <li class="breadcrumb-item"><a href="{{ route('admin') }}">{{ __('home') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('brands.index') }}">{{ __('brands') }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ __('edit') }}</li>
+        </ol>
+    </nav>
+@endsection
+
 @section('content')
 <form action="{{ route('brands.update', $brand->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
@@ -12,7 +25,7 @@
     <div class="mb-3 form-group form-upload">
         <label class="form-label">{{ __('image') }}</label>
         <div class="form-upload__preview">
-            <div class="form-upload__item">
+            <div class="form-upload__item col-2">
                 <div class="form-upload__close">x</div>
                 <div class="form-upload__item-thumbnail" style="background-image: url({{ asset('images/brands/' . $brand->image->name) }})"></div>
             </div>

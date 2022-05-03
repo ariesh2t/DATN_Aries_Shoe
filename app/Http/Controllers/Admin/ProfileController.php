@@ -75,7 +75,7 @@ class ProfileController extends Controller
             $user->password = Hash::make($request->new_password);
             $user->save();
 
-            return redirect()->route('profile', $user->id)->with('success', __('change pass success'));
+            return redirect()->route('admin.profile', $user->id)->with('success', __('change pass success'));
         } else {
             return redirect()->back()->with('error', __('change pass fail'));
         }

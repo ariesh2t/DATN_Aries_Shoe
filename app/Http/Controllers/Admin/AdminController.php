@@ -30,6 +30,8 @@ class AdminController extends Controller
         $dt = new Carbon();
         $startWeek = $dt->startOfWeek()->toDateTimeString();
         $endWeek = $dt->endOfWeek()->toDateTimeString();
+        $startMonth = $dt->startOfMonth()->toDateTimeString();
+        $endMonth = $dt->endOfMonth()->toDateTimeString();
         $ordersWeek = $this->orderRepo->getBetweenDay($startWeek, $endWeek);
         $revenueWeek = [
             'Mon' => 0,
@@ -72,7 +74,21 @@ class AdminController extends Controller
             }
         }
         [$keys_year, $values_year] = Arr::divide($revenueYear);
+
+        $countUser = $this->userRepo->getNewUserOnWeek($startWeek);
+        $countOrder = $this->orderRepo->getNewOrderOnWeek($startWeek);
+        $weekRevenue = $this->orderRepo->getWeekRevenue($startWeek, $endWeek);
+        $monthRevenue = $this->orderRepo->getMonthRevenue($startMonth, $endMonth);
         
-        return view('admins.dashboard', compact('keys_week', 'values_week', 'keys_year', 'values_year'));
+        return view('admins.dashboard', compact(
+            'keys_week',
+            'values_week',
+            'keys_year',
+            'values_year',
+            'countUser',
+            'countOrder',
+            'weekRevenue',
+            'monthRevenue',
+        ));
     }
 }
