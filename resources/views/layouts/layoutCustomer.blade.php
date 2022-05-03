@@ -101,10 +101,37 @@
                                 </a>
                             </div>
                             <div class="d-flex align-items-center justify-content-end mx-2" style="cursor: pointer">
-                                <a class="text-dark position-relative" href="">
-                                    <i class="fa-regular fa-bell"></i>
-                                    <sup class="position-absolute badge rounded-pill" style="background:orange; top: -5px; left: 13px; font-size: 8px">1</sup>
-                                </a>
+                                <a id="notifications" class="position-relative" href="#" data-bs-toggle="dropdown">
+                                    <i class="fa-solid text-dark fa-bell"></i>
+                                    @if (!auth()->user()->unreadNotifications->isEmpty())
+                                        <sup style="font-size: 8px" class="pending position-absolute badge bg-primary badge-number">
+                                            {{ auth()->user()->unreadNotifications->count() }}
+                                        </sup>
+                                    @endif
+                                </a><!-- End Notification Icon -->
+                
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow p-0 notifications">
+                                    <li class="dropdown-header">
+                                        {{ __('notification') }}
+                                        <a href="{{ route('mark-as-read-all') }}">
+                                            <span class="mark-as-read badge rounded-pill bg-primary p-2 ms-2 text-light">
+                                                {{ __('mark_as_read_all') }}
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <ul class="m-0 list-group" id="notification-list">
+                                            @foreach (Auth::user()->notifications->take(20) as $notification)
+                                                <li class="px-2 list-group-item notification-item {{ $notification->unread() ? 'unread' : '' }}">
+                                                    <a class="text-decoration-none" href="{{ route('mark-as-read', [$notification->data['order_id'], $notification->id]) }}">
+                                                        <p class="mb-0 text-danger fst-italic">{{ __($notification->data['title']) }}</p>
+                                                        <div class="content-noti">{{ __($notification->data['content'], ['attr' => $notification->data['order_id']]) }}</div>
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                </ul>
                             </div>
                            
                         </div>

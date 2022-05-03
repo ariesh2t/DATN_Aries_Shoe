@@ -20,6 +20,7 @@ use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\CategoryController as UserCategoryController;
 use App\Http\Controllers\User\CommentController;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\NotificationController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\ProductController as UserProductController;
 use App\Http\Controllers\User\ProfileController;
@@ -111,4 +112,6 @@ Route::middleware(['auth', 'customer'])->group(function () {
     Route::post('/comment/{product_id}', [CommentController::class, 'comment'])->name('comment');
     Route::put('/comment/update/{id}', [CommentController::class, 'update'])->name('comment.update');
     Route::delete('/comment/destroy/{id}', [CommentController::class, 'destroy'])->name('comment.destroy');
+    Route::get('mark-at-read/{order_id}/{id}', [NotificationController::class, 'markAsRead'])->name('mark-as-read');
+    Route::get('mark-at-read-all', [NotificationController::class, 'markAsReadAll'])->name('mark-as-read-all');
 });

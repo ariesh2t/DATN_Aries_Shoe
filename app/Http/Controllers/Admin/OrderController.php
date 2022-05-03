@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\OrderStatusRequest;
+use App\Notifications\OrderNotification;
 use App\Repositories\Color\ColorRepositoryInterface;
 use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\OrderProduct\OrderProductRepositoryInterface;
@@ -14,6 +15,7 @@ use App\Repositories\Size\SizeRepositoryInterface;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 
 class OrderController extends Controller
 {
@@ -116,16 +118,18 @@ class OrderController extends Controller
 
         if($order->order_status_id == config('orderstatus.delivered') || $order->order_status_id == config('orderstatus.cancelled')) {
             return redirect()->back()->with('error', __('cannot cancel'));
-        } elseif ($request->status < $order->order_status_id) {
+        } elseif ($request->status == $order->order_status_id) {
+            return redirect()->back();
+        }elseif ($request->status < $order->order_status_id) {
             return redirect()->back()->with('error', __('cannot update order status'));
         }
 
         DB::transaction(function() use($order, $request) {
-            $order->update([
-                'order_status_id' => $request->status
-            ]);
-
             if ($request->status == config('orderstatus.cancelled')) {
+                $order->update([
+                    'order_status_id' => $request->status,
+                    'reason' => "having a problem",
+                ]);
                 foreach($order->products as $product) {
                     $size_id = $this->sizeRepo->getSize($product->pivot->size)->id;
                     $color_id = $this->colorRepo->getColor($product->pivot->color)->id;
@@ -134,8 +138,46 @@ class OrderController extends Controller
                     $productInfor->quantity += $product->pivot->quantity;
                     $productInfor->update();
                 }
+            } else {
+                $order->update([
+                    'order_status_id' => $request->status
+                ]);
             }
         });
+        switch ($request->status) {
+            case config('orderstatus.preparing'):
+                $data = [
+                    'order_id' => $order->id,
+                    'title' => 'admin preparing order title',
+                    'content' => 'admin preparing order content',
+                ];
+                break;
+            case config('orderstatus.shipping'):
+                $data = [
+                    'order_id' => $order->id,
+                    'title' => 'admin shipping order title',
+                    'content' => 'admin shipping order content',
+                ];
+                break;
+            case config('orderstatus.delivered'):
+                $data = [
+                    'order_id' => $order->id,
+                    'title' => 'admin delivered order title',
+                    'content' => 'admin delivered order content',
+                ];
+                break;
+            case config('orderstatus.cancelled'):
+                $data = [
+                    'order_id' => $order->id,
+                    'title' => 'admin title cancelled order',
+                    'content' => 'admin content cancelled order',
+                ];
+                break;
+            default:
+                break;
+        }
+
+        Notification::send($this->userRepo->find($order->user_id), new OrderNotification($data));
 
         return redirect()->back()->with('success', __('update success', ['attr' => __('order')]));
     }

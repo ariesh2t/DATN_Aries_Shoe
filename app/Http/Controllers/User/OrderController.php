@@ -6,6 +6,7 @@ use App\Helper\CartHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\StoreRequest;
 use App\Mail\OrderShipped;
+use App\Notifications\OrderNotification;
 use App\Repositories\Color\ColorRepositoryInterface;
 use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\OrderProduct\OrderProductRepositoryInterface;
@@ -16,6 +17,7 @@ use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -130,6 +132,14 @@ class OrderController extends Controller
             Mail::to($user)->send(new OrderShipped($order, $cart, $user));
             session()->forget('cart');
 
+            $data = [
+                'order_id' => $order->id,
+                'title' => 'user order title successful',
+                'content' => 'user successful order content',
+            ];
+            
+            Notification::send($user, new OrderNotification($data));
+
             return redirect()->route('home')->with('success', __('thanks order'));
         } else {
             return redirect()->back()->with('error', __('empty cart'));
@@ -171,7 +181,10 @@ class OrderController extends Controller
             return redirect()->back()->with('error', __('empty reason'));
         } else {
             DB::transaction(function() use($order) {
-                $order->update(['order_status_id' => config('orderstatus.cancelled')]);
+                $order->update([
+                    'order_status_id' => config('orderstatus.cancelled'),
+                    'reason' => request()->reason,
+                ]);
                 foreach($order->products as $product) {
                     $size_id = $this->sizeRepo->getSize($product->pivot->size)->id;
                     $color_id = $this->colorRepo->getColor($product->pivot->color)->id;
@@ -181,6 +194,14 @@ class OrderController extends Controller
                     $productInfor->update();
                 }
             });
+
+            $data = [
+                'order_id' => $order->id,
+                'title' => 'user title accept cancel order',
+                'content' => 'user content accept cancel order',
+            ];
+            
+            Notification::send(Auth::user(), new OrderNotification($data));
 
             return redirect()->back()->with('success', __('update success', ['attr' => __('order')]));
         }
@@ -227,6 +248,14 @@ class OrderController extends Controller
                 'quantity' => $product->pivot->quantity,
             ]);
         }
+
+        $data = [
+            'order_id' => $orderNew->id,
+            'title' => 'user order title successful',
+            'content' => 'user successful order content',
+        ];
+
+        Notification::send(Auth::user(), new OrderNotification($data));
 
         return redirect()->route('home')->with('success', __('thanks order'));
     }
