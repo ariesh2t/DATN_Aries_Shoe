@@ -104,7 +104,7 @@
             <div class="row">
                 @if ($products->count() > 0)
                     @foreach ($products as $product)
-                        <div class="col-3 p-2">
+                        <div class="col-md-3 col-6 p-2">
                             <div class="position-relative p-2 border rounded d-flex flex-wrap justify-content-start align-items-center">
                                 <div class="overflow-hidden hover-img-product w-100 text-center" style="height: 180px; line-height: 180px">
                                     <img style="max-height: 100%; max-width: 100%" src="{{ asset('images/products/' . $product->images->first()->name) }}" alt="">
@@ -117,7 +117,25 @@
                                         echo "</div>";
                                     }
                                 @endphp
-                                <p class="text-2 col-12">{{ $product->name }}</p>
+                                <p class="text-2 mb-0 col-12">{{ $product->name }}</p>
+                                <div class="col-12">
+                                    <div class="d-flex align-items-end">
+                                        @php
+                                            $rating = $product->comments->avg('rating');
+                                            $ratingInt = (int) $rating;
+                                        @endphp
+                                        @for ($i = 1; $i <= 5 ; $i++)
+                                            @if ($i <= $ratingInt)
+                                                <div class="text-warning small"><i class="fa-solid fa-star"></i></div>
+                                            @elseif($ratingInt < $rating)
+                                                <div class="text-warning small"><i class="fa-solid fa-star-half-stroke"></i></div>
+                                            @else
+                                                <div class="text-warning small"><i class="fa-regular fa-star"></i></div>
+                                            @endif
+                                        @endfor
+                                        <div class="ms-1" style="font-size: 12px">{{ $rating ?? 0 }} ({{ $product->comments->count() . " " .__('review') }})</div>
+                                    </div>
+                                </div>
                                 <div class="wrap-price css-hover-product">
                                     <div class="wrapp-swap">
                                         <div class="swap-elements">

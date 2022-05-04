@@ -149,6 +149,7 @@ a.nav-a:hover {
 }
 
 .text-2 {
+    height: 45px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -188,7 +189,7 @@ a.nav-a:hover {
 .price {
     text-decoration: line-through;
     color: #cecece;
-    font-size: .75rem;
+    font-size: .65rem;
 }
 
 .promotion {

@@ -52,8 +52,12 @@
                         <img style="min-width: 100%; min-height: 100%" src="{{ asset('images/brands/' . $brand->image->name ) }}" alt="{{ $brand->name }}">
                     </div>
                     <div class="hover-child text-center">
-                        <div><p style="max-width: 200px; overflow: hidden; text-overflow: ellipsis" 
-                            class="fw-bold m-0 text-uppercase text-white fs-2">{{ $brand->name }}</p></div>
+                        <div>
+                            <p style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; background: rgba(0,0,0,.3)" 
+                            class="fw-bold m-2 text-uppercase text-white fs-2 p-1 rounded">
+                                {{ $brand->name }}
+                            </p>
+                        </div>
                         <a href="{{ route('brand', $brand->id) }}" class="btn btn-warning text-uppercase">
                             {{ __('show now') }}
                             <i class="fa-solid fa-chevron-right"></i>
@@ -65,9 +69,9 @@
     </div>
 
     <div class="mt-5 shadow-lg p-3">
-        <div class="d-flex justify-content-center list-cat mb-3">
+        <div class="d-flex justify-content-center text-center list-cat flex-wrap mb-3">
             @foreach ($get7Categories as $category)
-                <div class="">
+                <div class="mb-2" style="width: 20%">
                     <i class="fa-regular fa-circle-down"></i> 
                     <a href="{{ route('home-cat', $category->id) }}" data-id="{{ $category->id }}" class="text-black text-uppercase fw-bold js-select-cat">
                         {{ $category->name }}
@@ -97,7 +101,7 @@
             return x1 + x2;
         }
 
-        let id = $('.js-show-product').attr('data-id')
+        let id = $('.list-cat div:first .js-select-cat').attr('data-id')
         $.get(window.location.protocol + '//' + window.location.host + "/home-cat/" + id, function(response) {
             $('.list-cat div:first .js-select-cat').css('border-bottom', '3px solid orange')
             if (response.length === 0) {
@@ -108,7 +112,15 @@
                 `;
                 $('.js-show-product').html(dom);
             } else {
+                console.log(response)
                 response.forEach(element => {
+                    let rating = 0
+                    $.each(element.comments, function(i, val) {
+                        rating += val.rating
+                    })
+                    rating /= element.comments.length
+                    rating = isNaN(rating) ? 0 : rating
+                    ratingInt = parseInt(rating)
                     let price = Number(element.price)
                     let url = window.location.protocol + '//' + window.location.host + "/product/" + element.id
                     let promotion = Number(element.promotion)
@@ -123,12 +135,27 @@
                         <span class="price">`+number_format(price, 0, '.', ',')+`</span>
                         `;
                     }
+                    let rating_dom = ``;
+                    for (let star = 1; star <= 5; star++) {
+                        if (star < rating) {
+                            rating_dom += `<div class="text-warning small"><i class="fa-solid fa-star"></i></div>`;
+                        } else if (ratingInt < rating) {
+                            rating_dom += `<div class="text-warning small"><i class="fa-solid fa-star-half-stroke"></i></div>`;
+                        } else {
+                            rating_dom += `<div class="text-warning small"><i class="fa-regular fa-star"></i></div>`;
+                        }
+                    }
                     let dom = `
                     <div class="position-relative col-3 p-3 d-flex flex-wrap justify-content-start align-items-center">
                         <div class="overflow-hidden hover-img-product w-100 text-center" style="height: 180px; line-height: 180px">
                             <img style="max-height: 100%; max-width: 100%" src="{{ asset('images/products/`+ element.images[0].name +`') }}" alt="">
                         </div>`+sale_dom+`
-                        <p class="text-2 col-12">`+element.name+`</p>
+                        <p class="text-2 mb-0 col-12">`+element.name+`</p>
+                        <div class="col-12">
+                            <div class="d-flex align-items-end">
+                                `+ rating_dom +`<div class="ms-1" style="font-size: 12px">`+rating+` (`+ element.comments.length +` {{ __('review') }})</div>
+                            </div>
+                        </div>
                         <div class="wrap-price css-hover-product">
                             <div class="wrapp-swap">
                                 <div class="swap-elements">
@@ -169,6 +196,13 @@
                     $('.js-show-product').html(dom);
                 } else {
                     response.forEach(element => {
+                        let rating = 0
+                        $.each(element.comments, function(i, val) {
+                            rating += val.rating
+                        })
+                        rating /= element.comments.length
+                        rating = isNaN(rating) ? 0 : rating
+                        ratingInt = parseInt(rating)
                         let price = Number(element.price)
                         let url = window.location.protocol + '//' + window.location.host + "/product/" + element.id
                         let promotion = Number(element.promotion)
@@ -183,12 +217,27 @@
                             <span class="price">`+number_format(price, 0, '.', ',')+`</span>
                             `;
                         }
+                        let rating_dom = ``;
+                        for (let star = 1; star <= 5; star++) {
+                            if (star <= ratingInt) {
+                                rating_dom += `<div class="text-warning small"><i class="fa-solid fa-star"></i></div>`;
+                            } else if (ratingInt < rating) {
+                                rating_dom += `<div class="text-warning small"><i class="fa-solid fa-star-half-stroke"></i></div>`;
+                            } else {
+                                rating_dom += `<div class="text-warning small"><i class="fa-regular fa-star"></i></div>`;
+                            }
+                        }
                         let dom = `
                         <div class="position-relative col-3 p-3 d-flex flex-wrap justify-content-start align-items-center">
                             <div class="overflow-hidden hover-img-product w-100 text-center" style="height: 180px; line-height: 180px">
                                 <img style="max-height: 100%; max-width: 100%" src="{{ asset('images/products/`+ element.images[0].name +`') }}" alt="">
                             </div>`+sale_dom+`
-                            <p class="text-2 col-12">`+element.name+`</p>
+                            <p class="text-2 mb-0 col-12">`+element.name+`</p>
+                            <div class="col-12">
+                                <div class="d-flex align-items-end">
+                                    `+ rating_dom +`<div class="ms-1" style="font-size: 12px">`+rating+` (`+ element.comments.length +` {{ __('review') }})</div>
+                                </div>
+                            </div>
                             <div class="wrap-price css-hover-product">
                                 <div class="wrapp-swap">
                                     <div class="swap-elements">

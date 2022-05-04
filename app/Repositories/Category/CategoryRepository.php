@@ -14,6 +14,6 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
 
     public function get7Categories()
     {
-        return $this->model->take(7)->get();
+        return  $this->model->withCount('products')->orderBy('products_count', 'desc')->take(7)->get();
     }
 }

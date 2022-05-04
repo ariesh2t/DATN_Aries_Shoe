@@ -14,7 +14,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
     public function get4ProductByCat($id)
     {
-        return $this->model->with('images')->where('category_id', $id)->take(4)->get();
+        return $this->model->with('images', 'comments')->where('category_id', $id)->take(4)->get();
     }
 
     public function getAllByBrand($brand_id, $request)
@@ -154,5 +154,10 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         return $this->model->with(['orders' => function ($query) {
             $query->where('order_status_id', config('orderstatus.delivered'));
         }])->findOrFail($product_id);
+    }
+
+    public function getProductByWhere($key, $where)
+    {
+        return $this->model->where($key, $where)->get();
     }
 }

@@ -24,4 +24,6 @@ interface ProductRepositoryInterface extends RepositoryInterface
     public function getPreviousProduct($product_id);
 
     public function getOrderDelivered($product_id);
+
+    public function getProductByWhere($key, $where);
 }
