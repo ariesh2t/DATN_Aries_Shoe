@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\StoreRequest;
 use App\Http\Requests\Category\UpdateRequest;
 use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\Product\ProductRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -13,10 +14,14 @@ use Illuminate\Support\Str;
 class CategoryController extends Controller
 {
     protected $categoryRepo;
+    protected $productRepo;
 
-    public function __construct(CategoryRepositoryInterface $categoryRepo)
-    {
+    public function __construct(
+        CategoryRepositoryInterface $categoryRepo,
+        ProductRepositoryInterface $productRepo
+    ) {
         $this->categoryRepo = $categoryRepo;
+        $this->productRepo = $productRepo;
     }
     /**
      * Display a listing of the resource.
@@ -140,6 +145,12 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = $this->categoryRepo->find($id);
+        $products = $this->productRepo->getProductByWhere('category_id', $category->id);
+        foreach ($products as $product) {
+            if($product->orders->count() > 0) {
+                return redirect()->route('categories.index')->with('error', __('delete fail', ['attr' => __('category')]));
+            }
+        }
 
         DB::transaction(function() use($category) {
             $category->delete();

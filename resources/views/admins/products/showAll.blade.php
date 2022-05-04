@@ -22,9 +22,9 @@
             <i class="fa-light fa-plus"></i> {{ __('create new') }}
         </a>
     </div>
-    <table id="datatable" class="table table-bordered mb-3">
-        <thead class="table-dark align-content-center">
-            <tr>
+    <table id="datatable" class="table table-bordered table-striped mb-3">
+        <thead class="align-content-center table-dark">
+            <tr >
                 <th class="text-center">{{ __('image') }}</th>
                 <th style="width: 300px">{{ __('product name') }}</th>
                 <th class="text-center" style="width: 100px">{{ __('cost') }}</th>

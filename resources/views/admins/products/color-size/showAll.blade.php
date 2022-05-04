@@ -28,7 +28,7 @@
                     <div class="d-flex flex-wrap align-items-center" id="list-color">
                         @foreach ($colors as $color)
                             <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12 px-2 mb-3">
-                                <div style="width: 50px; height: 20px; background: {{ $color->color }}"></div>
+                                <div class="shadow-sm" style="width: 50px; height: 20px; background: {{ $color->color }}"></div>
                                 <small class="small ml-1">{{ $color->color }}</small>
                             </div>
                         @endforeach

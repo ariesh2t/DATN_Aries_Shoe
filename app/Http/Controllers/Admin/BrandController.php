@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Brand\StoreRequest;
 use App\Http\Requests\Brand\UpdateRequest;
 use App\Repositories\Brand\BrandRepositoryInterface;
+use App\Repositories\Product\ProductRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -13,10 +14,12 @@ use Illuminate\Support\Str;
 class BrandController extends Controller
 {
     protected $brandRepo;
+    protected $productRepo;
 
-    public function __construct(BrandRepositoryInterface $brandRepo)
+    public function __construct(BrandRepositoryInterface $brandRepo, ProductRepositoryInterface $productRepo)
     {
         $this->brandRepo = $brandRepo;
+        $this->productRepo = $productRepo;
     }
     /**
      * Display a listing of the resource.
@@ -140,6 +143,12 @@ class BrandController extends Controller
     public function destroy($id)
     {
         $brand = $this->brandRepo->find($id);
+        $products = $this->productRepo->getProductByWhere('brand_id', $brand->id);
+        foreach ($products as $product) {
+            if($product->orders->count() > 0) {
+                return redirect()->route('brands.index')->with('error', __('delete fail', ['attr' => __('brand')]));
+            }
+        }
 
         DB::transaction(function() use($brand) {
             $brand->delete();

@@ -22,7 +22,7 @@
             <i class="fa-light fa-plus"></i> {{ __('create new') }}
         </a>
     </div>
-    <table id="datatable" class="table table-striped table-bordered mb-3">
+    <table id="datatable" class="table table-bordered table-striped mb-3">
         <thead class="table-dark">
             <tr>
                 <th class="text-center">{{ __('image') }}</th>

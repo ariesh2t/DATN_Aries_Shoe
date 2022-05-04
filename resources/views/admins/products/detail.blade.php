@@ -23,6 +23,14 @@
         <div class="col-6">{{ $product->name }}</div>
     </div>
     <div class="d-flex align-items-center mb-3">
+        <div class="col-2 me-5 text-danger text-end">{{ __('brand name') }}</div>
+        <div class="col-6">{{ $product->brand->name }}</div>
+    </div>
+    <div class="d-flex align-items-center mb-3">
+        <div class="col-2 me-5 text-danger text-end">{{ __('category name') }}</div>
+        <div class="col-6">{{ $product->category->name }}</div>
+    </div>
+    <div class="d-flex align-items-center mb-3">
         <div class="col-2 me-5 text-danger text-end">{{ __('image') }}</div>
         <div class="col d-flex flex-wrap">
             @foreach ($product->images as $image)

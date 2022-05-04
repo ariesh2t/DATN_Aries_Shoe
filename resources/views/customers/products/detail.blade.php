@@ -419,7 +419,25 @@
                                             echo "</div>";
                                         }
                                     @endphp
-                                    <p class="text-2 col-12">{{ $product->name }}</p>
+                                    <p class="text-2 mb-0 col-12">{{ $product->name }}</p>
+                                    <div class="col-12">
+                                        <div class="d-flex align-items-end">
+                                            @php
+                                                $rating = $product->comments->avg('rating');
+                                                $ratingInt = (int) $rating;
+                                            @endphp
+                                            @for ($i = 1; $i <= 5 ; $i++)
+                                                @if ($i <= $ratingInt)
+                                                    <div class="text-warning small"><i class="fa-solid fa-star"></i></div>
+                                                @elseif($ratingInt < $rating)
+                                                    <div class="text-warning small"><i class="fa-solid fa-star-half-stroke"></i></div>
+                                                @else
+                                                    <div class="text-warning small"><i class="fa-regular fa-star"></i></div>
+                                                @endif
+                                            @endfor
+                                            <div class="ms-1" style="font-size: 12px">{{ $rating ?? 0 }} ({{ $product->comments->count() . " " .__('review') }})</div>
+                                        </div>
+                                    </div>
                                     <div class="wrap-price css-hover-product">
                                         <div class="wrapp-swap">
                                             <div class="swap-elements">
