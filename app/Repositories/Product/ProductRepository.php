@@ -3,6 +3,9 @@ namespace App\Repositories\Product;
 
 use App\Models\Product;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ProductRepository extends BaseRepository implements ProductRepositoryInterface
 {
@@ -78,13 +81,63 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             }
         }
 
-        if ($request->name_value) {
-            $products->where('name', 'like', '%'.$request->name_value.'%');
-        }
-
         return $products->paginate(config('paginate.pagination.list_12'));
     }
 
+    public function smartSearch($request)
+    {
+        $products = $this->model->all();
+        $item = [];
+
+        foreach ($products as $product) {
+            if (Str::of(strtolower($product->name))->contains(strtolower($request->name_value))) {
+                $item[$product->id] = 0;
+            }
+        }
+
+        foreach ($products as $product) {
+            if (!key_exists($product->id, $item)) {
+                $item[$product->id] = $this->compare(strtolower($product->name), strtolower($request->name_value));
+            }
+        }
+        $item = Arr::sort($item);
+        [$keys, $values] = Arr::divide($item);
+
+        $productSearchs = $this->model->whereIn('id', $keys)->get();
+        $productSearchs = $productSearchs->sortBy(function ($item) use ($keys) {
+            return array_search($item['id'], $keys);
+        });
+
+        return $productSearchs->take(12);
+    }
+
+    public function compare($string1, $string2)
+    {
+        $lengthS1 = strlen($string1);
+        $lengthS2 = strlen($string2);
+
+        $wrongNumber = (int) round($lengthS1 * 0.3);
+
+        $i = 0; $j = 0; $loi = 0;
+        while ($i < $lengthS1 && $j < $lengthS2) {
+            if ($string1[$i] != $string2[$j]) {
+                $loi++;
+                for ($k=1; $k <= $wrongNumber; $k++) { 
+                    if ($i + $k < $lengthS1 && $string1[$i + $k] == $string2[$j]) {
+                        $i += $k;
+                        break;
+                    } elseif ($j + $k < $lengthS2 && $string1[$i] == $string2[$j + $k]) {
+                        $j += $k;
+                        break;
+                    }
+                }
+            }
+            $i++;
+            $j++;
+        }
+        $loi += $lengthS1 - $i + $lengthS2 - $j;
+        return $loi;
+    }
 
     public function getQuantity($attr)
     {
@@ -159,5 +212,27 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function getProductByWhere($key, $where)
     {
         return $this->model->where($key, $where)->get();
+    }
+
+    public function getProductSuggests()
+    {
+        $productOrders = $this->model->whereHas('orders', function ($query) {
+            $query->where('user_id', '=', Auth::user()->id);
+        })->get();
+
+        $datas = [];
+        
+        foreach ($productOrders as $productOrder) {
+            $products = $this->model
+                ->where('brand_id', $productOrder->brand_id)
+                ->orWhere('category_id', $productOrder->category_id)->get();
+            foreach ($products as $product) {
+                if (!key_exists($product->id, $datas) && count($datas) < 12) {
+                    $datas[$product->id] = $product;
+                }
+            }
+        }
+        [$keys, $values] = Arr::divide($datas);
+        return $values;
     }
 }

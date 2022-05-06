@@ -216,5 +216,6 @@
     "new order": "New order",
     "more": "More",
     "not greater than price": "The promotion price cannot be greater than the selling price",
-    "cannot delete": "Orders already placed, cannot be deleted"
+    "cannot delete": "Orders already placed, cannot be deleted",
+    "sold": "Sold"
 }

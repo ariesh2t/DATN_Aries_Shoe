@@ -91,7 +91,7 @@
                     "orderable": false
                 }
             ],
-            "order": [[ 7, false ], [ 3, false ]]
+            "order": [[ 7, false ], [ 5, 'asc' ], [ 3, false ]]
         });
     </script>
 @endsection

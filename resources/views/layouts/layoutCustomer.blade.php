@@ -185,7 +185,7 @@
                         </ul>
                     </div>
                     <div>
-                        <form action="{{ route('products') }}" method="GET">
+                        <form action="{{ route('smartSearch') }}" method="GET">
                             <div class="input-group">
                                 <input type="text" name="name_value" value="{{ request()->name_value ?? '' }}" class="form-control" placeholder="{{ __('enter') . strtolower(__("product name"))}}">
                                 <button class="btn btn-outline-secondary" type="submit">

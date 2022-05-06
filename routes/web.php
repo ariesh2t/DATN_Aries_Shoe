@@ -93,6 +93,7 @@ Route::middleware(['auth', 'customer'])->group(function () {
     Route::get('/brand/{id}', [UserBrandController::class, 'showProduct'])->name('brand');
     Route::get('/category/{id}', [UserCategoryController::class, 'showProduct'])->name('category');
     Route::get('/products', [UserProductController::class, 'showAll'])->name('products');
+    Route::get('/products/smart-search', [UserProductController::class, 'smartSearch'])->name('smartSearch');
     Route::get('/product/{id}', [UserProductController::class, 'detail'])->name('product.detail');
     Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile');
     Route::get('/product/{id}/quantity', [UserProductController::class, 'getQuantity']);

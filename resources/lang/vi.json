@@ -216,5 +216,6 @@
     "new order": "Đơn hàng mới",
     "more": "Xem thêm",
     "not greater than price": "Giá khuyến mãi không được lớn hơn giá bán",
-    "cannot delete": "Đã có đơn hàng đặt, không thể xoá"
+    "cannot delete": "Đã có đơn hàng đặt, không thể xoá",
+    "sold": "Đã bán"
 }

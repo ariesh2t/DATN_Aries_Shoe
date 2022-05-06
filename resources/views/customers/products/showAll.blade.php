@@ -18,7 +18,7 @@
     <div class="row mt-5">
         <div class="col-3 hover-shadow-lg px-3 pb-5">
             <div class="filter">
-                <form action="{{ url()->current() }}">
+                <form action="{{ route('products') }}">
                     <div id="filter-by-price">
                         <div class="head-filter">
                             {{ __('filter by', ['attr' => __('m_price')]) }}

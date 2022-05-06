@@ -59,6 +59,19 @@ class ProductController extends Controller
         return view('customers.products.showAll', compact('products', 'brands', 'categories', 'sizes', 'min_price', 'max_price'));
     }
 
+    public function smartSearch(Request $request)
+    {
+        $products = $this->productRepo->smartSearch($request);
+
+        $brands = $this->brandRepo->getAll();
+        $categories = $this->categoryRepo->getAll();
+        $sizes = $this->sizeRepo->getAll();
+        $min_price = $this->productRepo->getMinMax('min', 'promotion');
+        $max_price = $this->productRepo->getMinMax('max', 'promotion');
+
+        return view('customers.products.searchSmart', compact('products', 'brands', 'categories', 'sizes', 'min_price', 'max_price'));
+    }
+
     public function detail($id)
     {
         $product = $this->productRepo->find($id);

@@ -1,7 +1,7 @@
 @extends('layouts.layoutCustomer')
 
 @section('title')
-    {{ $category->name }}    
+    {{ __('list') . __('products') }}
 @endsection
 
 @section('content')
@@ -12,13 +12,13 @@
                 <i class="fa-solid fa-chevron-left"></i> {{ __('back') }}
             </a>
         </div>
-        <div class="text-uppercase col-9 text-center fs-2 text-white">{{ $category->name }}</div>
-        <div class="col-1"></div>
+        <div class="text-uppercase fs-2 text-white">{{ __('list') . __('products') }}</div>
+        <div></div>
     </div>
     <div class="row mt-5">
         <div class="col-3 hover-shadow-lg px-3 pb-5">
             <div class="filter">
-                <form action="{{ url()->current() }}">
+                <form action="{{ route('products') }}">
                     <div id="filter-by-price">
                         <div class="head-filter">
                             {{ __('filter by', ['attr' => __('m_price')]) }}
@@ -39,7 +39,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-5" id="filter-by-size">
+                    <div class="mt-3" id="filter-by-size">
                         <div class="head-filter">
                             {{ __('filter by', ['attr' => __('size')]) }}
                         </div>
@@ -60,8 +60,40 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="text-end">
-                        <a class="btn btn-warning" href="{{ route('category', $category->id) }}">{{ __('clear') }}</a>
+                    <div class="mt-3" id="filter-by-brand">
+                        <div class="head-filter">
+                            {{ __('brands') }}
+                        </div>
+                        <select class="form-select" name="list_brand[]" size="5" multiple>
+                            @foreach ($brands as $brand)
+                                @php
+                                    $selected = '';
+                                    if (request()->list_brand !== null && in_array($brand->id, request()->list_brand)) {
+                                        $selected = 'selected';
+                                    }
+                                @endphp
+                                <option value="{{ $brand->id }}" {{ $selected }}>{{ $brand->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mt-3" id="filter-by-category">
+                        <div class="head-filter">
+                            {{ __('categories') }}
+                        </div>
+                        <select class="form-select" name="list_category[]" size="5" multiple>
+                            @foreach ($categories as $category)
+                                @php
+                                    $selected = '';
+                                    if (request()->list_category !== null && in_array($category->id, request()->list_category)) {
+                                        $selected = 'selected';
+                                    }
+                                @endphp
+                                <option value="{{ $category->id }}" {{ $selected }}>{{ $category->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="text-end mt-3">
+                        <a class="btn btn-warning" href="{{ route('products') }}">{{ __('clear') }}</a>
                         <button class="btn btn-success" type="submit">{{ __('filter') }}</button>
                     </div>
                 </form>
@@ -72,7 +104,7 @@
             <div class="row">
                 @if ($products->count() > 0)
                     @foreach ($products as $product)
-                        <div class="col-3 p-2">
+                        <div class="col-md-3 col-6 p-2">
                             <div class="position-relative p-2 border rounded d-flex flex-wrap justify-content-start align-items-center">
                                 <div class="overflow-hidden hover-img-product w-100 text-center" style="height: 180px; line-height: 180px">
                                     <img style="max-height: 100%; max-width: 100%" src="{{ asset('images/products/' . $product->images->first()->name) }}" alt="">
@@ -85,7 +117,7 @@
                                         echo "</div>";
                                     }
                                 @endphp
-                                <p class="text-2 col-12">{{ $product->name }}</p>
+                                <p class="text-2 mb-0 col-12">{{ $product->name }}</p>
                                 <div class="col-12">
                                     <div class="d-flex align-items-end">
                                         @php
@@ -101,7 +133,7 @@
                                                 <div class="text-warning small"><i class="fa-regular fa-star"></i></div>
                                             @endif
                                         @endfor
-                                        <div class="ms-1" style="font-size: 12px">{{ $rating ?? 0 }} ({{ $product->comments->count() . " " .__('comment') }})</div>
+                                        <div class="ms-1" style="font-size: 12px">{{ $rating ?? 0 }} ({{ $product->comments->count() . " " .__('review') }})</div>
                                     </div>
                                 </div>
                                 <div class="wrap-price css-hover-product">
@@ -125,9 +157,6 @@
                             </div>
                         </div>
                     @endforeach
-                    <div class="d-flex justify-content-center align-items-center">
-                        {!! $products->appends(request()->all())->links('partials.paginate') !!}
-                    </div>
                 @elseif ($products->count() == 0 && !empty(request()->all()))
                     <div class="col text-center">
                         <img height="200" src="{{ asset('images/logo/no-product.png') }}" alt="">
@@ -136,17 +165,11 @@
                 @else
                     <div class="col text-center">
                         <img height="200" src="{{ asset('images/logo/no-product.png') }}" alt="">
-                        <h2>{{ __('no product in', ['attr' => strtolower(__('category'))]) }}</h2>
+                        <h2>{{ __('empty data') }}</h2>
                     </div>
                 @endif
             </div>
         </div>
-    </div>
-    <div class="shadow-lg p-5">
-        <div class="text-center mb-3">
-            <img class="shadow-lg" height="400" src="{{ asset('images/categories/' . $category->image->name) }}" alt="">
-        </div>
-        {!! $category->desc !!}
     </div>
 @endsection
 

@@ -12,8 +12,8 @@
                 <i class="fa-solid fa-chevron-left"></i> {{ __('back') }}
             </a>
         </div>
-        <div class="text-uppercase fs-2 text-white">{{ $brand->name }}</div>
-        <div></div>
+        <div class="text-uppercase col-9 text-center fs-2 text-white">{{ $brand->name }}</div>
+        <div class="col-1"></div>
     </div>
     <div class="row mt-5">
         <div class="col-3 hover-shadow-lg px-3 pb-5">
@@ -143,8 +143,11 @@
         </div>
     </div>
 
-    <div class="brand-infor">
-        <div></div>
+    <div class="shadow-lg p-5">
+        <div class="text-center mb-3">
+            <img class="shadow-lg" height="400" src="{{ asset('images/brands/' . $brand->image->name) }}" alt="">
+        </div>
+        {!! $brand->desc !!}
     </div>
 @endsection
 

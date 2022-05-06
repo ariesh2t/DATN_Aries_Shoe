@@ -15,6 +15,8 @@ interface ProductRepositoryInterface extends RepositoryInterface
 
     public function getAllWithSearch($request);
 
+    public function smartSearch($request);
+
     public function getQuantity($attr);
 
     public function getRelatedProduct($brand_id, $category_id);
@@ -26,4 +28,6 @@ interface ProductRepositoryInterface extends RepositoryInterface
     public function getOrderDelivered($product_id);
 
     public function getProductByWhere($key, $where);
+
+    public function getProductSuggests();
 }

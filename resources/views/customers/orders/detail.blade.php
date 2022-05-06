@@ -11,7 +11,7 @@
                 <i class="fa-solid fa-chevron-left"></i> {{ __('back') }}
             </a>
         </div>
-        <div class="text-uppercase fs-2 text-white">{{ __('order detail', ['attr' => $order->id]) }}</div>
+        <div class="text-uppercase fs-2 text-white">{{ __('order detail', ['attr' => "#" . $order->id]) }}</div>
         <div></div>
     </div>
     <div class="card mb-3">

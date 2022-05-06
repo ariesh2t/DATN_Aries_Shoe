@@ -4,7 +4,6 @@
     {{ $product->name }}
 @endsection
 
-
 @section('content')
     <div class="d-flex justify-content-between align-items-center bg-dark py-4 fs-5">
         <div class="ps-3">
@@ -12,7 +11,7 @@
                 <i class="fa-solid fa-chevron-left"></i> {{ __('back') }}
             </a>
         </div>
-        <div class="text-uppercase fs-2 text-white">{{ $product->name }}</div>
+        <div class="text-uppercase col-9 text-center fs-2 text-white">{{ $product->name }}</div>
         <div class="text-white col-1 d-flex">
             <div class="previous col-6 position-relative">
                 <a class="js-hover" href="{{ route('product.detail', $productPrevious->id) }}">
